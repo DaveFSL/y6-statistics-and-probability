@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2 — Sample space and spinners | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.spinbox{background:#fff;border:1px solid var(--rule);border-radius:9px;padding:16px;margin:12px 0;text-align:center}
+.spinrow{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.spinrow figure{margin:0;width:120px}
+.spinrow svg{width:110px;height:110px}
+.spinrow figcaption{font-size:14px;font-weight:700;color:var(--navy);margin-top:6px}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 2 of 15</p>
+    <h1>Sample space and spinners</h1>
+    <div class="meta">
+      <span class="pill">AC9M6P01</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 3, Week 9</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Learning intention</h2>
+    <p>We are learning to work out a probability from the sample space, and to say what the numerator and denominator each mean.</p>
+    <h3>Success criteria</h3>
+    <ul class="checklist">
+      <li>I can count all the possible outcomes and all the favourable ones.</li>
+      <li>I can write the probability as a fraction, then convert it to a decimal and a percentage.</li>
+      <li>I can explain what the top number and the bottom number of the fraction each represent.</li>
+      <li>I can show that two spinners that look different can have the same probability.</li>
+    </ul>
+    <h3>Curriculum</h3>
+    <p><strong>AC9M6P01</strong> — recognise that probabilities lie on numerical scales of 0–1 or 0%–100% and use estimation to assign probabilities that events occur in a given context, using common fractions, percentages and decimals.</p>
+    <div class="teach"><strong>What changes from Lesson 1.</strong> Yesterday students placed probabilities on a scale. Today they generate them from a sample space. The move is from "where does this sit?" to "where does this number come from?" — and the answer is: count the outcomes.
+    <br><br>The lesson also opens a question and deliberately refuses to answer it. Students will spin 20 times and get a result that does not match the probability they calculated. Let that sit. It is the engine of Lessons 4, 5 and 6, and answering it today wastes it.</div>
+  </div>
+
+  <div class="card">
+    <h2>Shape of the lesson</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Phase</th><th>Time</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Warm-up</strong></td><td>5 min</td><td>Open question: an event with a 75% chance</td></tr>
+        <tr><td><strong>Launch</strong></td><td>12 min</td><td>Thirteen spinners on the floor. Notice, then order them.</td></tr>
+        <tr><td><strong>Explore</strong></td><td>25 min</td><td>Pairs build a spinner, calculate, then spin 20 times</td></tr>
+        <tr><td><strong>Summarise</strong></td><td>8 min</td><td>Numerator, denominator, and the question we are leaving open</td></tr>
+        <tr><td><strong>Review</strong></td><td>5 min</td><td>Exit ticket</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note good"><strong>No pre-test today.</strong> This is a full-length lesson. If you ran Option B in Lesson 1 and lost the warm-up, you have your open task back.</div>
+  </div>
+</section>
+
+<!-- ============ WARM-UP ============ -->
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to work out a probability from the sample space, and to say what the numerator and denominator each mean.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can count all the possible outcomes and all the favourable ones.</li>
+      <li>I can write the probability as a fraction, then convert it to a decimal and a percentage.</li>
+      <li>I can explain what the top number and the bottom number each represent.</li>
+      <li>I can show that two spinners that look different can have the same probability.</li>
+    </ul>
+
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on. You will come back to it at the end.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? Explaining what the denominator counts is the one most people find hardest today.</p>
+    </div>  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs. The assessment has questions at all three levels.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">You have seen this kind of question before and it is clear what to do. One step, friendly numbers.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">You know the method, but there is more than one step, or you have to pick which method to use.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the method. You work out what to do, and explain why you did it.</p></div>
+    </div>
+    <div class="note"><strong>A CU question is not a harder sum.</strong> It is usually one where you have to decide something and then justify it. Getting a number is not enough.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <p class="timing">Warm-up · 5 minutes</p>
+    <h2>Seventy-five per cent of what?</h2>
+    <div class="say">An event has a <strong>75% chance</strong> of happening. What could the event be?</div>
+    <p>Think alone, then share with a partner, then collect four or five on the board. Push for variety: something with a spinner, something with counters, something from real life.</p>
+    <div class="teach"><strong>What this is setting up.</strong> Students will mostly produce three-out-of-four situations, which is exactly the structure they need in the Launch. Some will offer weather or sport, where 75% is an estimate rather than a count — take those too, and note the difference briefly. Lesson 1 established that both are legitimate.
+    <br><br>Listen for the student who says "three quarters" without connecting it to 75%. That is a conversion gap and the conversion mat should be on their desk from the start of Explore.</div>
+    <div class="note"><strong>Quick link back.</strong> Ask one student to write 75% as a fraction and a decimal on the board while the others are still sharing. It takes ten seconds and it re-activates yesterday.</div>
+  </div>
+</section>
+
+<!-- ============ LAUNCH ============ -->
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <p class="timing">Launch · 12 minutes</p>
+    <h2>Thirteen spinners on the floor</h2>
+    <p>Spread the thirteen spinner cards face up on the floor with students in a circle around them. Do not hand out the worksheet yet.</p>
+
+    <div class="spinbox">
+      <div class="spinrow">
+        <figure>
+          <svg viewBox="0 0 100 100" role="img" aria-label="A spinner in four equal sections with one shaded">
+            <circle cx="50" cy="50" r="44" fill="#fff" stroke="#16202F" stroke-width="2.5"/>
+            <path d="M50 50 L50 6 A44 44 0 0 1 94 50 Z" fill="#93B4D8"/>
+            <line x1="6" y1="50" x2="94" y2="50" stroke="#16202F" stroke-width="1.5"/>
+            <line x1="50" y1="6" x2="50" y2="94" stroke="#16202F" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="4" fill="#16202F"/>
+          </svg>
+          <figcaption>4 sections, 1 shaded</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 100 100" role="img" aria-label="A spinner in eight equal sections with two shaded">
+            <circle cx="50" cy="50" r="44" fill="#fff" stroke="#16202F" stroke-width="2.5"/>
+            <path d="M50 50 L50 6 A44 44 0 0 1 81.1 18.9 Z" fill="#93B4D8"/>
+            <path d="M50 50 L81.1 18.9 A44 44 0 0 1 94 50 Z" fill="#93B4D8"/>
+            <g stroke="#16202F" stroke-width="1.5">
+              <line x1="6" y1="50" x2="94" y2="50"/><line x1="50" y1="6" x2="50" y2="94"/>
+              <line x1="18.9" y1="18.9" x2="81.1" y2="81.1"/><line x1="81.1" y1="18.9" x2="18.9" y2="81.1"/>
+            </g>
+            <circle cx="50" cy="50" r="4" fill="#16202F"/>
+          </svg>
+          <figcaption>8 sections, 2 shaded</figcaption>
+        </figure>
+      </div>
+      <p class="hint" style="margin:10px 0 0">Two of the thirteen. They look different. They are not.</p>
+    </div>
+
+    <h3>The questions, in this order</h3>
+    <ol>
+      <li><strong>What do you notice?</strong> Take everything. Do not steer.</li>
+      <li><strong>Is the chance of landing on shaded the same for all of them?</strong></li>
+      <li><strong>Which one gives you the smallest chance of shaded? The largest?</strong></li>
+      <li><strong>Put them in order, smallest chance to largest.</strong> Students move the cards physically.</li>
+      <li>Only once they are stuck: <strong>what would help you decide between these two?</strong></li>
+    </ol>
+
+    <div class="teach"><strong>The ordering task is built to break down, and that is the design.</strong>
+      The thirteen spinners are 0, 1/8, 1/6, 1/4, 1/3, 3/8, 1/2, 5/8, 2/3, 3/4, 5/6, 7/8 and 1. The ends sort themselves instantly. The middle does not.
+      <br><br>Six of the pairs sit within about 0.04 of each other — 1/8 and 1/6, 1/3 and 3/8, 5/8 and 2/3, 5/6 and 7/8. You cannot order those by eye. That is the moment the class needs a number, and it should come from them rather than from you. Wait for it.
+      <br><br>Two cards have the same probability written differently (1/4 and 2/8). Do not point this out. If a group notices, make them the experts for the Explore. If nobody notices, it comes up in the Summarise and lands harder.</div>
+
+    <div class="note warn"><strong>Do not let this run long.</strong> Twelve minutes. The ordering does not have to be finished or correct — leaving it unresolved sends students into Explore with a reason to calculate.</div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <p class="timing">Explore · 25 minutes</p>
+    <h2>Build one, work it out, then spin it</h2>
+    <p>Pairs. Each pair takes a blank spinner template — the templates are pre-divided into 4, 6 or 8 equal sections — and shades however many sections they choose.</p>
+
+    <h3>Three steps, in order</h3>
+    <ol>
+      <li><strong>Shade it.</strong> Choose how many sections to shade. Record how many sections altogether and how many shaded.</li>
+      <li><strong>Work it out.</strong> Write the probability of landing on shaded as a fraction, then a decimal, then a percentage.</li>
+      <li><strong>Spin it.</strong> Paperclip and pencil point. Twenty spins, tally the shaded ones, write the result as a fraction out of 20.</li>
+    </ol>
+
+    <div class="note warn"><strong>Then stop.</strong> Students will notice that step 3 does not match step 2. Write the question on the board — <em>why doesn't it match?</em> — and leave it there. Do not answer it. It is the whole of Lessons 4, 5 and 6.</div>
+
+    <h3>Class spinner line</h3>
+    <p>As pairs finish, they peg their spinner on a washing line across the room in order of probability. Because the templates differ, the class ends up with a genuine spread — and with at least two spinners that look different but land in the same place.</p>
+
+    <div class="teach"><strong>Engineer the collision.</strong> Give one pair a 4-section template and another pair an 8-section template, and quietly suggest to each that they shade "about a quarter". When both arrive at the line and want the same peg, you have the lesson's key idea handed to you by students. Hold it for the Summarise rather than resolving it at the line.
+    <br><br><strong>Circulating.</strong> The thing to check is not the fraction — most will get that. Check that they can say what the denominator counts. Ask: "what does the 8 tell me?" A student who says "the sections" has it; a student who says "the answer" does not.</div>
+
+    <h3>Complexity bands on the worksheet</h3>
+    <p><span class="band sf">SF</span> Count the sections, write the probability three ways. Sample space is visible and given.</p>
+    <p><span class="band cf">CF</span> Compare two spinners with different numbers of sections; find the probability of <em>not</em> shaded.</p>
+    <p><span class="band cu">CU</span> Design a spinner to a given probability, then design a different one with the same probability — and say what they have in common.</p>
+
+    <h3>Differentiation</h3>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>4-section and 8-section templates only.</li>
+          <li>Prompt: "How many parts altogether? How many are shaded?"</li>
+          <li>Conversion mat on the desk from the start.</li>
+          <li>Tally chart pre-drawn with 20 boxes.</li>
+        </ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>4, 6 and 8-section templates.</li>
+          <li>Full worksheet including the complement item.</li>
+          <li>Conversion mat if requested.</li>
+        </ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Design a spinner with P(shaded) exactly 3/8. Then one where it is 0.375. Same spinner or not?</li>
+          <li>Can you make a spinner with 8 equal sections where P(shaded) = 1/3? Explain.</li>
+          <li>How many of the thirteen Launch spinners could be redrawn with 24 sections?</li>
+        </ul></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Part C &middot; Show your thinking</h2>
+    
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>A spinner has 8 equal sections. 3 sections are shaded. Write the probability of landing on shaded three ways.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>The same spinner. What is the probability of landing on a section that is NOT shaded? Explain how you worked it out.</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>Spinner P has 4 sections with 1 shaded. Spinner Q has 8 sections with 2 shaded. Which gives a better chance of landing on shaded? How do you know?</p></div>
+    <button class="reveal" data-ans="ansC">Show the answers</button>
+    <div class="ans" id="ansC"><b>1</b> 3/8 = 0.375 = 37.5%. The percentage is the discriminator &mdash; 3.75% or 38% means the conversion is not secure.<br><b>2</b> 5/8 = 0.625 = 62.5%. Either count the 5 unshaded sections, or do 1 &minus; 3/8. Ask the counters whether they could have done it without counting.<br><b>3</b> Neither. 1/4 and 2/8 are the same number. The spinners look different and the chance is identical.</div>
+  </div>
+  <div class="card">
+    <h2>Talk it through with a partner</h2>
+    <p>Show your partner your answer to <strong>question 3</strong>. Your partner picks <em>one</em> of these to ask you:</p>
+    <ul><li>How do you know they are the same and not just close?</li><li>Could you draw a third spinner with the same chance again?</li><li>What would change if spinner Q had 3 shaded instead of 2?</li></ul>
+    <p class="hint">Write down the question you were asked and what you said back.</p>
+  </div>
+  <div class="card">
+    <h2>Choose your path</h2>
+    <p>Pick the one that matches where you are right now. You can change your mind.</p>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Friendlier numbers</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Finish the main questions</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="q sfq"><span class="qn">S1</span><span class="cx cx-sf">SF</span><p>A spinner has 4 equal sections. 1 is shaded. Write the probability three ways.</p></div>
+      <div class="q sfq"><span class="qn">S2</span><span class="cx cx-sf">SF</span><p>The same spinner. What is the probability of NOT shaded?</p></div>
+      <div class="q sfq"><span class="qn">S3</span><span class="cx cx-sf">SF</span><p>A spinner has 8 sections and 4 are shaded. Write the probability three ways.</p></div>
+      <button class="reveal" data-ans="ansS">Show the answers</button>
+    <div class="ans" id="ansS"><b>S1</b> 1/4 = 0.25 = 25% &nbsp;&middot;&nbsp; <b>S2</b> 3/4 = 0.75 = 75% &nbsp;&middot;&nbsp; <b>S3</b> 4/8 = 1/2 = 0.5 = 50%</div></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Keep going.</strong> Finish all three questions, then peg your own spinner on the class line in the right place.</div></div>
+    <div class="path" id="path-ext"><div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Design a spinner where the probability of shaded is exactly 3/8. Now design a different one where it is 0.375. Is it the same spinner?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Can you make a spinner with 8 equal sections where the probability of shaded is exactly 1/3? Explain your answer.</p></div>
+      <button class="reveal" data-ans="ansE">Show the answers</button>
+    <div class="ans" id="ansE"><b>&#9733;1</b> Yes &mdash; 3/8 and 0.375 are the same number, so any spinner that works for one works for the other. Students who draw two different spinners have not connected the representations.<br><b>&#9733;2</b> No. A third of 8 is 2.67 sections, and you cannot shade part of a section. It only works when the number of sections is a multiple of 3.</div></div>
+  </div>
+</section>
+
+<!-- ============ SUMMARISE ============ -->
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <p class="timing">Summarise · 8 minutes</p>
+    <h2>Where the number comes from</h2>
+
+    <h3>Three things to land</h3>
+    <ol>
+      <li><strong>The denominator counts every possible outcome. The numerator counts the ones you want.</strong> Say it with a spinner in your hand, pointing at the sections.</li>
+      <li><strong>Spinners that look different can have the same probability.</strong> Hold up the 4-section-with-1-shaded and the 8-section-with-2-shaded. 1/4 and 2/8 are the same number.</li>
+      <li><strong>The probability comes from the sample space, not from what happened when you spun.</strong> This is the sentence to write on the board and keep.</li>
+    </ol>
+
+    <div class="say">Everyone spun twenty times. Did anybody get exactly the number they calculated? Why not?</div>
+    <p>Collect two or three theories. <strong>Do not settle it.</strong> Write the best version of the question on butcher's paper and leave it on the wall until Lesson 4.</p>
+
+    <div class="teach"><strong>Holding a question open is a teaching move, not an omission.</strong> Say so out loud: "That is a real question and we are going to answer it properly in a few lessons. I am leaving it up there." Year 6 students accept this readily when it is named, and become irritated when a question just quietly disappears.
+    <br><br>The theories you will get are usually: not enough spins, the paperclip is dodgy, bad luck, or the spinner is not really equal. Three of those four are worth revisiting in Lesson 6, so write them down verbatim with the students' names next to them.</div>
+
+    <h3>Vocabulary</h3>
+    <p>Add to the Frayer boards: <strong>sample space</strong>. Complete this one together — it is the most abstract word in the cycle and the definition students write today will be reused in Lesson 7 and in assessment item A1.</p>
+    <div class="note"><strong>A usable definition.</strong> The sample space is the list of everything that could possibly happen. Not what did happen. Not what you want to happen. Everything that could.</div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <p class="timing">Review · 5 minutes</p>
+    <h2>Exit ticket</h2>
+    <div class="note"><strong>Maya&rsquo;s spinner has 10 equal sections and 4 of them are shaded. Maya spun it 10 times and it landed on shaded 7 times.</strong></div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>What is the probability of landing on shaded? Write it as a fraction, a decimal and a percentage.</p></div>
+    <div class="q cuq"><span class="qn">2</span><span class="cx cx-cu">CU</span><p>Maya says "the probability of shaded is 7 out of 10, because that is what I spun." Is Maya right? Explain your answer.</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>Draw a spinner with a DIFFERENT number of sections that has the same probability of shaded as Maya&rsquo;s.</p></div>
+
+    <div class="teach"><strong>Why this is not a repeat of Part C.</strong> The worksheet used spinners of 4 and 8 sections. The exit ticket uses 10, so the conversion is fresh ground rather than a second attempt at the same numbers. More importantly, question 2 tests the idea this lesson is actually built on — that the probability comes from the spinner, not from the spinning — which Part C does not touch at all.
+      <br><br><strong>Answers.</strong>
+      <br><strong>1.</strong> 4/10 = 0.4 = 40%. Accept 2/5. A student who simplifies to 2/5 and still gets 0.4 has the stronger grasp; one who writes 2/5 = 0.25 has simplified correctly and then converted the wrong fraction.
+      <br><strong>2.</strong> No. 7 out of 10 is what Maya <em>observed</em> when she spun it. The probability is 4/10, and it comes from the spinner itself — the sections did not change because of what happened when she spun. Maya's result is evidence, not the probability.
+      <br><strong>3.</strong> Any equivalent with a different total: 2 of 5, 6 of 15, 8 of 20. A student who draws 4 of 10 again has answered a different question. Support version: 5 of 10 = 1/2, so 1 of 2, 2 of 4, 3 of 6 all work.
+      <br><br><strong>What to sort for.</strong> Question 2 is the discriminator, and it matters more than question 3. A student who agrees with Maya has swapped observed frequency for probability — the same confusion Sam carries in the Lesson 4 exit ticket, and the one that makes Lesson 6 impossible. Note those students now; they will need reaching twice.
+      <br><br>Question 3 sorts for readiness: students producing 2 of 5 or 8 of 20 have grasped that the sample space can be resized without changing the probability, and are ready for the extending prompts in Lesson 3.</div>
+  </div>
+
+  <div class="card">
+    <h2>Think back</h2>
+    <div class="goal">
+      <h3>Your goal</h3>
+      <p style="margin:0 0 8px">Go back to the Intentions tab and read the goal you set. Did you meet it?</p>
+      <label for="r1" class="hint">1. Which strategy did you use most today, and did it work?</label>
+      <textarea id="r1" placeholder="The strategy I used most was&hellip;"></textarea>
+      <label for="r2" class="hint" style="display:block;margin-top:10px">2. What would you do differently next time?</label>
+      <textarea id="r2" placeholder="Next time I would&hellip;"></textarea>
+      <label for="r3" class="hint" style="display:block;margin-top:10px">3. Did you meet the goal you set at the start? How do you know?</label>
+      <textarea id="r3" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+    <p class="hint">Nothing you type here is saved. Copy it into your book before you close the page.</p>
+  </div>
+</section>
+
+<!-- ============ RESOURCES ============ -->
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need</h2>
+    <h3>Print</h3>
+    <ul class="checklist">
+      <li><strong><a class="res" href="resources/l2-01-worksheet-core.pdf">resources/l2-01-worksheet-core.pdf</a></strong> — 3 pages, most of the class</li>
+      <li><strong><a class="res" href="resources/l2-02-worksheet-support.pdf">resources/l2-02-worksheet-support.pdf</a></strong> — 3 pages, for students grouped S from the pre-test</li>
+      <li><strong><a class="res" href="resources/l2-03-spinner-cards.pdf">resources/l2-03-spinner-cards.pdf</a></strong> — 13 cards, two per A4 landscape. Print once on card and laminate; they are used again in Lesson 3. The teacher key is the last page — keep it.</li>
+      <li><strong><a class="res" href="resources/l2-04-blank-spinners.pdf">resources/l2-04-blank-spinners.pdf</a></strong> — 4, 6 and 8-section templates, four per page. One per pair.</li>
+      <li><strong><a class="res" href="../../shared/conversion-mat.pdf">shared/conversion-mat.pdf</a></strong> — shared resource</li>
+      <li><strong><a class="res" href="../../shared/frayer-boards.pdf">shared/frayer-boards.pdf</a></strong> — print the <em>sample space</em> page</li>
+    </ul>
+    <h3>Equipment</h3>
+    <ul class="checklist">
+      <li>Paperclips — one per pair, for spinning</li>
+      <li>Pencils, colouring materials for shading</li>
+      <li>Washing line and pegs across the room for the class spinner line</li>
+      <li>Butcher's paper for the open question, to stay up until Lesson 4</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Lesson-specific adjustments</h2>
+    <p class="hint">Standing adjustments are on the linked Personalised Adjustments document and are not repeated here.</p>
+    <ul>
+      <li><strong>Spinner templates supplied pre-divided</strong> into 4, 6 or 8 equal sections. No student draws their own sections — unequal sections would make the probability wrong and the error would be invisible to them.</li>
+      <li><strong>Students may observe the floor circle from a seat</strong> and handle the spinner cards afterwards. Contributing to the ordering discussion is what matters, not sitting on the floor.</li>
+      <li><strong>Tally chart pre-drawn with twenty boxes</strong> so the recording is ticking, not constructing.</li>
+      <li><strong>Pairs assigned by the teacher</strong>, with the spinner-holder and the recorder named before spinning starts.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Misconceptions to expect today</h2>
+    <details class="explain">
+      <summary>"More sections means a better chance"</summary>
+      <div class="body"><p>Students read a bigger denominator as a bigger probability. It shows up in the Launch ordering — the 8-section spinners get grouped together regardless of how many sections are shaded.</p>
+      <p><strong>Response.</strong> Two spinners side by side: 8 sections with 1 shaded, and 4 sections with 3 shaded. Which would you rather spin? The 8-section one has more sections and a much worse chance.</p></div>
+    </details>
+    <details class="explain">
+      <summary>1/4 and 2/8 treated as different probabilities</summary>
+      <div class="body"><p>Predictable, and it is the point of the lesson rather than a failure. Students see two different-looking spinners and assume two different chances.</p>
+      <p><strong>Response.</strong> Physical, not symbolic. Lay the 8-section spinner over the 4-section one and let them see the two shaded eighths cover the one shaded quarter exactly.</p></div>
+    </details>
+    <details class="explain">
+      <summary>"The probability is 6 out of 20 because that's what I spun"</summary>
+      <div class="body"><p>The observed result is taken as the probability. This is the misconception the whole cycle is built to address, and today it should be named but not resolved.</p>
+      <p><strong>Response.</strong> Ask what they would have said if they had spun it only twice. Then leave it. Lesson 4 does this properly.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Counting the shaded sections but not all the sections</summary>
+      <div class="body"><p>A student writes 3 as the probability, or 3/5 when there are 8 sections and 5 are unshaded — comparing shaded to unshaded rather than shaded to total.</p>
+      <p><strong>Response.</strong> "Show me the 8 on your spinner." Have them touch each section as they count. The denominator has to be pointed at, not recalled.</p></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>What comes next</h2>
+    <p><strong>Lesson 3 — What might the deck be?</strong> An open task that runs today's thinking backwards: given the probabilities, what could the sample space be? It is a withdrawal-safe consolidation lesson, so it introduces no new content and carries a five-minute rejoin note.</p>
+    <div class="teach"><strong>Carry forward.</strong> Keep the class spinner line up if you can, and keep the open question on the wall. Lesson 3 uses the same "many correct answers" structure, and students who found today's collision (1/4 = 2/8) are the ones to seat apart so the insight spreads.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

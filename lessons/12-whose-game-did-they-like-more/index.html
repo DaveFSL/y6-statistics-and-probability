@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 12 — Whose game did they like more? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 12 of 15</p>
+    <h1>Whose game did they like more?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6ST01</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 4, Week 2</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 12 &middot; Whose game did they like more?</h2>
+    <p>Two distributions, side by side. The skill is naming a feature that differs rather than describing each one in turn, and the trap is comparing raw counts when the two groups are not the same size. Both of those are in the achievement standard and both are in the folio.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;5</td><td>Warm-up. Two shape sentences from Lesson 11, read out and judged.</td></tr>
+      <tr><td>5&ndash;15</td><td>Launch. Comet and Nebula on the board. One sentence that compares, one that does not.</td></tr>
+      <tr><td>15&ndash;35</td><td>Explore. The eight questions, including the counts-against-fractions trap.</td></tr>
+      <tr><td>35&ndash;50</td><td>Teams compare their own data with their partner team&rsquo;s.</td></tr>
+      <tr><td>50&ndash;55</td><td>Summarise and exit ticket.</td></tr>
+    </table>
+    <div class="note warn"><strong>This lesson does not depend on anybody&rsquo;s partner being present.</strong> Comet and Nebula are supplied and they carry the whole taught section. A student whose partner team is away, or whose own data is thin, compares their data with Nebula&rsquo;s and loses nothing. The withdrawal group can run the entire lesson on the two supplied sets.</div>
+    <div class="teach">
+      <h3>Describing twice is not comparing</h3>
+      <p>&ldquo;Comet&rsquo;s mode was 3. Nebula&rsquo;s mode was 2.&rdquo; Two facts, no comparison. The sentence the standard is asking for names the feature that differs and says what it means: <em>Comet&rsquo;s ratings sat higher than Nebula&rsquo;s &mdash; most of Comet&rsquo;s buddies gave a 3 or 4, while Nebula&rsquo;s spread right across the scale and included the only 1.</em></p>
+      <p>Give them the structure once and then expect it: <strong>name the feature, give both values, say what it means.</strong></p>
+      <h3>The counts trap is the mathematical heart of the lesson</h3>
+      <p>Comet had 13 buddies with a rating and Nebula had 10. Eleven of Comet&rsquo;s gave a 3 or 4; five of Nebula&rsquo;s did. Eleven against five looks like a landslide. As fractions it is 85% against 50% &mdash; still a clear difference, but a different-sized one, and the honest one.</p>
+      <p>This is the same move as Part A. There, the gap between observed and expected had to be read as a fraction of the trials rather than as a raw difference. Here, a count has to be read as a fraction of the buddies. Say that out loud: it is the one idea this unit returns to most.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Differentiation</h2>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul><li>Counts supplied for both teams in one table &mdash; no spreadsheet work needed.</li>
+        <li>Three questions instead of eight.</li>
+        <li>A comparison frame: &ldquo;______ was higher than ______, because ______.&rdquo;</li>
+        <li>Fractions given alongside the counts, so the comparison is the task and the division is not.</li></ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul><li>All eight questions.</li>
+        <li>Works out the fractions, with a calculator.</li>
+        <li>Compares own data with the partner team&rsquo;s.</li></ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul><li>Two prompts, the first of which asks them to build a misleading display on purpose.</li>
+        <li>That is Lesson 14 in miniature. Students who do it today lead the critique groups on the day.</li></ul></div>
+    </div>
+    <div class="note"><strong>Lesson-specific adjustment today:</strong> the supplied fractions, so that a student who cannot yet divide reliably is still doing the comparing, which is what is being assessed.</div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to compare two sets of data by naming a feature that is different between them, and to be careful about comparing counts when the two groups are not the same size.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can write a sentence that compares, rather than two sentences that describe;</li>
+      <li>I can say when a raw count is a fair comparison and when it is not;</li>
+      <li>I can turn a count into a fraction of the group it came from;</li>
+      <li>I can choose a display that lets somebody see the difference at a glance.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The first one. Almost everybody writes two descriptions the first time and thinks they have compared.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">Read a mode or a total off a table you have been given.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">Turn counts into fractions, then say which team&rsquo;s buddies enjoyed it more and why.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Decide what a difference actually proves, and what you would still need to know.</p></div>
+    </div>
+    <div class="note"><strong>A comparison names one feature.</strong> Mode, spread, shape, or the fraction at the top end &mdash; pick the one that differs most, and say what it means. Listing everything about both teams is not a comparison, it is two descriptions with a full stop between them.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>Warm-up &middot; is that a description?</h2>
+    <div class="note">Five minutes. Read each one out. Thumbs up if it describes the data, thumbs down if it describes the picture.</div>
+    <div class="say">
+      <p><strong>1.</strong> &ldquo;The tallest bar is in the middle.&rdquo; &mdash; <em>Picture.</em></p>
+      <p><strong>2.</strong> &ldquo;Most buddies won one turn out of three.&rdquo; &mdash; <em>Data.</em></p>
+      <p><strong>3.</strong> &ldquo;There is nothing above the 1.&rdquo; &mdash; <em>Picture. Rewrite it: nobody gave it a 1.</em></p>
+      <p><strong>4.</strong> &ldquo;Only one buddy out of fourteen won all three turns.&rdquo; &mdash; <em>Data, and a good one &mdash; it says how many out of how many.</em></p>
+    </div>
+    <div class="teach">
+      <h3>Point at number 4 before you move on</h3>
+      <p>&ldquo;One out of fourteen&rdquo; is the habit today&rsquo;s lesson is built on. A count carried with the size of its group is a statement somebody can check and compare. A count on its own is not. Students who picked that habit up in Lesson 11 will find the fractions work today easy; the ones who did not are about to find out why it mattered.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>Comet and Nebula</h2>
+    <div class="note">Open <strong><a class="res" href="resources/l12-03-comparing-two-teams.xlsx">resources/l12-03-comparing-two-teams.xlsx</a></strong> on the board, sheet <em>Side by side</em>. Two teams, two games, two sets of buddies.</div>
+    <table class="scroll">
+      <tr><th style="width:150px">Rating</th><th style="width:130px">Team Comet</th><th>Team Nebula</th></tr>
+      <tr><td>1 &mdash; did not enjoy it</td><td>0</td><td>1</td></tr>
+      <tr><td>2 &mdash; it was okay</td><td>2</td><td>4</td></tr>
+      <tr><td>3 &mdash; I liked it</td><td>6</td><td>3</td></tr>
+      <tr><td>4 &mdash; I loved it</td><td>5</td><td>2</td></tr>
+      <tr><td><strong>Buddies with a rating</strong></td><td><strong>13</strong></td><td><strong>10</strong></td></tr>
+    </table>
+    <div class="say">
+      <p>&ldquo;Here are two sentences. One of them compares and one of them does not.</p>
+      <p><strong>A.</strong> Comet&rsquo;s mode was 3. Nebula&rsquo;s mode was 2.</p>
+      <p><strong>B.</strong> Comet&rsquo;s ratings sat higher than Nebula&rsquo;s &mdash; most of Comet&rsquo;s buddies gave a 3 or a 4, while Nebula&rsquo;s spread right across the scale and included the only 1 anybody gave.</p>
+      <p>A is two facts with a full stop between them. B names the thing that is different and says what it means. B is what I am asking for today.&rdquo;</p>
+    </div>
+    <div class="note good"><strong>The structure:</strong> name the feature &rarr; give both values &rarr; say what it means.</div>
+    <div class="teach">
+      <h3>Then set the trap, and let them fall into it</h3>
+      <p>Ask: which team&rsquo;s buddies enjoyed it more? Someone will say Comet, because 11 gave a 3 or 4 against Nebula&rsquo;s 5. Do not correct it. Ask how many buddies each team had. Then let the room work out that it is 11 out of 13 against 5 out of 10 &mdash; 85% against 50%.</p>
+      <p>The conclusion does not change here, which is exactly what makes it a safe place to meet the idea. The difference is real; it is just not as big as 11 against 5 made it look. A trap where the answer flips would teach them to distrust the method rather than to use it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>Comparing Comet and Nebula</h2>
+    <div class="note">Work from <strong><a class="res" href="resources/l12-03-comparing-two-teams.xlsx">resources/l12-03-comparing-two-teams.xlsx</a></strong>, sheet <em>Side by side</em>, or from the table on your worksheet. A calculator is allowed from question 4 on.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>What is the mode of Nebula&rsquo;s ratings? What is the mode of Comet&rsquo;s?</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>How many buddies gave a rating for each team?</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>Someone says &ldquo;Comet got five 4s and Nebula only got two, so Comet&rsquo;s game was more than twice as good&rdquo;. What is wrong with that reasoning?</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>Work out the fraction of each team&rsquo;s buddies who gave a 3 or a 4. Write each one as a fraction and as a percentage.</p></div>
+    <div class="q cfq"><span class="qn">5</span><span class="cx cx-cf">CF</span><p>Write one sentence comparing the two sets of ratings. Name the feature that differs &mdash; do not describe each team in turn.</p></div>
+    <div class="q cfq"><span class="qn">6</span><span class="cx cx-cf">CF</span><p>Two separate column graphs, or one graph with both teams side by side? Which lets somebody see the difference at a glance, and why?</p></div>
+    <div class="q cuq"><span class="qn">7</span><span class="cx cx-cu">CU</span><p>Six of Nebula&rsquo;s ten buddies won nothing at all. Four of Comet&rsquo;s fourteen won nothing. Does that mean Nebula&rsquo;s game is unfair? What else would you need to know before you could say?</p></div>
+    <div class="q cuq"><span class="qn">8</span><span class="cx cx-cu">CU</span><p>The two teams had different numbers of buddies. Name one comparison you can still make safely using raw counts, and one you cannot.</p></div>
+    <button class="reveal" data-ans="ansEx12">Show the answers</button>
+    <div class="ans" id="ansEx12"><b>1.</b> Nebula 2, Comet 3.<br><br><b>2.</b> Comet 13, Nebula 10. Both teams had more buddies than that &mdash; Comet had 15 and Nebula 10 &mdash; but two of Comet&rsquo;s left before they were asked. Students who answer 15 have not noticed the blanks, which is Lesson 10 arriving back.<br><br><b>3.</b> Two faults, and the better answers get both. The counts come from groups of different sizes, so 5 against 2 is not a fair comparison. And &ldquo;more than twice as good&rdquo; treats the number of 4s as a measure of quality, when a rating scale does not work like that &mdash; two 4s and three 3s is not obviously worse than five 4s and nothing else.<br><br><b>4.</b> Comet 11/13, which is about 85%. Nebula 5/10, which is 50%. Accept 0.85 and 0.5. A student who writes 11/13 = 11% has divided the wrong way round; send them to the conversion mat.<br><br><b>5.</b> Looking for the structure: a named feature, both values, and what it means. <em>Comet&rsquo;s ratings sat higher &mdash; 85% of their buddies gave a 3 or 4, against half of Nebula&rsquo;s &mdash; which suggests Treasure Bag went down better with the Preps.</em> Two separate descriptions joined by &ldquo;and&rdquo; is not it.<br><br><b>6.</b> One graph with both teams side by side, because the eye compares heights that are next to each other. With two separate graphs the axes can be different without anybody noticing, which is exactly the trick Lesson 14 is about.<br><br><b>7. The payoff of the whole unit.</b> No. Hard is not the same as unfair. Nebula&rsquo;s Lucky Dip has one gold token in a bag of eight, so each turn has a probability of 1/8, and over three turns the chance of winning at least once is about 33%. They observed 40%, which is close. The game is behaving exactly as its probabilities say it should &mdash; it is a fair game that is hard to win. To answer this you need the sample space and the probabilities, not the results. That is Part A, back again.<br><br><b>8.</b> Safe: the mode, and the shape &mdash; neither depends on how many buddies there were. Also safe is anything about one team on its own. Not safe: any sentence of the form &ldquo;more buddies did X for this team&rdquo; used as evidence that the team&rsquo;s game was better, because a bigger group produces bigger counts for free.</div>
+  </div>
+  <div class="card">
+    <h2>Now your team and your partner team</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Counts and fractions given</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Compare your own two sets</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>The counts and the fractions are both on your sheet.</strong> You do not have to work them out. Comparing is the job.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>Comet: 11 out of 13 buddies gave a 3 or a 4, which is 85%. Nebula: 5 out of 10, which is 50%. Which team&rsquo;s buddies enjoyed their game more?</p></div>
+      <div class="q sfq"><span class="qn">B</span><span class="cx cx-sf">SF</span><p>Nebula&rsquo;s mode was 2 and Comet&rsquo;s was 3. Which team&rsquo;s buddies gave higher ratings most often?</p></div>
+      <div class="q cfq"><span class="qn">C</span><span class="cx cx-cf">CF</span><p>Finish the comparison: &ldquo;Comet&rsquo;s ratings were higher than Nebula&rsquo;s, because&hellip;&rdquo; Use numbers from the table.</p></div>
+      <p class="hint">Use the frame: &ldquo;______ was higher than ______, because ______ out of ______ compared with ______ out of ______.&rdquo;</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Compare your team&rsquo;s ratings with your partner team&rsquo;s.</strong> Build one display with both teams on it. Work out the fraction of each team&rsquo;s buddies who gave a 3 or a 4. Then write one comparison sentence using the structure: name the feature, give both values, say what it means.</div>
+      <p class="hint">If your partner team&rsquo;s data is not available today, use Team Nebula&rsquo;s instead. Everything works the same way and nothing is lost.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>The first one asks you to mislead on purpose.</strong> Do it properly &mdash; you will need to recognise it when somebody does it to you.</div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Design a display that would make Nebula&rsquo;s game look better than Comet&rsquo;s, without changing a single number. Describe exactly what you would do, and say why it would work on somebody reading quickly.</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>If Nebula had asked 100 buddies instead of 10, would you expect the shape of their ratings to be the same? What would you expect to change, and what would stay the same?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>One sentence that compares</h2>
+    <div class="say">
+      <p>&ldquo;Everybody read me your comparison sentence. I am listening for three things: the feature, both numbers, and what it means.</p>
+      <p>If your sentence has a full stop in the middle and the second half starts with the other team&rsquo;s name, you have described twice. That is not wrong &mdash; it is just not yet a comparison.&rdquo;</p>
+    </div>
+    <table class="scroll">
+      <tr><th style="width:230px">Safe to compare with raw counts</th><th>Not safe</th></tr>
+      <tr><td>The mode. It does not depend on how many buddies there were.</td><td>&ldquo;More buddies gave us a 4&rdquo; as evidence that your game was better.</td></tr>
+      <tr><td>The shape &mdash; bunched, spread out, one big group.</td><td>Any total, when the two groups are different sizes.</td></tr>
+      <tr><td>Anything about one team on its own.</td><td>&ldquo;Twice as many&rdquo;, unless the groups are the same size.</td></tr>
+    </table>
+    <div class="note good"><strong>The move that fixes almost all of it:</strong> carry the group size with the count. Not &ldquo;eleven buddies&rdquo;, but &ldquo;eleven out of thirteen&rdquo;. Say it that way every time and the unfair comparison becomes very hard to make by accident.</div>
+    <div class="teach">
+      <h3>The thread back to Part A</h3>
+      <p>Worth making explicit before they leave: in Part A they learned that the gap between observed and expected has to be read as a fraction of the number of trials, not as a raw difference. Today they learned that a count has to be read as a fraction of the group it came from. It is the same idea twice, in the two halves of the folio, and students who see that connection write much better Part B answers.</p>
+      <h3>Tomorrow&rsquo;s problem, flagged today</h3>
+      <p>Someone will ask why the visit times are not in any of this. Good. The answer is that every time is different, so a column graph of times would have one bar per buddy and show nothing. That is Lesson 13, and the question is better asked by a student than announced by you.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Exit ticket</h2>
+    <div class="note">On your own. Five minutes.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Team Orion: 9 of 12 buddies won at least one turn. Team Vega: 7 of 10. Write each as a percentage.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>Write one sentence comparing Orion and Vega. Name the feature, give both values, say what it means.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>A third team says &ldquo;20 of our buddies won at least one turn, which is more than both of you, so our game is the easiest to win&rdquo;. What would you ask them before you agreed?</p></div>
+    <div class="teach">
+      <h3>The answers</h3>
+      <p><strong>1.</strong> Orion 9/12 = 75%. Vega 7/10 = 70%. Both friendly on a calculator, and the two are close on purpose.</p>
+      <p><strong>2.</strong> The comparison the numbers support is a small one: <em>Orion&rsquo;s buddies won slightly more often &mdash; 75% against 70% &mdash; but the two games are very close.</em> A student who writes &ldquo;Orion is much better because 9 is more than 7&rdquo; has made both of today&rsquo;s errors in one sentence, and that is the response worth following up.</p>
+      <p><strong>3.</strong> How many buddies did you have? If the answer is 40, then 20 out of 40 is 50%, which is the lowest of the three. The question to ask is the group size, every time.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>Back to your goal</h3>
+      <p style="margin:0 0 8px">Read what you wrote at the start on the Intentions tab. Did you do it? Write one sentence.</p>
+      <label for="goal2" class="hint">How I went today&hellip;</label>
+      <textarea id="goal2" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:300px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l12-03-comparing-two-teams.xlsx">resources/l12-03-comparing-two-teams.xlsx</a></td><td>On the board and on every device. Comet and Nebula on their own sheets, counted side by side, with the fractions worked out and one comparative chart already built.</td></tr>
+      <tr><td><a class="res" href="resources/l12-01-worksheet-core.pdf">resources/l12-01-worksheet-core.pdf</a></td><td>Most of the class.</td></tr>
+      <tr><td><a class="res" href="resources/l12-02-worksheet-support.pdf">resources/l12-02-worksheet-support.pdf</a></td><td>Counts and fractions supplied, three questions, comparison frame.</td></tr>
+      <tr><td>The team&rsquo;s own cleaned file and their partner team&rsquo;s</td><td>From Lesson 10. If the partner&rsquo;s file is not available, Nebula stands in and nothing is lost.</td></tr>
+      <tr><td><a class="res" href="../../shared/conversion-mat.pdf">shared/conversion-mat.pdf</a></td><td>On the desk for question 4. Turning 11 out of 13 into a percentage is the Fluency step, not the point of the lesson.</td></tr>
+      <tr><td><a class="res" href="../../shared/sentence-stems.pdf">shared/sentence-stems.pdf</a></td><td>For the comparison sentences.</td></tr>
+    </table>
+    <div class="note warn"><strong>Before the lesson:</strong> calculators out; the partner pairings confirmed, including a decision for any pair where one team has no usable data &mdash; they use Nebula, and that is recorded for Part B item B2.</div>
+  </div>
+  <div class="card">
+    <h2>Where this sits in the achievement standard</h2>
+    <p><strong>AC9M6ST01</strong> asks students to <em>compare</em> data sets using comparative displays. The comparing is the verb being assessed, and a response that describes two displays separately has not met it.</p>
+    <p>In the folio this is item <strong>B5</strong> &mdash; compare your two distributions, name the feature that differs, and say what it tells you. The fraction-of-the-group habit also carries item <strong>B6</strong>, because the misleading article in Lesson 14 uses a count from a tiny sample as though it were a rate.</p>
+    <div class="teach">
+      <h3>For the students who are ahead</h3>
+      <p>Comparing the middle of two distributions is Year 7 territory, where the mean and the median arrive. If a student reaches for an average, let them, and name what they are doing. Do not make it the class task &mdash; at Year 6 the comparison is built from mode, spread, shape and proportion, and a student who can do those four well is at the standard.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. ACARA does not endorse this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

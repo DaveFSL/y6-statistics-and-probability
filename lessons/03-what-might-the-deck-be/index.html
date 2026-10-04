@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3 — What might the deck be? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.rejoin{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:12px 0}
+.rejoin h3{margin-top:0;color:var(--gold)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.deckbox{background:#fff;border:1px solid var(--rule);border-radius:9px;padding:16px;margin:12px 0;text-align:center}
+.deck{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pcard{width:46px;height:64px;border:2px solid var(--ink);border-radius:6px;display:flex;
+  align-items:center;justify-content:center;font-weight:800;font-size:19px;background:#fff}
+.pcard.pic{background:#93B4D8;border-color:var(--navy)}
+.pcard.even{background:var(--green-soft)}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 3 of 15</p>
+    <h1>What might the deck be?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6P01</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 3, Week 9</span>
+      <span class="pill flag">Withdrawal-safe</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Learning intention</h2>
+    <p>We are learning to work backwards from probabilities to build a sample space, and to find more than one answer that works.</p>
+    <h3>Success criteria</h3>
+    <ul class="checklist">
+      <li>I can build a deck that matches the probabilities I am given.</li>
+      <li>I can find more than one deck that works.</li>
+      <li>I can explain why some deck sizes are impossible.</li>
+      <li>I can work out the probability of the outcome nobody mentioned.</li>
+    </ul>
+    <h3>Curriculum</h3>
+    <p><strong>AC9M6P01</strong> — recognise that probabilities lie on numerical scales of 0–1 or 0%–100% and use estimation to assign probabilities that events occur in a given context, using common fractions, percentages and decimals.</p>
+    <div class="teach"><strong>What this lesson is for.</strong> Lessons 1 and 2 went forwards: here is a situation, find the probability. Today runs backwards: here are the probabilities, build a situation. That reversal is where AC9M6P01 stops being a procedure and starts being understanding, and it is the structure of assessment item A1 — students will have to construct a sample space for a game they invented, not read one off a page.
+    <br><br>It is also a Peter Sullivan-style open task. There is no single answer, and the number of cards is deliberately not given. The withheld information <em>is</em> the task.</div>
+  </div>
+
+  <div class="card">
+    <h2>Shape of the lesson</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Phase</th><th>Time</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Warm-up</strong></td><td>5 min</td><td>An event with a probability of 1/4</td></tr>
+        <tr><td><strong>Launch</strong></td><td>8 min</td><td>Pose the deck problem. Refuse to say how many cards.</td></tr>
+        <tr><td><strong>Explore</strong></td><td>27 min</td><td>Think alone, build in pairs, test with 20 draws, post to the class board</td></tr>
+        <tr><td><strong>Summarise</strong></td><td>8 min</td><td>Why every deck size is a multiple of 4 — and what stayed the same</td></tr>
+        <tr><td><strong>Review</strong></td><td>5 min</td><td>Exit ticket, collected</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="rejoin">
+      <h3>Withdrawal-safe — five-minute rejoin note</h3>
+      <p style="margin:0 0 8px"><strong>Nothing new is taught today.</strong> This lesson consolidates Lessons 1 and 2, so students in the extension withdrawal group lose no content. When they return, reinstate three things:</p>
+      <ol style="margin:0">
+        <li><strong>The deck-size rule.</strong> "A deck had a 1/4 chance of a picture card. Could it have had 10 cards? Why not?" Thirty seconds tells you whether they have it.</li>
+        <li><strong>The class norm.</strong> Point at the board of valid decks and say the task had many correct answers. This norm carries into Lesson 7.</li>
+        <li><strong>The open question from Lesson 2</strong> is still on the wall and still unanswered. Make sure they know it is coming.</li>
+      </ol>
+      <p style="margin:8px 0 0">Then give them the Going Further items from the worksheet to do independently. They do not need the Launch to attempt them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WARM-UP ============ -->
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to work backwards from probabilities to build a sample space, and to find more than one answer that works.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can build a deck that matches the probabilities I am given.</li>
+      <li>I can find more than one deck that works.</li>
+      <li>I can explain why some deck sizes are impossible.</li>
+      <li>I can work out the probability of the outcome nobody mentioned.</li>
+    </ul>
+
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on. You will come back to it at the end.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? Finding a SECOND deck that works is the part most people stop short of.</p>
+    </div>  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs. The assessment has questions at all three levels.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">You have seen this kind of question before and it is clear what to do. One step, friendly numbers.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">You know the method, but there is more than one step, or you have to pick which method to use.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the method. You work out what to do, and explain why you did it.</p></div>
+    </div>
+    <div class="note"><strong>A CU question is not a harder sum.</strong> It is usually one where you have to decide something and then justify it. Getting a number is not enough.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <p class="timing">Warm-up · 5 minutes</p>
+    <h2>A one-in-four chance of what?</h2>
+    <div class="say">The probability of an event is <strong>1/4</strong>. What might the event be? Show it on a number line.</div>
+    <p>Individual, on whiteboards. Collect four or five that use different equipment — a spinner, a bag, a die, something from real life.</p>
+    <div class="teach"><strong>This is a rehearsal for the whole lesson.</strong> The warm-up is the same reversal as the main task, just smaller and with one constraint instead of two. If students struggle here, they will struggle with the Launch, so spend the extra minute.
+    <br><br>Watch for the student who writes 1/4 on the number line but cannot invent an event. That student needs the four-card entry point in Explore, not the eight.</div>
+    <div class="note"><strong>Push once.</strong> When someone offers a four-section spinner with one shaded, ask: "can you make one with a probability of 1/4 that does <em>not</em> have four sections?" That question is the whole of Lesson 2's exit ticket, and it primes today.</div>
+  </div>
+</section>
+
+<!-- ============ LAUNCH ============ -->
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <p class="timing">Launch · 8 minutes</p>
+    <h2>The mystery deck</h2>
+    <div class="say">I have a deck of cards. Every card is either a <strong>picture card</strong> or a <strong>numbered card</strong>.
+      <br><br>If I draw one card without looking:
+      <br>— the probability of a picture card is <strong>1/4</strong>
+      <br>— the probability of an even number is <strong>1/2</strong>
+      <br><br>What might my deck be?</div>
+
+    <div class="deckbox">
+      <div class="deck">
+        <span class="pcard pic">K</span>
+        <span class="pcard even">2</span>
+        <span class="pcard even">8</span>
+        <span class="pcard">7</span>
+      </div>
+      <p class="hint" style="margin:10px 0 0">One deck that works. There are many others.</p>
+    </div>
+
+    <div class="note warn"><strong>Do not say how many cards are in the deck.</strong> Students will ask, repeatedly. The answer is "that's part of what you're working out." The missing number is the task — hand it over and the lesson collapses into arithmetic.</div>
+
+    <h3>Set the rules of the deck</h3>
+    <p>Agree these as a class before students start, and write them on the board:</p>
+    <ul>
+      <li>Picture cards are <strong>J, Q, K</strong>. They have no number.</li>
+      <li>Numbered cards run from <strong>1 to 10</strong>. Odd numbers are 1, 3, 5, 7, 9. Even numbers are 2, 4, 6, 8, 10.</li>
+      <li>Cards may repeat. You can have three 4s if you want.</li>
+      <li>Every card is either a picture card or a numbered card. Nothing is both.</li>
+    </ul>
+    <div class="teach"><strong>Nail down the Ace before anyone starts.</strong> If you use real playing cards, someone will ask whether an Ace is a picture card or a 1. Decide as a class — recommend treating it as 1, so it is odd — and write the decision on the board. Unresolved, it produces two students with correct decks who think one of them is wrong.
+    <br><br><strong>Better: use the blank card templates.</strong> Students write their own values, which removes the Ace problem entirely and means you do not need fifteen real decks.</div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <p class="timing">Explore · 27 minutes</p>
+    <h2>Think alone first</h2>
+
+    <h3>Four steps, in this order</h3>
+    <ol>
+      <li><strong>Alone, five minutes.</strong> Each student writes down one deck that they think works. No talking. This matters — pairs that start talking immediately produce one idea between two people.</li>
+      <li><strong>In pairs.</strong> Compare. Are they the same? Are both right? Can both be right?</li>
+      <li><strong>Build it.</strong> Make the deck physically with the card blanks.</li>
+      <li><strong>Test it.</strong> Draw a card, record whether it is a picture card, put it back. Twenty times.</li>
+    </ol>
+
+    <div class="note"><strong>With replacement.</strong> The card goes back every time. If it does not, the probability changes after every draw and the test means nothing. Say this out loud and check it as you circulate — it is the most common procedural error in the lesson.</div>
+
+    <h3>The class board</h3>
+    <p>As pairs finish, they write their deck on the board as three numbers: <strong>picture / even / odd</strong>, and the total. Do not sort them. Let the list build up messily.</p>
+
+    <div class="scroll"><table>
+      <thead><tr><th class="num">Picture</th><th class="num">Even</th><th class="num">Odd</th><th class="num">Total</th><th>Valid?</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="num">2</td><td class="num">1</td><td class="num">4</td><td>yes — the smallest one</td></tr>
+        <tr><td class="num">2</td><td class="num">4</td><td class="num">2</td><td class="num">8</td><td>yes</td></tr>
+        <tr><td class="num">3</td><td class="num">6</td><td class="num">3</td><td class="num">12</td><td>yes</td></tr>
+        <tr><td class="num">5</td><td class="num">10</td><td class="num">5</td><td class="num">20</td><td>yes</td></tr>
+        <tr><td class="num">2</td><td class="num">4</td><td class="num">0</td><td class="num">6</td><td>no — 2 out of 6 is not 1/4</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="teach"><strong>The last row is the one to hope for.</strong> A pair will produce a deck with no odd cards, because the problem never mentioned odd cards. It fails, and working out <em>why</em> it fails is the most valuable thirty seconds in the lesson: the two given probabilities add to 3/4, so a quarter of the deck has to be something else.
+    <br><br>If nobody produces it, put it on the board yourself as "a deck someone tried in another class" and ask whether it works.
+    <br><br><strong>Circulating.</strong> Ask every pair the same question: "could your deck have been bigger?" Students who say yes and can produce the next size up have the generalisation. Students who say "no, this is the answer" have solved an arithmetic problem rather than an open one.</div>
+
+    <h3>Complexity bands on the worksheet</h3>
+    <p><span class="band sf">SF</span> Build one deck that satisfies both probabilities and record it.</p>
+    <p><span class="band cf">CF</span> Find the probability of drawing an odd-numbered card — the outcome the problem never mentioned. Then test whether a given deck size is possible.</p>
+    <p><span class="band cu">CU</span> Explain why every deck that works has a total that is a multiple of 4.</p>
+
+    <h3>Differentiation</h3>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>One constraint at a time: build a deck with P(picture) = 1/4 first, then add the even-number rule.</li>
+          <li>Start with exactly 4 cards, then double it.</li>
+          <li>Card blanks pre-cut.</li>
+          <li>Conversion mat on the desk.</li>
+        </ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Both constraints from the start.</li>
+          <li>Find at least two decks of different sizes.</li>
+          <li>Full worksheet including the multiple-of-4 explanation.</li>
+        </ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>A deck has exactly 20 cards. How many of each kind? Is there more than one answer?</li>
+          <li>If 60 Prep students each drew one card and put it back, how many picture cards would you expect? <span class="hint">(AC9M7P01)</span></li>
+          <li>A different deck has P(picture) = 1/3 and P(even) = 1/2. Which deck sizes work now, and what is P(odd)?</li>
+        </ul></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Part D &middot; Show your thinking</h2>
+    
+    <div class="q cfq"><span class="qn">1</span><span class="cx cx-cf">CF</span><p>Nobody told you about the odd-numbered cards. What is the probability of drawing an odd-numbered card? How do you know?</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>Two students both made decks that work. One used 8 cards, the other used 20. Are they both right? How do you know?</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>Look at every deck that works. Why is the total always a multiple of 4?</p></div>
+    <button class="reveal" data-ans="ansD">Show the answers</button>
+    <div class="ans" id="ansD"><b>1</b> 1/4. The two given probabilities are 1/4 and 1/2, which total 3/4. Everything must total 1, so the odd cards are the remaining 1/4. Counting the leftovers in your own deck also works &mdash; ask those students whether it would still work for a deck of 400.<br><b>2</b> Yes, both. 2 picture of 8 is 1/4, and 5 picture of 20 is 1/4. Different sizes, identical probabilities.<br><b>3</b> A quarter of the deck has to be a whole number of picture cards. You cannot have 2.5 kings, so the total must divide by 4.</div>
+  </div>
+  <div class="card">
+    <h2>Talk it through with a partner</h2>
+    <p>Show your partner your answer to <strong>question 2</strong>. Your partner picks <em>one</em> of these to ask you:</p>
+    <ul><li>Could there be a deck bigger than 20 that also works?</li><li>What is the smallest deck that works, and how do you know there is nothing smaller?</li><li>If both are right, what is actually the same about them?</li></ul>
+    <p class="hint">Write down the question you were asked and what you said back.</p>
+  </div>
+  <div class="card">
+    <h2>Choose your path</h2>
+    <p>Pick the one that matches where you are right now. You can change your mind.</p>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Friendlier numbers</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Finish the main questions</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="q sfq"><span class="qn">S1</span><span class="cx cx-sf">SF</span><p>What is the smallest deck that works?</p></div>
+      <div class="q sfq"><span class="qn">S2</span><span class="cx cx-sf">SF</span><p>Draw a deck of 8 cards that works. Write how many of each kind you used.</p></div>
+      <div class="q cuq"><span class="qn">S3</span><span class="cx cx-cu">CU</span><p>What do the totals of all the decks that work have in common?</p></div>
+      <button class="reveal" data-ans="ansS">Show the answers</button>
+    <div class="ans" id="ansS"><b>S1</b> 4 cards: 1 picture, 2 even, 1 odd. <b>S2</b> 2 picture, 4 even, 2 odd. <b>S3</b> They are all multiples of 4.</div></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Keep going.</strong> Find at least two decks of different sizes, then answer all three questions. Post your decks on the class board.</div></div>
+    <div class="path" id="path-ext"><div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>A deck has exactly 20 cards. How many of each kind? Is there more than one answer?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>If 60 Prep students each drew one card and put it back, how many picture cards would you expect?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;3</span><span class="cx cx-cu">CU</span><p>A DIFFERENT deck has P(picture) = 1/3 and P(even) = 1/2. Which deck sizes work now? What is P(odd) for that deck?</p></div>
+      <button class="reveal" data-ans="ansE">Show the answers</button>
+    <div class="ans" id="ansE"><b>&#9733;1</b> 5 picture, 10 even, 5 odd. Only one answer for the counts, though the specific cards can vary.<br><b>&#9733;2</b> 60 &times; 1/4 = 15. Expect some students to say "15 exactly" &mdash; press them, because Lesson 4 makes this distinction the whole point.<br><b>&#9733;3</b> Multiples of <em>6</em> now: 6, 12, 18, 24. And P(odd) is 1/6, not 1/4. The invariant changed with the constraints &mdash; this separates students who found a rule from students who found the rule.</div></div>
+  </div>
+</section>
+
+<!-- ============ SUMMARISE ============ -->
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <p class="timing">Summarise · 8 minutes</p>
+    <h2>What stayed the same</h2>
+    <p>Now sort the class board by total size. Put the invalid ones to one side rather than rubbing them out.</p>
+
+    <h3>Three things to land</h3>
+    <ol>
+      <li><strong>There were many correct answers.</strong> Count them on the board. This is not a lesson where one pair won.</li>
+      <li><strong>Every deck that works is a multiple of 4.</strong> Because a quarter of the deck has to be a whole number of picture cards. You cannot have 2.5 kings.</li>
+      <li><strong>Every valid deck has the same three probabilities: 1/4, 1/2, 1/4.</strong> The decks are different sizes and the probabilities are identical. That is the point of the lesson.</li>
+    </ol>
+
+    <div class="say">Nobody told us about the odd-numbered cards. How did we work out their probability?</div>
+
+    <div class="teach"><strong>The invariant is the prize.</strong> Students arrive expecting the answer to be a deck. The actual answer is that the size was never determined and never mattered — the probabilities were fixed from the start. Getting a student to say that out loud is worth more than any of the individual decks.
+      <br><br>The route to the odd cards is the complement, which is on the conversion mat: the two given probabilities are 1/4 and 1/2, which total 3/4, and everything must total 1, so the odd cards are the remaining 1/4. Some students will instead count the leftovers in their own deck. Both are correct. Ask the counters whether their method would still work for a deck of 400 cards.</div>
+
+    <h3>Vocabulary</h3>
+    <p>No new Frayer words today. Revisit <strong>sample space</strong> from Lesson 2 — students now have a second, harder example to add to the Examples quadrant.</p>
+    <div class="note good"><strong>Before they leave.</strong> The open question from Lesson 2 is still on the wall. Point at it. "Two more lessons."</div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <p class="timing">Review · 5 minutes</p>
+    <h2>Exit ticket</h2>
+    <div class="note"><strong>A bag of counters has a 1/5 chance of drawing a RED counter.</strong></div>
+    <div class="q cfq"><span class="qn">1</span><span class="cx cx-cf">CF</span><p>Give two DIFFERENT bags that would work. They must have different numbers of counters altogether.</p></div>
+    <div class="q cuq"><span class="qn">2</span><span class="cx cx-cu">CU</span><p>Could the bag hold 8 counters? Explain your answer.</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>In one of your bags, what is the probability of drawing a counter that is NOT red?</p></div>
+
+    <div class="teach"><strong>Note the deliberate change.</strong> The exit ticket uses thirds, not quarters. A student who has genuinely grasped the structure will transfer it; a student who memorised "multiples of 4" from the Explore will write 4, 8, 12 and be wrong. This is a transfer check, not a repetition check.
+      <br><br><strong>Answers.</strong>
+      <br><strong>1.</strong> Any bag whose total is a multiple of 3 with a third red: 1 red of 3, 2 of 6, 3 of 9, 4 of 12. Two different <em>sizes</em> are required — two bags of 3 is not two answers.
+      <br><strong>2.</strong> No. 8 is not a multiple of 3, so a third of 8 is 2.67 counters, and you cannot have part of a counter. Accept any correct reasoning; the number 2.67 does not have to appear.
+      <br><strong>3.</strong> 2/3, whichever bag they chose. A student who gives a different answer for a different bag has missed the invariant and should be paired with a confident student in Lesson 4.
+      <br><br><strong>Going Further answers (worksheet page 2).</strong>
+      <br><strong>a.</strong> 5 picture, 10 even, 5 odd. There is only one answer for the counts — though the specific cards can vary, which is worth asking about.
+      <br><strong>b.</strong> 60 × 1/4 = 15 picture cards. Expect some students to say "15 exactly" — press them, because Lesson 4 is about to make this distinction the whole point.
+      <br><strong>c.</strong> Now the sizes are multiples of <em>6</em>: 6, 12, 18, 24. And P(odd) is 1/6, not 1/4. This is the item that separates students who found a rule from students who found <em>the</em> rule — the invariant depends on the constraints, and it changed.
+      <br><br><strong>Sorting for Lesson 4.</strong> Question 2 is the discriminator. Students who explain it cleanly are ready for the non-whole expected frequencies in Lesson 4's extending prompt.</div>
+  </div>
+
+  <div class="card">
+    <h2>Think back</h2>
+    <div class="goal">
+      <h3>Your goal</h3>
+      <p style="margin:0 0 8px">Go back to the Intentions tab and read the goal you set. Did you meet it?</p>
+      <label for="r1" class="hint">1. Which strategy did you use most today, and did it work?</label>
+      <textarea id="r1" placeholder="The strategy I used most was&hellip;"></textarea>
+      <label for="r2" class="hint" style="display:block;margin-top:10px">2. What would you do differently next time?</label>
+      <textarea id="r2" placeholder="Next time I would&hellip;"></textarea>
+      <label for="r3" class="hint" style="display:block;margin-top:10px">3. Did you meet the goal you set at the start? How do you know?</label>
+      <textarea id="r3" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+    <p class="hint">Nothing you type here is saved. Copy it into your book before you close the page.</p>
+  </div>
+</section>
+
+<!-- ============ RESOURCES ============ -->
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need</h2>
+    <h3>Print</h3>
+    <ul class="checklist">
+      <li><strong><a class="res" href="resources/l3-01-worksheet-core.pdf">resources/l3-01-worksheet-core.pdf</a></strong> — 3 pages, most of the class</li>
+      <li><strong><a class="res" href="resources/l3-02-worksheet-support.pdf">resources/l3-02-worksheet-support.pdf</a></strong> — 3 pages, one constraint at a time</li>
+      <li><strong><a class="res" href="resources/l3-03-card-blanks.pdf">resources/l3-03-card-blanks.pdf</a></strong> — blank cards to cut, plus a reference page showing picture, even and odd cards. One sheet per pair; pre-cut for students who need it.</li>
+      <li><strong><a class="res" href="../../shared/conversion-mat.pdf">shared/conversion-mat.pdf</a></strong> — needed for the complement in the Summarise</li>
+    </ul>
+    <h3>Equipment</h3>
+    <ul class="checklist">
+      <li>Scissors, one pair per pair of students</li>
+      <li>Envelopes or small bags to hold each deck</li>
+      <li>Board space for the class list of decks — leave it up for the Summarise</li>
+      <li>Real playing cards are optional. The blanks are easier and avoid the Ace argument.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Lesson-specific adjustments</h2>
+    <p class="hint">Standing adjustments are on the linked Personalised Adjustments document and are not repeated here.</p>
+    <ul>
+      <li><strong>WITHDRAWAL-SAFE lesson.</strong> No new content. The five-minute rejoin note is on the Overview tab.</li>
+      <li><strong>Four-card deck as the entry point</strong>, extended to eight. A student who builds only the smallest valid deck has still met the success criteria.</li>
+      <li><strong>Card blanks pre-cut</strong> for students for whom scissor work would consume the thinking time.</li>
+      <li><strong>Reference page</strong> showing what counts as a picture card, an even card and an odd card — for students unfamiliar with a standard deck, which includes more of the class than you expect.</li>
+      <li><strong>Silent thinking time is protected.</strong> For students who find open tasks anxiety-provoking, hand them the four-card version at the start rather than after they have sat blank for five minutes.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Misconceptions to expect today</h2>
+    <details class="explain">
+      <summary>"There must be one right answer"</summary>
+      <div class="body"><p>Students look for the deck rather than a deck, and stop as soon as they find one. Some will assume the pair next to them is wrong.</p>
+      <p><strong>Response.</strong> Ask both pairs to test their decks. Two different decks that both pass is more convincing than anything you can say.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Forgetting the odd-numbered cards</summary>
+      <div class="body"><p>The problem mentions picture cards and even numbers, so students build a deck of only those two kinds. The probabilities then come out wrong and they cannot see why.</p>
+      <p><strong>Response.</strong> "Add up your two probabilities. What do you get? What do all the probabilities have to add to?" Then let them find the missing quarter.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Choosing a deck size that satisfies one constraint but not both</summary>
+      <div class="body"><p>Six cards works for the even-number half. It fails for the picture-card quarter. Students check one and stop.</p>
+      <p><strong>Response.</strong> Make them state both checks explicitly before posting to the board. The worksheet has a check column for exactly this.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Drawing without replacement</summary>
+      <div class="body"><p>Students deal the cards out rather than drawing and returning. The probabilities shift with every draw.</p>
+      <p><strong>Response.</strong> Catch it while circulating, not afterwards. Ask what the probability of a picture card is once they have already taken it out.</p></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>What comes next</h2>
+    <p><strong>Lesson 4 — Expected or observed?</strong> The first lesson of the AC9M6P02 block, and where the open question from Lesson 2 starts to be answered. Students meet expected frequency: probability multiplied by the number of trials.</p>
+    <div class="teach"><strong>Carry forward.</strong> Keep two or three of the built decks. Lesson 4 opens with a bag of counters, but a deck the class made themselves is a warmer starting point if you have one on hand. Also carry forward the students who explained the multiple-of-4 rule cleanly — they are your explainers when non-whole expected frequencies arrive.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

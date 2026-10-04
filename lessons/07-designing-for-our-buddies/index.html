@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 7 — Designing for our buddies | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 7 of 15</p>
+    <h1>Designing for our buddies</h1>
+    <div class="meta">
+      <span class="pill">AC9M6P01</span>
+      <span class="pill">AC9M6P02</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 3, Week 10</span>
+      <span class="pill flag">Assessment rehearsal</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Learning intention</h2>
+    <p>We are learning to design a chance game for a five-year-old, and to work out and justify its probabilities.</p>
+    <h3>Success criteria</h3>
+    <ul class="checklist">
+      <li>I can design a game that meets every rule in the brief.</li>
+      <li>I can list every possible outcome of my game.</li>
+      <li>I can write each outcome's probability as a fraction, a decimal and a percentage.</li>
+      <li>I can give useful critique to another team, and change my own design because of critique I received.</li>
+    </ul>
+    <h3>Curriculum</h3>
+    <p><strong>AC9M6P01</strong> — assign probabilities using common fractions, percentages and decimals.<br>
+       <strong>AC9M6P02</strong> — run simulations with an increasing number of trials using digital tools; compare observations with expected results.</p>
+
+    <div class="note warn"><strong>Whatever a team designs today is what they are assessed on next lesson.</strong>
+      Lesson 8 is Part A of the folio, and every item in it refers to "your team's game". A team that leaves today without a finished, working game cannot sit the assessment. That is the one thing to protect if the lesson runs short.</div>
+
+    <div class="teach"><strong>The planner is the assessment in rehearsal.</strong> Page 2 of the worksheet asks for the sample space, then the probabilities three ways, then a simulation, then a fairness judgement — the same sequence, in the same order, as assessment items A1, A2, A5 and A7. That is deliberate. Students who complete the planner properly have already done Part A once, with their team and with your help.
+    <br><br><strong>The Catholic perspective is not decoration here.</strong> The brief is judged by whether it serves a five-year-old, not by how clever the mathematics is. A team with an elegant game a Prep cannot play has failed the brief. Say that plainly — it is the clearest expression in the unit of putting skill at the service of someone else.</div>
+  </div>
+
+  <div class="card">
+    <h2>Shape of the lesson</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Phase</th><th>Time</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Warm-up</strong></td><td>5 min</td><td>A die where the chance of red is one half</td></tr>
+        <tr><td><strong>Launch</strong></td><td>12 min</td><td>The design brief, and why each rule is there</td></tr>
+        <tr><td><strong>Explore</strong></td><td>26 min</td><td>Design, sample space, probabilities, simulate, critique, revise</td></tr>
+        <tr><td><strong>Summarise</strong></td><td>8 min</td><td>What changed after critique</td></tr>
+        <tr><td><strong>Review</strong></td><td>4 min</td><td>Exit ticket</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="note warn"><strong>Timing warning — this lesson is over-full and you should decide now.</strong>
+      Designing, calculating, simulating, critiquing and revising will not fit in twenty-six minutes. Pick one:</div>
+
+    <div class="branch">
+      <div class="col support"><h4>Option A — recommended</h4>
+        <p style="font-size:15px;margin:0">Split across two sessions if you have a spare maths slot before Lesson 8. Session one: design and sample space. Session two: simulate, critique, revise. The critique round is the part most often cut and the part most worth keeping.</p></div>
+      <div class="col core"><h4>Option B</h4>
+        <p style="font-size:15px;margin:0">Run the critique as a five-minute gallery walk with sticky notes instead of the full protocol round. Teams leave their planner open on the desk and move. Less rich, but it fits.</p></div>
+      <div class="col ext"><h4>Option C</h4>
+        <p style="font-size:15px;margin:0">Teams simulate at one scale only — 200 trials — rather than a ladder. The check they need is "does a Prep have a reasonable chance", and one scale answers it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WARM-UP ============ -->
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to design a chance game for a five-year-old, and to work out and justify its probabilities.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can design a game that meets every rule in the brief.</li>
+      <li>I can list every possible outcome of my game.</li>
+      <li>I can write each outcome&rsquo;s probability as a fraction, a decimal and a percentage.</li>
+      <li>I can give useful critique to another team, and change my own design because of critique I received.</li>
+    </ul>
+
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on. You will come back to it at the end.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? Listing EVERY outcome is the rule teams most often break &mdash; and it is the one the assessment depends on.</p>
+    </div>  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs. The assessment has questions at all three levels.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">You have seen this kind of question before and it is clear what to do. One step, friendly numbers.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">You know the method, but there is more than one step, or you have to pick which method to use.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the method. You work out what to do, and explain why you did it.</p></div>
+    </div>
+    <div class="note"><strong>A CU question is not a harder sum.</strong> It is usually one where you have to decide something and then justify it. Getting a number is not enough.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <p class="timing">Warm-up · 5 minutes</p>
+    <h2>A die where red comes up half the time</h2>
+    <div class="say">A toy maker wants to make a die where the chance of landing on red is exactly <strong>one half</strong>. What might the die look like?</div>
+    <p>Whiteboards, individual. Collect three or four different answers before saying anything.</p>
+    <div class="teach"><strong>Expect three of the faces coloured red, and accept it quickly.</strong> Then push: "does it have to be a six-sided die?" Four faces with two red works. Eight with four works. Students have met this shape three times now — Lesson 2's spinners, Lesson 3's decks, and now this — and today is where it becomes a design tool rather than an exercise.
+    <br><br>The link to make out loud: <em>you get to choose the sample space</em>. That is what designing a game is.</div>
+  </div>
+</section>
+
+<!-- ============ LAUNCH ============ -->
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <p class="timing">Launch · 12 minutes</p>
+    <h2>The brief</h2>
+    <p>Hand out the design brief. Read it together. Every rule is non-negotiable, and each one has a reason worth two minutes of discussion.</p>
+
+    <div class="brief">
+      <h3>Design brief — a chance game for your Prep buddy</h3>
+      <ol>
+        <li><b>No reading.</b> Your buddy may not be able to read yet. Nothing in the game can depend on words.</li>
+        <li><b>Under two minutes a turn.</b> Sixty Preps have to get through it.</li>
+        <li><b>Understood after one demonstration.</b> You show them once, then they play.</li>
+        <li><b>The outcome must depend on chance.</b> Not on skill, not on speed, not on strength.</li>
+        <li><b>You must be able to list every possible outcome.</b> If you cannot list them, you cannot work out the probabilities.</li>
+      </ol>
+    </div>
+
+    <h3>Two questions worth the discussion time</h3>
+    <div class="say">Why is a game that is too hard not a kind game?</div>
+    <div class="say">Why does rule 4 exist? What would be wrong with a game where the best player wins?</div>
+
+    <div class="teach"><strong>Rule 4 is the one to labour.</strong> Students default to designing competitions — throwing, aiming, racing. A skill game is a perfectly good game and completely wrong for this unit, because it has no sample space and therefore no probabilities. It is also less kind: a five-year-old competing against a Year 6 on skill loses every time, whereas chance gives them a real go.
+    <br><br><strong>Rule 5 is the assessment in disguise.</strong> If a team cannot list every outcome, item A1 is impossible and everything after it collapses. Check this before a team gets attached to their idea — a game with an unlistable sample space needs redesigning at minute five, not minute twenty-five.
+    <br><br><strong>On prizes.</strong> Teams will want everyone to win. Let them think it through: if everyone wins, the outcome does not depend on chance, and rule 4 fails. The productive version is that everyone gets <em>something</em> and the chance element decides <em>which</em> something. That distinction is worth surfacing in the Summarise.</div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <p class="timing">Explore · 26 minutes</p>
+    <h2>Design it, then prove it works</h2>
+    <p>Family Group teams of two or three, assigned by you. Roles named before they start: <strong>Designer</strong>, <strong>Recorder</strong>, <strong>Simulator</strong>.</p>
+
+    <h3>The sequence on the planner</h3>
+    <ol>
+      <li><strong>Describe and sketch the game.</strong> What does the buddy actually do?</li>
+      <li><strong>List every outcome.</strong> <span class="band sf">SF</span> If the list is not complete, stop and fix the game.</li>
+      <li><strong>Probabilities, three ways.</strong> <span class="band sf">SF</span> Fraction, decimal, percentage, for every outcome. They must total 1.</li>
+      <li><strong>Simulate it.</strong> <span class="band cf">CF</span> Build the game in the Chance Simulator and run it. Does the result match what you calculated?</li>
+      <li><strong>Judge it.</strong> <span class="band cu">CU</span> Is this a good game for a five-year-old? Use the brief and your numbers.</li>
+    </ol>
+
+    <div class="note good"><strong>Check the totals before anything else.</strong> The fastest way to find a broken sample space is to add the probabilities. If they do not come to 1, an outcome is missing or double-counted. Make this the first thing you check at every table.</div>
+
+    <h3>Peer critique</h3>
+    <p>Teams swap planners and use the critique protocol cards: <strong>two things that work, one question, one suggestion</strong> — judged against the brief, not against taste. Then teams revise. The revision box on the planner must be filled in even if the answer is "we changed nothing, because…".</p>
+
+    <div class="teach"><strong>Circulating priorities, in order.</strong>
+      <br><br><strong>1. Does the sample space total 1?</strong> Thirty seconds per team, and it catches most structural faults.
+      <br><strong>2. Can they list the outcomes at all?</strong> A team that says "it depends how hard you throw it" has a skill game and needs redirecting now.
+      <br><strong>3. Is a Prep going to enjoy losing this?</strong> A game with a 1-in-20 win chance is mathematically fine and miserable to play.
+      <br><br><strong>What good critique sounds like.</strong> Not "it's good" — the protocol cards have an "instead of / try" side for exactly this. The useful critique in this lesson is usually about rule 3: another team can tell you in ten seconds whether they understood your game from one demonstration, and that is information you cannot get from inside your own team.</div>
+
+    <h3>Differentiation</h3>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Choose one of three starter structures and adapt it rather than inventing from blank: a 4-section spinner, a bag of 8 counters, or a die with coloured faces.</li>
+          <li>Sample space table pre-drawn with the right number of rows.</li>
+          <li>Conversion mat on the desk.</li>
+          <li>Simulate at one scale only.</li>
+        </ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Design from the brief.</li>
+          <li>Full sample space and probabilities three ways.</li>
+          <li>Simulate, critique, revise.</li>
+        </ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>You have 24 prizes and 60 Preps will play. What probability of winning would make 24 prizes exactly right? <span class="hint">(AC9M7P01)</span></li>
+          <li>Design the prize allocation so you are unlikely to run out. How many spare do you need, and why?</li>
+        </ul></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>The steps on your planner</h2>
+    
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Describe and sketch the game. What does the buddy actually do?</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>List every possible outcome. If the list is not complete, stop and fix the game.</p></div>
+    <div class="q sfq"><span class="qn">3</span><span class="cx cx-sf">SF</span><p>Write each outcome&rsquo;s probability as a fraction, a decimal and a percentage. They must total 1.</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>Build your game in the Chance Simulator and run it. Does the result match what you calculated?</p></div>
+    <div class="q cuq"><span class="qn">5</span><span class="cx cx-cu">CU</span><p>Is this a good game for a five-year-old? Use the brief AND your numbers.</p></div>
+    <button class="reveal" data-ans="ansEx7">Show the answers</button>
+    <div class="ans" id="ansEx7"><b>Check the totals before anything else.</b> The fastest way to find a broken sample space is to add the probabilities. If they do not come to 1, an outcome is missing or double-counted &mdash; usually the "nothing happens" case, or a section of the spinner nobody counted.<br><br><b>A team that cannot list the outcomes has designed a skill game.</b> Throwing, aiming and racing have no sample space, so item A1 becomes impossible. Redirect at minute five, not minute twenty-five, and offer a starter structure.</div>
+  </div>
+  <div class="card">
+    <h2>Talk it through with a partner</h2>
+    <p>Show your partner your answer to <strong>question 5</strong>. Your partner picks <em>one</em> of these to ask you:</p>
+    <ul><li>Could you explain this game to a Prep in one demonstration?</li><li>How many of the 60 buddies would go home with nothing?</li><li>Does the outcome really depend on chance, or on skill?</li></ul>
+    <p class="hint">Write down the question you were asked and what you said back.</p>
+  </div>
+  <div class="card">
+    <h2>Choose your path</h2>
+    <p>Pick the one that matches where you are right now. You can change your mind.</p>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Friendlier numbers</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Finish the main questions</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>Start from one of these and change it to make it yours.</strong> You do not have to invent a game from nothing &mdash; adapting one counts.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>A 4-section spinner. Shade one section as the winning outcome. P(win) = 1/4 = 0.25 = 25%.</p></div>
+      <div class="q sfq"><span class="qn">B</span><span class="cx cx-sf">SF</span><p>A bag of 8 counters. Make 2 of them gold. P(win) = 2/8 = 1/4 = 0.25 = 25%.</p></div>
+      <div class="q sfq"><span class="qn">C</span><span class="cx cx-sf">SF</span><p>A die with coloured faces. Colour 3 faces red. P(red) = 3/6 = 1/2 = 0.5 = 50%.</p></div>
+      <p class="hint">Pick one, change the numbers, then work out the new probabilities yourself.</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Keep going.</strong> Design from the brief, list every outcome, work out all the probabilities three ways, simulate it, then swap planners for critique. The revision box must be filled in even if you changed nothing.</div></div>
+    <div class="path" id="path-ext"><div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>You have 24 prizes and 60 Preps will play. What probability of winning would make 24 prizes exactly right?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Design the prize allocation so you are unlikely to run out. How many spare do you need, and why?</p></div>
+      <button class="reveal" data-ans="ansE7">Show the answers</button>
+    <div class="ans" id="ansE7"><b>&#9733;1</b> 24 out of 60 is 24/60 = 2/5 = 0.4, so a 2 in 5 chance of winning.<br><b>&#9733;2</b> 24 is the expected number, not a guarantee &mdash; on the day you might get more. A few spare covers the variation. Students who connect this back to Lesson 4 (observed rarely equals expected) are reasoning at the A standard.</div></div>
+  </div>
+</section>
+
+<!-- ============ SUMMARISE ============ -->
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <p class="timing">Summarise · 8 minutes</p>
+    <h2>What did you change?</h2>
+    <div class="say">Hands up if your team changed something after the critique. What did you change, and what made you change it?</div>
+    <p>Take three or four. Do not take the games themselves — take the revisions.</p>
+
+    <div class="teach"><strong>The revision is the learning, not the design.</strong> A first draft that survives critique untouched usually means the critique was polite rather than useful. Celebrate the teams who changed something, and ask the teams who changed nothing what question they were asked.
+    <br><br>This is also the moment to name what happens next: the game they now have is the game they are assessed on. Any team still unhappy with theirs should say so now, not next lesson.</div>
+
+    <h3>Three things to land</h3>
+    <ol>
+      <li><strong>Design decisions have probability consequences.</strong> Adding one section to a spinner changes every probability in the game.</li>
+      <li><strong>The probabilities must total 1.</strong> If they do not, an outcome is missing.</li>
+      <li><strong>The brief is the judge, not our taste.</strong> A game is good here if a five-year-old can play it and enjoy it.</li>
+    </ol>
+
+    <div class="note"><strong>Before they leave.</strong> Every team's planner needs a complete sample space and a full set of probabilities. Collect them, check them tonight, and hand them back at the start of Lesson 8 — students need them for Part A.</div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <p class="timing">Review · 4 minutes</p>
+    <h2>Exit ticket</h2>
+    <div class="note"><strong>Another team designed this game. A bag holds 10 counters. Nine are blue and ONE is gold. The buddy draws one counter. Gold wins a prize.</strong></div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>What is the probability of winning? Write it as a fraction, a decimal and a percentage.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>If 60 Preps each play once, how many would you expect to win? Show your working.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>Is this a good game for Prep buddies? Use the brief AND your numbers to explain.</p></div>
+
+    <div class="teach"><strong>Why someone else's game.</strong> Students spent the lesson inside their own design and cannot see it clearly. Judging a stranger's game is both a fairer check and the exact skill item A7 asks for.
+      <br><br><strong>Answers.</strong>
+      <br><strong>1.</strong> 1/10 = 0.1 = 10%.
+      <br><strong>2.</strong> 6. Method 1: 60 ÷ 10 = 6, then × 1 = 6. Method 2: 0.1 × 60 = 6.
+      <br><strong>3.</strong> There is no single right answer, and the reasoning is the whole item. A strong response connects the number to the brief: <em>"Only about 6 out of 60 buddies would win, so 54 would go away with nothing. It passes rules 1 to 5 but it is not kind."</em> A response that says "yes because it is fair" has not used the numbers. A response that says "no, 10% is too low" without saying what that means for 60 children has used the numbers but not the brief.
+      <br><br><strong>The discriminator is question 3</strong>, and it is the closest thing in the unit to item A7. Students who translate 10% into "54 children win nothing" are reasoning at the A standard.
+      <br><br><strong>Support version.</strong> Two gold counters in ten, so 2/10 = 1/5 = 0.2 = 20%, and 12 of the 60 would win. The judgement is the same and the arithmetic is easier.</div>
+  </div>
+
+  <div class="card">
+    <h2>Think back</h2>
+    <div class="goal">
+      <h3>Your goal</h3>
+      <p style="margin:0 0 8px">Go back to the Intentions tab and read the goal you set. Did you meet it?</p>
+      <label for="r1" class="hint">1. Which strategy did you use most today, and did it work?</label>
+      <textarea id="r1" placeholder="The strategy I used most was&hellip;"></textarea>
+      <label for="r2" class="hint" style="display:block;margin-top:10px">2. What would you do differently next time?</label>
+      <textarea id="r2" placeholder="Next time I would&hellip;"></textarea>
+      <label for="r3" class="hint" style="display:block;margin-top:10px">3. Did you meet the goal you set at the start? How do you know?</label>
+      <textarea id="r3" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+    <p class="hint">Nothing you type here is saved. Copy it into your book before you close the page.</p>
+  </div>
+</section>
+
+<!-- ============ RESOURCES ============ -->
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need</h2>
+    <h3>Print</h3>
+    <ul class="checklist">
+      <li><strong><a class="res" href="resources/l7-03-design-brief.pdf">resources/l7-03-design-brief.pdf</a></strong> — one per team, kept on the desk all lesson. Also A3 for the display board.</li>
+      <li><strong><a class="res" href="resources/l7-01-planner-core.pdf">resources/l7-01-planner-core.pdf</a></strong> — 4 pages, one per student</li>
+      <li><strong><a class="res" href="resources/l7-02-planner-support.pdf">resources/l7-02-planner-support.pdf</a></strong> — 4 pages, three starter structures supplied</li>
+      <li><strong><a class="res" href="../../shared/critique-protocol-cards.pdf">shared/critique-protocol-cards.pdf</a></strong> — one per team, both sides</li>
+      <li><strong><a class="res" href="../../shared/conversion-mat.pdf">shared/conversion-mat.pdf</a></strong></li>
+    </ul>
+    <h3>Equipment</h3>
+    <ul class="checklist">
+      <li>Game-making materials: card, counters, paperclips, spinner blanks from Lesson 2, dice, small containers</li>
+      <li>Devices with the Chance Simulator for the simulation step</li>
+      <li>Coloured stickers if you are running the gallery-walk version of the critique</li>
+    </ul>
+    <div class="note good"><strong>Reuse the Lesson 2 spinner blanks.</strong> They are already cut, already divided into equal sections, and students already know how they behave. A team that picks a spinner structure can be designing within a minute.</div>
+  </div>
+
+  <div class="card">
+    <h2>Lesson-specific adjustments</h2>
+    <p class="hint">Standing adjustments are on the linked Personalised Adjustments document and are not repeated here.</p>
+    <ul>
+      <li><strong>Three starter game structures supplied</strong> for teams who would spend the lesson choosing. Adapting a structure still meets every success criterion.</li>
+      <li><strong>Teams assigned by the teacher</strong> with roles named and displayed before work starts. Do not let teams self-select today — the composition carries into the assessment.</li>
+      <li><strong>Sample space table pre-drawn</strong> with the right number of rows for the chosen starter structure.</li>
+      <li><strong>Prep teacher consulted beforehand</strong> to confirm individual buddy needs — mobility, sensory, anything that would rule out a game type. Do this before the lesson, not after teams have designed.</li>
+      <li><strong>Critique receiving is scaffolded.</strong> For students who find critique hard to hear, the protocol card's fixed shape helps: two strengths always come first, and the suggestion is always phrased as a question.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Misconceptions to expect today</h2>
+    <details class="explain">
+      <summary>Designing a skill game</summary>
+      <div class="body"><p>Throwing, aiming, racing. The most common failure, and it kills the mathematics because there is no sample space.</p>
+      <p><strong>Response.</strong> "List every possible outcome for me." When they cannot, the problem is visible without you naming it. Then offer a starter structure.</p></div>
+    </details>
+    <details class="explain">
+      <summary>"Everyone should win"</summary>
+      <div class="body"><p>Kind instinct, broken game. If every outcome wins, the result does not depend on chance and rule 4 fails.</p>
+      <p><strong>Response.</strong> Separate winning from receiving. Everyone gets something; chance decides which something. The game stays kind and stays a chance game.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Probabilities that do not total 1</summary>
+      <div class="body"><p>Usually a missing outcome — the "nothing happens" case, or a section of the spinner nobody counted.</p>
+      <p><strong>Response.</strong> Add them up in front of the team. The gap tells you what is missing and how big it is.</p></div>
+    </details>
+    <details class="explain">
+      <summary>A win probability so low the game is miserable</summary>
+      <div class="body"><p>A 1-in-20 chance is mathematically correct and no fun for a five-year-old. Students often do not connect the fraction to the experience.</p>
+      <p><strong>Response.</strong> "Sixty Preps will play. How many go home with nothing?" The number does the work.</p></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>What comes next</h2>
+    <p><strong>Lesson 8 — Assessment, Part A.</strong> Individual, supervised. Students work from the game their team designed today: sample space, probabilities three ways, simulation at 20, 200 and 2000 trials, expected against observed, and a fairness judgement.</p>
+    <div class="teach"><strong>Before Lesson 8.</strong>
+      <ul style="margin:6px 0 0">
+        <li>Check every planner tonight. A team with an incomplete sample space cannot sit Part A — fix it before the lesson, not during it.</li>
+        <li>Confirm PLP additional-time arrangements and any adjusted criteria with the Support Teacher: Inclusive Education.</li>
+        <li>Test the simulator once more on the devices being used.</li>
+        <li>Hand the planners back at the start of Lesson 8. Students need them.</li>
+      </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chance Simulator — Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --rule:#D6DEE9;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.5;font-size:17px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 64px}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:26px 0 20px}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em}
+.hero p.sub{margin:0;color:#D8E2F0;font-size:16px;max-width:62ch}
+
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-top:20px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;
+  font-family:inherit;font-size:15px;font-weight:700;padding:11px 18px;
+  border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.count-badge{display:inline-block;background:var(--gold);color:#fff;font-size:12px;
+  font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px}
+.tab[aria-selected="true"] .count-badge{background:var(--navy);color:#fff}
+
+.toggle{display:flex;align-items:center;gap:9px;margin-top:14px}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;
+  border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+
+/* panels */
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:21px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.step{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px;margin:0 0 14px}
+
+/* device picker */
+.devices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.device{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+  font-family:inherit;font-weight:800;font-size:15px;padding:14px 8px;border-radius:10px;
+  cursor:pointer;min-height:96px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.device svg{width:38px;height:38px}
+.device:hover{background:var(--navy-soft)}
+.device[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy);
+  box-shadow:0 0 0 3px var(--navy-soft)}
+.device[aria-pressed="true"] svg{filter:brightness(0) invert(1)}
+.device:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* picture + controls */
+.split{display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start;margin-top:18px}
+.picture{background:var(--wash);border:1px solid var(--rule);border-radius:10px;padding:14px;text-align:center}
+.picture svg{width:100%;height:auto;max-width:250px}
+.picture .cap{font-size:14px;color:var(--muted);margin:10px 0 0;font-weight:700}
+
+.grouprow{display:grid;grid-template-columns:26px 1fr 92px 42px;gap:8px;align-items:center;margin-bottom:8px}
+.swatch{width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,0,0,.18)}
+input[type=text],input[type=number],select{font-family:inherit;font-size:16px;padding:9px 10px;
+  border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);width:100%;min-height:42px}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.mini{appearance:none;border:1px solid var(--navy-line);background:#fff;color:var(--navy);
+  font-family:inherit;font-weight:800;font-size:18px;border-radius:7px;cursor:pointer;width:42px;height:42px;line-height:1}
+.mini:hover{background:var(--navy-soft)}
+.lbl{display:block;font-size:13px;font-weight:800;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+
+.btn{appearance:none;border:0;background:var(--navy);color:#fff;font-family:inherit;
+  font-weight:800;font-size:16px;padding:13px 20px;border-radius:8px;cursor:pointer;min-height:46px}
+.btn:hover{background:var(--navy-mid)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--navy-line)}
+.btn.ghost:hover{background:var(--navy-soft)}
+.btn.gold{background:var(--gold)}
+.btn.gold:hover{background:#9C6518}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+
+.scale{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+  font-family:inherit;font-weight:800;font-size:16px;padding:12px 18px;border-radius:8px;cursor:pointer;min-height:46px}
+.scale:hover{background:var(--navy-soft)}
+.scale[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.scales{display:flex;gap:8px;flex-wrap:wrap}
+.predict-grid{display:grid;grid-template-columns:1fr 120px;gap:10px 14px;align-items:center;max-width:520px}
+.predict-grid .who{font-weight:700;display:flex;align-items:center}
+.predict-grid .out{font-size:14px;color:var(--muted);font-weight:700;text-align:center}
+.locked-note{font-weight:800;color:var(--green)}
+.qmark{color:var(--gold);font-weight:800}
+
+/* fair / weighted switch */
+.switch{display:flex;gap:0;border:2px solid var(--navy-line);border-radius:9px;overflow:hidden;width:fit-content}
+.switch button{appearance:none;border:0;background:#fff;color:var(--navy);font-family:inherit;
+  font-weight:800;font-size:15px;padding:12px 22px;cursor:pointer;min-height:46px}
+.switch button[aria-pressed="true"]{background:var(--navy);color:#fff}
+
+/* explainers */
+details.explain{border:1.5px solid var(--gold);border-radius:9px;background:var(--gold-soft);
+  margin:14px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--gold);padding:12px 14px;
+  list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'?';display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;background:var(--gold);color:#fff;font-size:14px;flex:none}
+details.explain[open] summary::before{content:'\2715'}
+details.explain .body{padding:0 14px 14px;font-size:15px;color:var(--ink)}
+details.explain .body p{margin:0 0 9px}
+details.explain .body p:last-child{margin-bottom:0}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+caption{text-align:left;font-weight:800;color:var(--navy);padding-bottom:6px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 9px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+.diff-pos{color:#C0504D;font-weight:700}
+.diff-neg{color:var(--navy);font-weight:700}
+.tag{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:7px;border:1px solid rgba(0,0,0,.18)}
+.scroll{overflow-x:auto}
+
+.chartbox{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:10px;margin-top:14px}
+canvas{width:100%;height:auto;display:block}
+
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 14px;
+  border-radius:0 8px 8px 0;margin:14px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:#C0504D;background:#FBE9E7}
+.warn strong{color:#C0504D}
+
+.teach{display:none;border-left:4px solid var(--navy);background:var(--navy-soft);
+  padding:12px 14px;border-radius:0 8px 8px 0;margin:14px 0;font-size:15px}
+body.teacher .teach{display:block}
+
+.dice-panel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.die{border:2px solid var(--navy-line);border-radius:10px;padding:16px;background:#fff;text-align:center}
+.die h3{margin:0 0 8px;font-size:22px}
+.big{font-size:34px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.reveal{display:none}
+body.revealed .reveal{display:block}
+body.revealed .hide-on-reveal{display:none}
+
+@media (max-width:760px){
+  .split{grid-template-columns:1fr}
+  .devices{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:26px}
+  .dice-panel{grid-template-columns:1fr}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.hero p.sub,.eyebrow{color:#333}
+  .tabs,.toggle,.btnrow,.devices,.scales,.mini,.no-print,details.explain{display:none!important}
+  .panel{display:none!important}.panel.on{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lessons 5, 6, 7</p>
+    <h1>Chance Simulator</h1>
+    <p class="sub">Pick a chance device, run it hundreds or thousands of times, and compare what you expected with what actually happened.</p>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Simulator sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Set up &amp; run</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Mystery dice</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">My results<span class="count-badge" id="runBadge" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ PANEL 1 ============ -->
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+
+  <div class="card">
+    <p class="step">Step 1</p>
+    <h2>Choose your chance device</h2>
+    <p class="hint">Pick the one that matches the game you are testing.</p>
+    <div class="devices no-print" role="group" aria-label="Chance device">
+      <button class="device" data-dev="spinner" aria-pressed="true">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M20 5 A15 15 0 0 1 35 20 L20 20 Z" fill="currentColor"/><circle cx="20" cy="20" r="2.5" fill="currentColor"/></svg>
+        Spinner</button>
+      <button class="device" data-dev="bag" aria-pressed="false">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 13 h16 l3 20 a2 2 0 0 1 -2 2 h-18 a2 2 0 0 1 -2 -2 Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 13 v-3 a4 4 0 0 1 8 0 v3" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="17" cy="25" r="3" fill="currentColor"/><circle cx="24" cy="28" r="3" fill="currentColor"/></svg>
+        Counters<br>in a bag</button>
+      <button class="device" data-dev="dice" aria-pressed="false">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="8" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="15" cy="15" r="2.4" fill="currentColor"/><circle cx="25" cy="25" r="2.4" fill="currentColor"/><circle cx="20" cy="20" r="2.4" fill="currentColor"/></svg>
+        Dice</button>
+      <button class="device" data-dev="coin" aria-pressed="false">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="20" y="26" text-anchor="middle" font-size="15" font-weight="800" fill="currentColor" font-family="Nunito,sans-serif">H</text></svg>
+        Coin</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="step">Step 2</p>
+    <h2 id="setupTitle">Set up your spinner</h2>
+    <p class="hint" id="setupHint"></p>
+
+    <div class="split">
+      <div>
+        <div class="picture">
+          <div id="pictureBox" role="img" aria-label="Picture of the chance device"></div>
+          <p class="cap" id="pictureCap"></p>
+        </div>
+      </div>
+
+      <div>
+        <!-- groups editor: spinner + bag -->
+        <div id="groupEditor">
+          <div class="grouprow no-print" aria-hidden="true" style="margin-bottom:4px">
+            <span></span><span class="lbl" style="margin:0">Colour name</span>
+            <span class="lbl" style="margin:0" id="countLabel">Sections</span><span></span>
+          </div>
+          <div id="groups"></div>
+          <div class="btnrow no-print">
+            <button class="btn ghost" id="addGroup">+ Add a colour</button>
+            <span class="hint" style="margin:0" id="totalMsg"></span>
+          </div>
+        </div>
+
+        <!-- dice editor -->
+        <div id="diceEditor" hidden>
+          <span class="lbl">Is this die fair?</span>
+          <div class="switch no-print" role="group" aria-label="Fair or weighted die">
+            <button id="dFair" aria-pressed="true">Fair die</button>
+            <button id="dWeight" aria-pressed="false">Weighted die</button>
+          </div>
+          <div id="diceOpts" hidden style="margin-top:14px">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:end">
+              <div style="min-width:140px"><span class="lbl">Which face is favoured?</span>
+                <select id="dFace"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option></select></div>
+              <div style="min-width:180px"><span class="lbl">How much more likely?</span>
+                <select id="dMult"><option value="2">2 times as likely</option><option value="3" selected>3 times as likely</option><option value="5">5 times as likely</option></select></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- coin editor -->
+        <div id="coinEditor" hidden>
+          <span class="lbl">Is this coin fair?</span>
+          <div class="switch no-print" role="group" aria-label="Fair or bent coin">
+            <button id="cFair" aria-pressed="true">Fair coin</button>
+            <button id="cWeight" aria-pressed="false">Bent coin</button>
+          </div>
+          <div id="coinOpts" hidden style="margin-top:14px">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:end">
+              <div style="min-width:140px"><span class="lbl">Which side is favoured?</span>
+                <select id="cSide"><option selected>Heads</option><option>Tails</option></select></div>
+              <div style="min-width:180px"><span class="lbl">How much more likely?</span>
+                <select id="cMult"><option value="2">2 times as likely</option><option value="3" selected>3 times as likely</option><option value="5">5 times as likely</option></select></div>
+            </div>
+          </div>
+        </div>
+
+        <details class="explain" id="weightedExplain" hidden>
+          <summary>What does "weighted" mean?</summary>
+          <div class="body">
+            <p><strong>Weighted</strong> means the device has been secretly changed so that one outcome happens more often than the others. A weighted die might have a small piece of metal hidden inside it. It still has six faces, and every face is still possible — but the faces are no longer <em>equally likely</em>.</p>
+            <p>A <strong>fair</strong> die: every face has a probability of 1/6.</p>
+            <p>A die <strong>weighted so that 6 is three times as likely</strong>: think of it as a bag holding 8 tickets — three tickets say "6", and one ticket each says 1, 2, 3, 4 and 5. So the 6 has a probability of 3/8, and every other face has 1/8.</p>
+            <p>Check it: 3/8 + 1/8 + 1/8 + 1/8 + 1/8 + 1/8 = 8/8 = 1. All the probabilities still add to 1, exactly as they must.</p>
+          </div>
+        </details>
+
+        <div id="deviceWarn"></div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:22px;font-size:17px">Your sample space</h2>
+    <div class="scroll">
+      <table id="sampleTable">
+        <caption>Every outcome, with its probability written three ways</caption>
+        <thead><tr>
+          <th scope="col">Outcome</th>
+          <th scope="col" class="num" id="thCount">Sections</th>
+          <th scope="col" class="num">Fraction</th>
+          <th scope="col" class="num">Decimal</th>
+          <th scope="col" class="num">Percentage</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="hint" id="mathsHint" style="margin:8px 0 0"></p>
+    <div class="teach"><strong>Teacher note.</strong> The three representations regenerate live, so changing one section of the spinner changes all three at once. That is the Lesson 2 point made visible. Ask what stays the same when the fraction is left unsimplified.</div>
+  </div>
+
+  <div class="card">
+    <p class="step">Step 3</p>
+    <h2>Choose how many trials</h2>
+    <p class="hint">A trial is one spin, one draw, one roll or one toss.</p>
+    <div class="scales no-print" role="group" aria-label="Number of trials">
+      <button class="scale" data-n="20" aria-pressed="true">20</button>
+      <button class="scale" data-n="200" aria-pressed="false">200</button>
+      <button class="scale" data-n="2000" aria-pressed="false">2000</button>
+      <button class="scale" data-n="20000" aria-pressed="false">20 000</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="step">Step 4</p>
+    <h2>Predict what will happen, then run it</h2>
+    <p class="hint" id="predictHint">Work out each probability yourself, then write how many times you think each outcome will come up.</p>
+
+    <div class="toggle no-print" style="margin:0 0 14px">
+      <div class="switch" role="group" aria-label="Predict before running">
+        <button id="predOn" aria-pressed="true">Predict first</button>
+        <button id="predOff" aria-pressed="false">Skip predicting</button>
+      </div>
+    </div>
+
+    <div id="predictBox">
+      <div class="predict-grid" id="predictGrid"></div>
+      <div class="btnrow no-print">
+        <button class="btn gold" id="lockBtn">Lock in my prediction and show the maths</button>
+        <button class="btn ghost" id="unlockBtn" hidden>Change my prediction</button>
+      </div>
+      <div id="predictCompare"></div>
+
+      <details class="explain">
+        <summary>Show me how to work this out</summary>
+        <div class="body">
+          <p>There are two ways to do it. They always give the same answer, so use whichever one you find easier.</p>
+          <p><strong>Method 1 — divide, then multiply.</strong><br>
+          A spinner has 5 equal sections and 2 of them are red, so red is <strong>2 out of 5</strong>.<br>
+          Divide the number of trials by 5, then multiply by 2.<br>
+          For 200 spins: 200 &divide; 5 = 40, then 40 &times; 2 = <strong>80</strong>.</p>
+          <p><strong>Method 2 — turn it into a decimal first.</strong><br>
+          2 out of 5 means 2 &divide; 5 = 0.4.<br>
+          Then multiply by the number of trials: 0.4 &times; 200 = <strong>80</strong>. The same answer.</p>
+          <p>Use a calculator for the dividing if you need one. The thinking is in choosing the steps, not in the arithmetic.</p>
+          <p class="locked-note">Now try it on your own set-up:</p>
+          <div id="predictScaffold"></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="btnrow no-print">
+      <button class="btn" id="runBtn">Run the simulation</button>
+      <button class="btn gold" id="runAllBtn">Run 20, 200 and 2000</button>
+      <button class="btn ghost" id="clearBtn">Clear the results below</button>
+    </div>
+    <p class="hint" id="runBlockMsg" style="margin:8px 0 0" role="status"></p>
+
+    <div class="teach"><strong>Teacher note.</strong> "Show me how to work this out" gives both methods &mdash; divide-then-multiply, and convert-to-decimal-then-multiply &mdash; then rebuilds the calculation live from the student's own set-up with the answers left blank. A student can copy the structure without being handed the number. Calculators are explicitly permitted for the division, so arithmetic does not become the barrier to the probability thinking.<br><br>With "Predict first" on, the fraction, decimal and percentage columns in the sample space are replaced by question marks until a prediction is locked in. Students have to derive the probability from the picture rather than read it off the screen — this is the estimation clause of AC9M6P01 doing real work. Turn it off only for demonstrations. "Run 20, 200 and 2000" produces exactly what assessment item A5 asks for and adds all three runs to My results.</div>
+  </div>
+
+  <div class="card" id="resultsCard">
+    <h2>What happened</h2>
+    <p class="hint" id="resultsHint">Run the simulation to see your results.</p>
+    <div aria-live="polite" id="live" class="scroll"></div>
+
+    <details class="explain">
+      <summary>What do "expected" and "observed" mean?</summary>
+      <div class="body">
+        <p><strong>Expected</strong> is what the maths says should happen. If an outcome has a probability of 1/4 and you run 200 trials, you expect 1/4 of 200, which is 50.</p>
+        <p><strong>Observed</strong> is what actually happened when you ran it. It is almost never exactly the same as the expected number, and that is completely normal.</p>
+        <p><strong>Relative frequency</strong> is the observed count divided by the number of trials. It turns your result into a number you can compare with the probability directly.</p>
+      </div>
+    </details>
+
+    <div class="chartbox" id="chartWrap" hidden>
+      <div class="switch no-print" role="group" aria-label="Type of graph" style="margin-bottom:12px">
+        <button id="chartBars" aria-pressed="true">Expected vs observed</button>
+        <button id="chartSettle" aria-pressed="false">How results settle</button>
+      </div>
+      <canvas id="chart" width="1000" height="420" role="img" aria-label="Graph of the simulation results"></canvas>
+      <p class="hint" style="margin:8px 0 0" id="chartCap"></p>
+      <p class="hint" style="margin:6px 0 0" id="settleBlock" role="status"></p>
+    </div>
+    <div class="teach"><strong>Teacher note.</strong> The bar graph is the default because it shows the comparison the achievement standard actually asks for: observed frequency against expected frequency. Read it left to right, one outcome at a time — hollow bar is what the maths predicted, solid bar is what happened.<br><br>"How results settle" is the second view and it is optional. It needs teacher framing before students see it: the horizontal axis is stretched so each step is ten times the last, which no Year 6 student will infer unaided. It only becomes available at 200 trials or more, and it starts at trial 10 rather than trial 1, because the first few trials swing between 0% and 100% and that wobble misleads more than it teaches. Use it in Lesson 5 as a whole-class demonstration on the board, not as something students interpret alone.</div>
+  </div>
+</section>
+
+<!-- ============ PANEL 2 ============ -->
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>Mystery dice</h2>
+    <p class="hint">One of these two dice is fair. The other is weighted. Nothing on this screen tells you which one — you have to work it out from the evidence.</p>
+
+    <details class="explain">
+      <summary>What does "weighted" mean?</summary>
+      <div class="body">
+        <p><strong>Weighted</strong> means the die has been secretly changed so one face comes up more often than the others. It still has six faces and every face is still possible — they are just no longer equally likely.</p>
+        <p>On a fair die, every face has a probability of 1/6, which is about 17%. On this weighted die, one face is three times as likely as the others, so that face has a probability of 3/8, which is about 38%.</p>
+        <p>The catch: with only a few rolls, a fair die can easily look weighted, and a weighted die can easily look fair. That is what you are up against.</p>
+      </div>
+    </details>
+
+    <div class="btnrow no-print">
+      <span class="lbl" style="margin:0;align-self:center">Rolls each time</span>
+      <button class="scale" data-m="20" aria-pressed="true">20</button>
+      <button class="scale" data-m="200" aria-pressed="false">200</button>
+      <button class="scale" data-m="2000" aria-pressed="false">2000</button>
+      <button class="btn" id="rollBtn">Roll both dice</button>
+      <button class="btn ghost" id="newBtn">New mystery pair</button>
+    </div>
+
+    <div class="dice-panel" aria-live="polite">
+      <div class="die"><h3>Die A</h3>
+        <div class="big" id="totalA">—</div>
+        <p class="hint" style="margin:2px 0 10px">rolls so far</p>
+        <div class="scroll"><table id="tableA"><thead><tr>
+          <th scope="col">Face</th><th scope="col" class="num">Count</th><th scope="col" class="num">Relative freq.</th>
+        </tr></thead><tbody></tbody></table></div></div>
+      <div class="die"><h3>Die B</h3>
+        <div class="big" id="totalB">—</div>
+        <p class="hint" style="margin:2px 0 10px">rolls so far</p>
+        <div class="scroll"><table id="tableB"><thead><tr>
+          <th scope="col">Face</th><th scope="col" class="num">Count</th><th scope="col" class="num">Relative freq.</th>
+        </tr></thead><tbody></tbody></table></div></div>
+    </div>
+
+    <div class="note hide-on-reveal"><strong>Before you look.</strong>
+      Write down three things: which die you think is weighted, how many rolls you needed before you were sure, and what result would have changed your mind.</div>
+
+    <div class="btnrow no-print hide-on-reveal">
+      <button class="btn gold" id="revealBtn">Reveal the answer</button>
+    </div>
+
+    <div class="reveal">
+      <div class="note good"><strong>The answer.</strong> <span id="answerText"></span></div>
+      <div class="btnrow no-print"><button class="btn ghost" id="againBtn">Try a new pair</button></div>
+    </div>
+
+    <div class="teach"><strong>Teacher note.</strong> The weighted face is chosen at random, and which die carries it is decided fresh each time, so an answer cannot travel between groups or between your two classes. At 20 rolls, about three quarters of groups get it right, one in eight gets it wrong, and one in eight cannot separate the two dice at all — so expect roughly a quarter of the room to be wrong or stuck. At 60 rolls that rises to 97% correct. That is the lesson. Do not let anyone reveal until every group has committed a written answer including the trial count they would need to be sure.</div>
+  </div>
+</section>
+
+<!-- ============ PANEL 3 ============ -->
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>My results</h2>
+    <p class="hint">Every simulation you run is saved here automatically, newest at the bottom, so you can compare a 20-trial run with a 2000-trial run side by side. Print this page or copy it into Excel for your assessment.</p>
+    <div class="note"><strong>Nothing is saved when you close this page.</strong> Copy or print your results before you finish, or they are gone.</div>
+    <div class="btnrow no-print">
+      <button class="btn ghost" id="copyBtn">Copy for Excel</button>
+      <button class="btn ghost" id="printBtn">Print this record</button>
+      <button class="btn ghost" id="wipeBtn">Clear all my results</button>
+    </div>
+    <p class="hint" id="copyMsg" role="status" style="min-height:20px"></p>
+    <div class="scroll">
+      <table id="record">
+        <caption>Every run, in the order you ran them</caption>
+        <thead><tr>
+          <th scope="col" class="num">Run</th><th scope="col">Device</th>
+          <th scope="col" class="num">Trials</th><th scope="col">Outcome</th>
+          <th scope="col" class="num">Probability</th><th scope="col" class="num">You predicted</th>
+          <th scope="col" class="num">Expected</th>
+          <th scope="col" class="num">Observed</th><th scope="col" class="num">Difference</th>
+          <th scope="col" class="num">Relative freq.</th>
+        </tr></thead>
+        <tbody><tr><td colspan="10" style="color:var(--muted)">You have not run a simulation yet. Go to "Set up &amp; run".</td></tr></tbody>
+      </table>
+    </div>
+    <div class="note"><strong>Reading the last two columns.</strong>
+      Difference is observed minus expected — positive means more than you expected, negative means fewer. Relative frequency is observed divided by trials. Watch how these two behave differently as the trial count goes up. They do not do the same thing.</div>
+    <div class="teach"><strong>Teacher note.</strong> Those two columns are the crux, and students routinely conflate them. The raw difference usually <em>grows</em> as trials increase; the relative frequency <em>settles</em>. A student who writes "the difference gets smaller" without naming which difference has not yet understood item A6. Press them to name the column.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+var COLOURS=['#1F3864','#C0504D','#4F8A3D','#B7791F','#6B4C9A','#2E8B94'];
+var MAXSPIN=12, MAXBAG=24;
+
+var state={
+  device:'spinner',
+  spinner:[{name:'Red',count:3,colour:COLOURS[1]},{name:'Blue',count:5,colour:COLOURS[0]}],
+  bag:[{name:'Red',count:2,colour:COLOURS[1]},{name:'Blue',count:1,colour:COLOURS[0]},{name:'Green',count:1,colour:COLOURS[2]}],
+  dice:{fair:true,face:6,mult:3},
+  coin:{fair:true,side:'Heads',mult:3},
+  trials:20, runNo:0, record:[],
+  predictOn:true, locked:false, predictions:{}, chartType:'bars', lastRes:null
+};
+
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function gcd(a,b){while(b){var t=b;b=a%b;a=t;}return a;}
+function asFraction(n,d){
+  if(!d) return '—';
+  var g=gcd(n,d)||1, sn=n/g, sd=d/g;
+  if(n===d) return n+'/'+d+' = 1';
+  return n+'/'+d+(g>1?' = '+sn+'/'+sd:'');
+}
+function dec(x){if(!isFinite(x))return '—';
+  return (x.toFixed(4)).replace(/0+$/,'').replace(/\.$/,'')||'0';}
+function pct(x){return isFinite(x)?(Math.round(x*10000)/100)+'%':'—';}
+function commas(n){return n.toLocaleString('en-AU');}
+
+/* ---- unified outcome model ---- */
+function outcomes(){
+  var d=state.device;
+  if(d==='spinner'||d==='bag'){
+    return state[d].filter(function(g){return g.count>0;})
+      .map(function(g){return {name:g.name,weight:g.count,colour:g.colour};});
+  }
+  if(d==='dice'){
+    var m=state.dice.fair?1:state.dice.mult;
+    var out=[];
+    for(var f=1;f<=6;f++){
+      out.push({name:'Face '+f, weight:(!state.dice.fair&&f===state.dice.face)?m:1,
+                colour:COLOURS[(f-1)%COLOURS.length]});
+    }
+    return out;
+  }
+  var c=state.coin, mm=c.fair?1:c.mult;
+  return [
+    {name:'Heads',weight:(!c.fair&&c.side==='Heads')?mm:1,colour:COLOURS[0]},
+    {name:'Tails',weight:(!c.fair&&c.side==='Tails')?mm:1,colour:COLOURS[3]}
+  ];
+}
+function totalWeight(){return outcomes().reduce(function(s,o){return s+o.weight;},0);}
+function deviceName(){
+  return {spinner:'Spinner',bag:'Counters in a bag',
+    dice:state.dice.fair?'Fair die':'Weighted die',
+    coin:state.coin.fair?'Fair coin':'Bent coin'}[state.device];
+}
+function unitNoun(){return {spinner:'Sections',bag:'Counters',dice:'Chances',coin:'Chances'}[state.device];}
+
+/* ---- pictures ---- */
+function drawPicture(){
+  var box=$('pictureBox'), cap=$('pictureCap'), d=state.device, svg='';
+  if(d==='spinner'){
+    var gs=state.spinner.filter(function(g){return g.count>0;});
+    var tot=gs.reduce(function(s,g){return s+g.count;},0);
+    if(!tot){ box.innerHTML='<p class="hint">Give at least one colour a section.</p>'; cap.textContent=''; return; }
+    var a=-90, per=360/tot, parts='';
+    gs.forEach(function(g){
+      for(var i=0;i<g.count;i++){
+        parts+=arc(100,100,86,a,a+per,g.colour); a+=per;
+      }
+    });
+    svg='<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">'+parts+
+      '<circle cx="100" cy="100" r="86" fill="none" stroke="#16202F" stroke-width="2.5"/>'+
+      '<circle cx="100" cy="100" r="7" fill="#16202F"/>'+
+      '<path d="M100 100 L100 26" stroke="#16202F" stroke-width="4" stroke-linecap="round"/>'+
+      '<path d="M100 20 l7 12 h-14 Z" fill="#16202F"/></svg>';
+    cap.textContent=tot+' equal sections';
+  }
+  else if(d==='bag'){
+    var gb=state.bag.filter(function(g){return g.count>0;});
+    var totb=gb.reduce(function(s,g){return s+g.count;},0);
+    if(!totb){ box.innerHTML='<p class="hint">Put at least one counter in the bag.</p>'; cap.textContent=''; return; }
+    // fit the counters inside the bag: interior box is x 50..150, y 80..184
+    var IX=50, IY=80, IW=100, IH=104;
+    var perRow=Math.min(6,Math.max(1,Math.ceil(Math.sqrt(totb*(IW/IH)))));
+    var rows=Math.ceil(totb/perRow);
+    var cell=Math.min(IW/perRow, IH/rows);
+    var r=Math.max(3.5, cell*0.40);
+    var gridW=perRow*cell, gridH=rows*cell;
+    var x0=IX+(IW-gridW)/2+cell/2, y0=IY+(IH-gridH)/2+cell/2;
+    var dots='',n=0;
+    gb.forEach(function(g){
+      for(var i=0;i<g.count;i++){
+        var col=n%perRow, row=Math.floor(n/perRow);
+        var inRow=Math.min(perRow, totb-row*perRow);
+        var indent=(perRow-inRow)*cell/2;
+        dots+='<circle cx="'+(x0+col*cell+indent).toFixed(1)+'" cy="'+(y0+row*cell).toFixed(1)+
+          '" r="'+r.toFixed(1)+'" fill="'+g.colour+'" stroke="#16202F" stroke-width="1.3"/>';
+        n++;
+      }
+    });
+    svg='<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">'+
+      '<path d="M40 60 h120 l14 128 a10 10 0 0 1 -10 11 h-128 a10 10 0 0 1 -10 -11 Z" fill="#FBFCFE" stroke="#16202F" stroke-width="3"/>'+
+      '<path d="M72 60 v-16 a28 28 0 0 1 56 0 v16" fill="none" stroke="#16202F" stroke-width="3"/>'+
+      dots+'</svg>';
+    cap.textContent=totb+' counters in the bag';
+  }
+  else if(d==='dice'){
+    var faces='';
+    for(var f=1;f<=6;f++){
+      var col=(f-1)%3, row=Math.floor((f-1)/3);
+      var x=14+col*62, y=40+row*62, hot=(!state.dice.fair&&f===state.dice.face);
+      faces+='<g><rect x="'+x+'" y="'+y+'" width="52" height="52" rx="10" fill="'+(hot?'#FDF2E0':'#FFFFFF')+
+        '" stroke="'+(hot?'#B7791F':'#16202F')+'" stroke-width="'+(hot?4:2.2)+'"/>'+pips(f,x,y)+'</g>';
+      if(hot) faces+='<text x="'+(x+26)+'" y="'+(y+50)+'" text-anchor="middle" font-size="11" font-weight="800" fill="#B7791F" font-family="Nunito,sans-serif">×'+state.dice.mult+'</text>';
+    }
+    svg='<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">'+faces+'</svg>';
+    cap.textContent=state.dice.fair?'A fair die — six equally likely faces'
+      :'Face '+state.dice.face+' is '+state.dice.mult+' times as likely as any other';
+  }
+  else {
+    var c=state.coin, favH=(!c.fair&&c.side==='Heads'), favT=(!c.fair&&c.side==='Tails');
+    svg='<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">'+
+      coin(58,86,favH,'H')+coin(142,86,favT,'T')+
+      '<text x="58" y="168" text-anchor="middle" font-size="15" font-weight="700" fill="#16202F" font-family="Nunito,sans-serif">Heads</text>'+
+      '<text x="142" y="168" text-anchor="middle" font-size="15" font-weight="700" fill="#16202F" font-family="Nunito,sans-serif">Tails</text></svg>';
+    cap.textContent=c.fair?'A fair coin — both sides equally likely'
+      :c.side+' is '+c.mult+' times as likely as the other side';
+  }
+  if(svg) box.innerHTML=svg;
+}
+function coin(cx,cy,hot,ch){
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="42" fill="'+(hot?'#FDF2E0':'#FFFFFF')+
+    '" stroke="'+(hot?'#B7791F':'#16202F')+'" stroke-width="'+(hot?4:2.5)+'"/>'+
+    '<circle cx="'+cx+'" cy="'+cy+'" r="33" fill="none" stroke="'+(hot?'#B7791F':'#16202F')+'" stroke-width="1.4"/>'+
+    '<text x="'+cx+'" y="'+(cy+13)+'" text-anchor="middle" font-size="34" font-weight="800" fill="'+
+    (hot?'#B7791F':'#1F3864')+'" font-family="Nunito,sans-serif">'+ch+'</text>';
+}
+function pips(f,x,y){
+  var P={1:[[26,26]],2:[[15,15],[37,37]],3:[[15,15],[26,26],[37,37]],
+    4:[[15,15],[37,15],[15,37],[37,37]],5:[[15,15],[37,15],[26,26],[15,37],[37,37]],
+    6:[[15,14],[37,14],[15,26],[37,26],[15,38],[37,38]]};
+  return P[f].map(function(p){
+    return '<circle cx="'+(x+p[0])+'" cy="'+(y+p[1])+'" r="4.2" fill="#16202F"/>';}).join('');
+}
+function arc(cx,cy,r,a1,a2,fill){
+  var t1=a1*Math.PI/180, t2=a2*Math.PI/180;
+  var x1=cx+r*Math.cos(t1), y1=cy+r*Math.sin(t1);
+  var x2=cx+r*Math.cos(t2), y2=cy+r*Math.sin(t2);
+  var big=(a2-a1)>180?1:0;
+  return '<path d="M'+cx+' '+cy+' L'+x1.toFixed(2)+' '+y1.toFixed(2)+
+    ' A'+r+' '+r+' 0 '+big+' 1 '+x2.toFixed(2)+' '+y2.toFixed(2)+' Z" fill="'+fill+
+    '" stroke="#FFFFFF" stroke-width="1.5"/>';
+}
+
+/* ---- editors ---- */
+function drawGroups(){
+  var d=state.device;
+  if(d!=='spinner'&&d!=='bag') return;
+  var arr=state[d], box=$('groups');
+  var max=(d==='spinner')?MAXSPIN:MAXBAG;
+  box.innerHTML='';
+  arr.forEach(function(g,i){
+    var row=document.createElement('div'); row.className='grouprow';
+    var sw=document.createElement('span'); sw.className='swatch'; sw.style.background=g.colour;
+    row.appendChild(sw);
+    var nm=document.createElement('input'); nm.type='text'; nm.value=g.name;
+    nm.setAttribute('aria-label','Name of colour '+(i+1));
+    nm.addEventListener('input',function(){arr[i].name=nm.value;refresh();});
+    row.appendChild(nm);
+    var ct=document.createElement('input'); ct.type='number'; ct.min='0'; ct.max=String(max);
+    ct.step='1'; ct.value=g.count; ct.className='num';
+    ct.setAttribute('aria-label','Number of '+unitNoun().toLowerCase()+' for '+g.name);
+    ct.addEventListener('input',function(){
+      var v=parseInt(ct.value,10); arr[i].count=isNaN(v)?0:Math.max(0,Math.min(max,v)); refresh();});
+    row.appendChild(ct);
+    var del=document.createElement('button'); del.className='mini'; del.type='button';
+    del.textContent='×'; del.setAttribute('aria-label','Remove '+g.name);
+    del.disabled=arr.length<=2;
+    del.addEventListener('click',function(){arr.splice(i,1);drawGroups();refresh();});
+    row.appendChild(del);
+    box.appendChild(row);
+  });
+}
+
+function refresh(){
+  var d=state.device, T=totalWeight();
+  $('groupEditor').hidden=!(d==='spinner'||d==='bag');
+  $('diceEditor').hidden=(d!=='dice');
+  $('coinEditor').hidden=(d!=='coin');
+  $('weightedExplain').hidden=!((d==='dice'&&!state.dice.fair)||(d==='coin'&&!state.coin.fair));
+  $('countLabel').textContent=unitNoun();
+  $('thCount').textContent=unitNoun();
+  $('diceOpts').hidden=state.dice.fair;
+  $('coinOpts').hidden=state.coin.fair;
+
+  var titles={spinner:'Set up your spinner',bag:'Set up your bag of counters',
+    dice:'Set up your die',coin:'Set up your coin'};
+  var hints={
+    spinner:'Every section of the spinner is the same size. Choose how many sections each colour gets. Up to '+MAXSPIN+' sections in total.',
+    bag:'Choose how many counters of each colour go in the bag. Every counter is drawn out and then put back. Up to '+MAXBAG+' counters in total.',
+    dice:'A die always has six faces. You cannot add a seventh — but you can make one face more likely than the others.',
+    coin:'A coin always has two sides. You can make one side more likely than the other.'};
+  $('setupTitle').textContent=titles[d];
+  $('setupHint').textContent=hints[d];
+
+  // total message + warnings
+  var warn='';
+  if(d==='spinner'||d==='bag'){
+    var max=(d==='spinner')?MAXSPIN:MAXBAG;
+    var noun=unitNoun().toLowerCase();
+    $('totalMsg').textContent='Total: '+T+' '+noun;
+    $('addGroup').disabled=(state[d].length>=6);
+    if(T===0) warn='<div class="note warn"><strong>Nothing to run.</strong> Every colour is set to zero, so there is no outcome to simulate. Give at least one colour a number above zero.</div>';
+    else if(T>max) warn='<div class="note warn"><strong>Too many '+noun+'.</strong> Reduce the total to '+max+' or fewer.</div>';
+  } else { $('totalMsg').textContent=''; }
+  $('deviceWarn').innerHTML=warn;
+
+  drawPicture(); resetPrediction(); drawSample(); drawPredict();
+}
+
+function mathsHidden(){ return state.predictOn && !state.locked; }
+
+function drawSample(){
+  var tb=$('sampleTable').querySelector('tbody'), outs=outcomes(), T=totalWeight();
+  var hide=mathsHidden(), q='<span class="qmark">?</span>';
+  tb.innerHTML='';
+  $('mathsHint').innerHTML = hide
+    ? 'The probability columns are hidden while you predict. Work them out from the picture, then lock in your prediction to check.'
+    : '';
+  if(!outs.length||!T){
+    tb.innerHTML='<tr><td colspan="5" style="color:var(--muted)">No outcomes yet.</td></tr>'; return;
+  }
+  outs.forEach(function(o){
+    var pr=o.weight/T, tr=document.createElement('tr');
+    tr.innerHTML='<td><span class="tag" style="background:'+o.colour+'"></span>'+esc(o.name)+'</td>'+
+      '<td class="num">'+o.weight+'</td>'+
+      '<td class="num">'+(hide?q:asFraction(o.weight,T))+'</td>'+
+      '<td class="num">'+(hide?q:dec(pr))+'</td>'+
+      '<td class="num">'+(hide?q:pct(pr))+'</td>';
+    tb.appendChild(tr);
+  });
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><strong>Total</strong></td><td class="num"><strong>'+T+'</strong></td>'+
+    '<td class="num"><strong>'+(hide?q:T+'/'+T+' = 1')+'</strong></td>'+
+    '<td class="num"><strong>'+(hide?q:'1')+'</strong></td>'+
+    '<td class="num"><strong>'+(hide?q:'100%')+'</strong></td>';
+  tb.appendChild(tr);
+}
+
+/* ---- prediction ---- */
+function resetPrediction(){
+  state.locked=false; state.predictions={};
+  var c=$('predictCompare'); if(c) c.innerHTML='';
+  var u=$('unlockBtn'); if(u) u.hidden=true;
+  var l=$('lockBtn'); if(l) l.hidden=false;
+}
+
+function drawPredict(){
+  $('predictBox').hidden=!state.predictOn;
+  $('predictHint').textContent = state.predictOn
+    ? 'Work out each probability yourself, then write how many times you think each outcome will come up.'
+    : 'Predicting is switched off. The probabilities are shown in the sample space above.';
+  if(!state.predictOn){ drawScaffold(); updateRunBlock(); return; }
+
+  var grid=$('predictGrid'), outs=outcomes(), T=totalWeight();
+  grid.innerHTML='';
+  if(!outs.length||!T){
+    grid.innerHTML='<p class="hint" style="grid-column:1/-1;margin:0">Set up a device in Step 2 first.</p>';
+    drawScaffold(); updateRunBlock(); return;
+  }
+  outs.forEach(function(o,i){
+    var who=document.createElement('div'); who.className='who';
+    who.innerHTML='<span class="tag" style="background:'+o.colour+'"></span>'+esc(o.name)+
+      ' <span class="out" style="margin-left:6px">out of '+commas(state.trials)+'</span>';
+    grid.appendChild(who);
+    var inp=document.createElement('input');
+    inp.type='number'; inp.min='0'; inp.max=String(state.trials); inp.step='1'; inp.className='num';
+    inp.value = (state.predictions[o.name]===undefined?'':state.predictions[o.name]);
+    inp.placeholder='?';
+    inp.disabled = state.locked;
+    inp.setAttribute('aria-label','How many times you predict '+o.name+' out of '+state.trials+' trials');
+    inp.addEventListener('input',function(){
+      var v=parseInt(inp.value,10);
+      if(isNaN(v)) delete state.predictions[o.name];
+      else state.predictions[o.name]=Math.max(0,Math.min(state.trials,v));
+      updateRunBlock();
+    });
+    grid.appendChild(inp);
+  });
+  drawScaffold(); updateRunBlock();
+}
+
+function drawScaffold(){
+  var box=$('predictScaffold'); if(!box) return;
+  var outs=outcomes(), T=totalWeight(), n=state.trials;
+  if(!outs.length||!T){ box.innerHTML='<p>Set up a device in Step 2 first.</p>'; return; }
+  var noun={spinner:'sections',bag:'counters',dice:'chances',coin:'chances'}[state.device];
+  box.innerHTML='<ul style="margin:0 0 4px;padding-left:20px">'+outs.map(function(o){
+    return '<li style="margin-bottom:9px"><strong>'+esc(o.name)+'</strong> \u2014 '+o.weight+
+      ' out of '+T+' '+noun+'.<br>'+
+      '<span style="font-variant-numeric:tabular-nums">Method 1: '+commas(n)+' &divide; '+T+
+      ' = ______ , then &times; '+o.weight+' = ______</span><br>'+
+      '<span style="font-variant-numeric:tabular-nums">Method 2: '+o.weight+' &divide; '+T+
+      ' = ______ , then &times; '+commas(n)+' = ______</span></li>';
+  }).join('')+'</ul>';
+}
+
+function predictionsComplete(){
+  var outs=outcomes();
+  if(!outs.length) return false;
+  return outs.every(function(o){ return state.predictions[o.name]!==undefined; });
+}
+
+function updateRunBlock(){
+  var block='', ok=true;
+  if(totalWeight()===0){ ok=false; block='Set up a device in Step 2 before running.'; }
+  else if(state.predictOn && !state.locked){
+    ok=false;
+    block = predictionsComplete()
+      ? 'Lock in your prediction to unlock the simulation.'
+      : 'Fill in a prediction for every outcome, then lock it in.';
+  }
+  $('runBtn').disabled=!ok; $('runAllBtn').disabled=!ok;
+  $('runBlockMsg').textContent=block;
+  var lb=$('lockBtn');
+  if(lb) lb.disabled = !predictionsComplete() || state.locked;
+}
+
+function lockPrediction(){
+  if(!predictionsComplete()) return;
+  state.locked=true;
+  $('lockBtn').hidden=true; $('unlockBtn').hidden=false;
+  drawSample(); drawPredict();
+  var outs=outcomes(), T=totalWeight(), n=state.trials;
+  var html='<table><caption>Your prediction against the maths, for '+commas(n)+' trials</caption><thead><tr>'+
+    '<th scope="col">Outcome</th><th scope="col" class="num">Probability</th>'+
+    '<th scope="col" class="num">You predicted</th><th scope="col" class="num">The maths expects</th>'+
+    '<th scope="col" class="num">How close</th></tr></thead><tbody>';
+  outs.forEach(function(o){
+    var pr=o.weight/T, e=pr*n, mine=state.predictions[o.name], gap=mine-e;
+    html+='<tr><td><span class="tag" style="background:'+o.colour+'"></span>'+esc(o.name)+'</td>'+
+      '<td class="num">'+asFraction(o.weight,T)+' = '+pct(pr)+'</td>'+
+      '<td class="num"><strong>'+commas(mine)+'</strong></td>'+
+      '<td class="num">'+(Math.round(e*100)/100)+'</td>'+
+      '<td class="num">'+(Math.abs(gap)<0.5?'spot on':(gap>0?'+':'')+(Math.round(gap*100)/100))+'</td></tr>';
+  });
+  html+='</tbody></table><div class="note good"><strong>Careful with the word "expected".</strong> '+
+    'It does not mean you will get that number. It means that is what the maths predicts, '+
+    'and your real result will land somewhere near it. Neither your prediction nor the expected '+
+    'number is a promise.<br><br><strong>Now run it.</strong> You have two numbers to compare against. '+
+    'Watch which one the real result lands closer to, and what happens to both when you raise the number of trials.</div>';
+  $('predictCompare').innerHTML=html;
+  updateRunBlock();
+}
+
+/* ---- simulation ---- */
+function checkpoints(n){
+  var pts=[],i;
+  for(i=1;i<=Math.min(n,10);i++) pts.push(i);
+  for(i=1;i<=90;i++){var v=Math.round(Math.pow(n,i/90));
+    if(v>pts[pts.length-1]&&v<=n) pts.push(v);}
+  if(pts[pts.length-1]!==n) pts.push(n);
+  return pts;
+}
+function simulate(n){
+  var outs=outcomes(), T=totalWeight();
+  if(!outs.length||!T) return null;
+  var k=outs.length, cum=[], acc=0;
+  for(var i=0;i<k;i++){acc+=outs[i].weight;cum.push(acc);}
+  var counts=new Array(k).fill(0), cps=checkpoints(n), snaps=[], ci=0;
+  for(var t=1;t<=n;t++){
+    var r=Math.random()*T, lo=0, hi=k-1, idx=k-1;
+    while(lo<=hi){var mid=(lo+hi)>>1;
+      if(r<cum[mid]){idx=mid;hi=mid-1;}else{lo=mid+1;}}
+    counts[idx]++;
+    if(ci<cps.length&&t===cps[ci]){
+      snaps.push({t:t,rel:counts.map(function(c){return c/t;})}); ci++;
+    }
+  }
+  return {n:n,counts:counts,snaps:snaps,device:deviceName(),
+    probs:outs.map(function(o){return o.weight/T;}),
+    names:outs.map(function(o){return o.name;}),
+    colours:outs.map(function(o){return o.colour;}),
+    preds:outs.map(function(o){
+      var p=state.predictions[o.name];
+      if(p===undefined) return null;
+      return (n===state.trials) ? p : Math.round(p*n/state.trials);
+    })};
+}
+
+function showResults(res){
+  var showPred = res.preds && res.preds.some(function(p){return p!==null;});
+  var html='<table><caption>Results for '+commas(res.n)+' trials — '+esc(res.device)+
+    '</caption><thead><tr><th scope="col">Outcome</th><th scope="col" class="num">Probability</th>'+
+    (showPred?'<th scope="col" class="num">You predicted</th>':'')+
+    '<th scope="col" class="num">Expected</th><th scope="col" class="num">Observed</th>'+
+    '<th scope="col" class="num">Difference</th><th scope="col" class="num">Relative freq.</th></tr></thead><tbody>';
+  res.names.forEach(function(nm,i){
+    var e=res.probs[i]*res.n, dv=res.counts[i]-e;
+    var cls=dv>0?'diff-pos':(dv<0?'diff-neg':'');
+    html+='<tr><td><span class="tag" style="background:'+res.colours[i]+'"></span>'+esc(nm)+'</td>'+
+      '<td class="num">'+pct(res.probs[i])+'</td>'+
+      (showPred?'<td class="num">'+(res.preds[i]===null?'—':commas(res.preds[i]))+'</td>':'')+
+      '<td class="num">'+(Math.round(e*100)/100)+'</td>'+
+      '<td class="num"><strong>'+commas(res.counts[i])+'</strong></td>'+
+      '<td class="num '+cls+'">'+(dv>0?'+':'')+(Math.round(dv*100)/100)+'</td>'+
+      '<td class="num">'+dec(res.counts[i]/res.n)+'</td></tr>';
+  });
+  $('live').innerHTML=html+'</tbody></table>';
+  $('resultsHint').textContent='Observed counts are the bold column. Relative frequency is the observed count divided by the number of trials.';
+  drawChart(res); logRun(res);
+}
+
+function logRun(res){
+  state.runNo++;
+  res.names.forEach(function(nm,i){
+    var e=res.probs[i]*res.n;
+    state.record.push({run:state.runNo,device:res.device,n:res.n,name:nm,
+      prob:res.probs[i],pred:(res.preds?res.preds[i]:null),exp:e,obs:res.counts[i],
+      diff:res.counts[i]-e,rel:res.counts[i]/res.n});
+  });
+  drawRecord();
+}
+
+function drawRecord(){
+  var tb=$('record').querySelector('tbody'), badge=$('runBadge');
+  badge.hidden=(state.runNo===0); badge.textContent=state.runNo;
+  if(!state.record.length){
+    tb.innerHTML='<tr><td colspan="10" style="color:var(--muted)">You have not run a simulation yet. Go to "Set up &amp; run".</td></tr>';
+    return;
+  }
+  tb.innerHTML=state.record.map(function(r){
+    var cls=r.diff>0?'diff-pos':(r.diff<0?'diff-neg':'');
+    return '<tr><td class="num">'+r.run+'</td><td>'+esc(r.device)+'</td>'+
+      '<td class="num">'+commas(r.n)+'</td><td>'+esc(r.name)+'</td>'+
+      '<td class="num">'+pct(r.prob)+'</td>'+
+      '<td class="num">'+(r.pred===null||r.pred===undefined?'—':commas(r.pred))+'</td>'+
+      '<td class="num">'+(Math.round(r.exp*100)/100)+'</td>'+
+      '<td class="num">'+commas(r.obs)+'</td>'+
+      '<td class="num '+cls+'">'+(r.diff>0?'+':'')+(Math.round(r.diff*100)/100)+'</td>'+
+      '<td class="num">'+dec(r.rel)+'</td></tr>';
+  }).join('');
+}
+
+/* ---- charts ---- */
+function drawChart(res){
+  state.lastRes=res;
+  $('chartWrap').hidden=false;
+  var canSettle = res.n>=200;
+  $('chartSettle').disabled=!canSettle;
+  if(!canSettle && state.chartType==='settle'){ setChartType('bars'); return; }
+  $('settleBlock').textContent = canSettle ? ''
+    : 'The "how results settle" graph needs at least 200 trials to be worth reading.';
+  if(state.chartType==='settle') drawSettle(res); else drawBars(res);
+}
+
+function setChartType(t){
+  state.chartType=t;
+  $('chartBars').setAttribute('aria-pressed', t==='bars'?'true':'false');
+  $('chartSettle').setAttribute('aria-pressed', t==='settle'?'true':'false');
+  if(state.lastRes) drawChart(state.lastRes);
+}
+
+function drawBars(res){
+  var cv=$('chart'), ctx=cv.getContext('2d');
+  var Wd=cv.width, Ht=cv.height, L=72, R=28, Tp=44, Bt=64;
+  var pw=Wd-L-R, ph=Ht-Tp-Bt;
+  ctx.clearRect(0,0,Wd,Ht);
+  ctx.font='15px Nunito, sans-serif'; ctx.textBaseline='middle';
+
+  var k=res.names.length;
+  var exps=res.probs.map(function(p){return p*res.n;});
+  var top=Math.max(Math.max.apply(null,exps), Math.max.apply(null,res.counts));
+  top=top<=0?1:top*1.18;
+  function Y(v){ return Tp+ph - (v/top)*ph; }
+
+  // y gridlines
+  var steps=5;
+  ctx.textAlign='right';
+  for(var g=0; g<=steps; g++){
+    var val=top*g/steps, y=Y(val);
+    ctx.strokeStyle='#E6ECF4'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    ctx.fillStyle='#5A6779';
+    ctx.fillText(Math.round(val).toLocaleString('en-AU'), L-10, y);
+  }
+  ctx.strokeStyle='#16202F'; ctx.lineWidth=1.6;
+  ctx.beginPath(); ctx.moveTo(L,Tp); ctx.lineTo(L,Tp+ph); ctx.lineTo(L+pw,Tp+ph); ctx.stroke();
+
+  // groups
+  var gw=pw/k, bw=Math.min(52, gw*0.30), gapc=8;
+  res.names.forEach(function(nm,i){
+    var cx=L+gw*i+gw/2;
+    var xE=cx-bw-gapc/2, xO=cx+gapc/2;
+    var e=exps[i], o=res.counts[i];
+
+    // expected — hollow
+    ctx.fillStyle='#FFFFFF';
+    ctx.fillRect(xE, Y(e), bw, Tp+ph-Y(e));
+    ctx.strokeStyle=res.colours[i]; ctx.lineWidth=2.4;
+    ctx.setLineDash([5,4]);
+    ctx.strokeRect(xE, Y(e), bw, Tp+ph-Y(e));
+    ctx.setLineDash([]);
+
+    // observed — solid
+    ctx.fillStyle=res.colours[i];
+    ctx.fillRect(xO, Y(o), bw, Tp+ph-Y(o));
+
+    // value labels
+    ctx.textAlign='center'; ctx.fillStyle='#5A6779'; ctx.font='13px Nunito, sans-serif';
+    ctx.fillText(Math.round(e*10)/10, xE+bw/2, Y(e)-12);
+    ctx.fillStyle='#16202F'; ctx.font='700 14px Nunito, sans-serif';
+    ctx.fillText(o.toLocaleString('en-AU'), xO+bw/2, Y(o)-12);
+
+    // outcome label
+    ctx.font='15px Nunito, sans-serif'; ctx.fillStyle='#16202F';
+    var lab=nm.length>15?nm.slice(0,14)+'…':nm;
+    ctx.fillText(lab, cx, Tp+ph+22);
+  });
+
+  // legend
+  ctx.textAlign='left'; ctx.font='14px Nunito, sans-serif';
+  ctx.strokeStyle='#5A6779'; ctx.lineWidth=2.2; ctx.setLineDash([5,4]);
+  ctx.strokeRect(L, 14, 22, 16); ctx.setLineDash([]);
+  ctx.fillStyle='#16202F'; ctx.fillText('Expected — what the maths predicts', L+30, 22);
+  ctx.fillStyle='#5A6779'; ctx.fillRect(L+300, 14, 22, 16);
+  ctx.fillStyle='#16202F'; ctx.fillText('Observed — what actually happened', L+330, 22);
+
+  ctx.textAlign='center'; ctx.fillStyle='#5A6779'; ctx.font='14px Nunito, sans-serif';
+  ctx.fillText('Number of times each outcome came up in '+res.n.toLocaleString('en-AU')+' trials', L+pw/2, Tp+ph+50);
+
+  $('chartCap').textContent='Each pair of bars is one outcome. The dashed hollow bar is what the maths expects; the solid bar is what actually happened. The closer the pair, the closer your result came to the prediction.';
+}
+
+function drawSettle(res){
+  var cv=$('chart'), ctx=cv.getContext('2d');
+  var Wd=cv.width, Ht=cv.height, L=62, R=155, Tp=22, Bt=52;
+  var pw=Wd-L-R, ph=Ht-Tp-Bt;
+  ctx.clearRect(0,0,Wd,Ht);
+  ctx.font='14px Nunito, sans-serif'; ctx.textBaseline='middle';
+
+  var START=10, maxT=res.n;
+  var pts=res.snaps.filter(function(sn){ return sn.t>=START; });
+  function X(t){ return L+(Math.log(t/START)/Math.log(maxT/START))*pw; }
+  function Y(v){ return Tp+ph-v*ph; }
+
+  ctx.strokeStyle='#E6ECF4'; ctx.lineWidth=1;
+  for(var g=0; g<=10; g++){
+    var y=Y(g/10);
+    ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    if(g%2===0){ ctx.fillStyle='#5A6779'; ctx.textAlign='right'; ctx.fillText((g*10)+'%', L-10, y); }
+  }
+  ctx.textAlign='center'; ctx.fillStyle='#5A6779';
+  [10,100,1000,10000,100000].forEach(function(t){
+    if(t>=START && t<=maxT){
+      var x=X(t);
+      ctx.strokeStyle='#CBD6E4'; ctx.beginPath(); ctx.moveTo(x,Tp); ctx.lineTo(x,Tp+ph); ctx.stroke();
+      ctx.fillText(t.toLocaleString('en-AU'), x, Tp+ph+18);
+    }
+  });
+  ctx.fillText('Number of trials so far (each labelled step is ten times the last)', L+pw/2, Tp+ph+40);
+
+  var showTheory=!document.body.classList.contains('mystery');
+  if(showTheory){
+    ctx.setLineDash([6,5]); ctx.lineWidth=1.5;
+    res.probs.forEach(function(pr,i){
+      ctx.strokeStyle=res.colours[i]; ctx.globalAlpha=.55;
+      ctx.beginPath(); ctx.moveTo(L,Y(pr)); ctx.lineTo(L+pw,Y(pr)); ctx.stroke(); ctx.globalAlpha=1;
+    });
+    ctx.setLineDash([]);
+  }
+  ctx.lineWidth=2.4; ctx.lineJoin='round';
+  res.probs.forEach(function(_,i){
+    ctx.strokeStyle=res.colours[i]; ctx.beginPath();
+    pts.forEach(function(sn,j){
+      var x=X(sn.t), y=Y(sn.rel[i]);
+      if(j===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  });
+  ctx.textAlign='left';
+  res.names.forEach(function(nm,i){
+    var y=Tp+14+i*23;
+    ctx.fillStyle=res.colours[i]; ctx.fillRect(L+pw+16,y-7,14,14);
+    ctx.fillStyle='#16202F';
+    ctx.fillText(nm.length>14?nm.slice(0,13)+'…':nm, L+pw+36, y);
+  });
+  $('chartCap').textContent='Solid lines are the relative frequency so far. Dashed lines are the probability the maths predicts. The graph starts at trial 10, because the first few trials swing wildly between 0% and 100% and tell you nothing.';
+}
+
+/* ---- mystery dice ---- */
+var mys={rolls:20,A:null,B:null,countsA:[0,0,0,0,0,0],countsB:[0,0,0,0,0,0],totA:0,totB:0};
+function newMystery(){
+  var face=1+Math.floor(Math.random()*6);
+  var fair=[1,1,1,1,1,1], loaded=[1,1,1,1,1,1]; loaded[face-1]=3;
+  if(Math.random()<.5){mys.A={w:loaded,loaded:true,face:face};mys.B={w:fair,loaded:false};}
+  else{mys.A={w:fair,loaded:false};mys.B={w:loaded,loaded:true,face:face};}
+  mys.countsA=[0,0,0,0,0,0];mys.countsB=[0,0,0,0,0,0];mys.totA=0;mys.totB=0;
+  document.body.classList.remove('revealed'); drawDice();
+}
+function rollDie(die,counts,n){
+  var T=die.w.reduce(function(s,v){return s+v;},0);
+  for(var t=0;t<n;t++){var r=Math.random()*T,acc=0;
+    for(var f=0;f<6;f++){acc+=die.w[f];if(r<acc){counts[f]++;break;}}}
+}
+function drawDice(){
+  $('totalA').textContent=mys.totA?commas(mys.totA):'—';
+  $('totalB').textContent=mys.totB?commas(mys.totB):'—';
+  [['tableA',mys.countsA,mys.totA],['tableB',mys.countsB,mys.totB]].forEach(function(pr){
+    $(pr[0]).querySelector('tbody').innerHTML=pr[1].map(function(c,i){
+      return '<tr><td>'+(i+1)+'</td><td class="num">'+commas(c)+'</td><td class="num">'+
+        (pr[2]?dec(c/pr[2]):'—')+'</td></tr>';}).join('');
+  });
+}
+
+/* ---- wiring ---- */
+function pressGroup(nodes,fn){
+  nodes.forEach(function(b){
+    b.addEventListener('click',function(){
+      nodes.forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true'); fn(b);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  drawGroups(); refresh(); drawRecord(); newMystery();
+  drawPredict();
+
+  // tabs
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      $(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+    document.body.classList.toggle('mystery',tab.id==='t2');
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  $('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+
+  pressGroup([].slice.call(document.querySelectorAll('.device')),function(b){
+    state.device=b.getAttribute('data-dev'); drawGroups(); refresh();
+  });
+  pressGroup([].slice.call($('p1').querySelectorAll('[data-n]')),function(b){
+    state.trials=parseInt(b.getAttribute('data-n'),10);
+    resetPrediction(); drawSample(); drawPredict();
+  });
+  pressGroup([].slice.call($('p2').querySelectorAll('[data-m]')),function(b){
+    mys.rolls=parseInt(b.getAttribute('data-m'),10);
+  });
+  pressGroup([$('dFair'),$('dWeight')],function(b){
+    state.dice.fair=(b.id==='dFair'); refresh();
+  });
+  pressGroup([$('cFair'),$('cWeight')],function(b){
+    state.coin.fair=(b.id==='cFair'); refresh();
+  });
+  $('dFace').addEventListener('change',function(){state.dice.face=parseInt(this.value,10);refresh();});
+  $('dMult').addEventListener('change',function(){state.dice.mult=parseInt(this.value,10);refresh();});
+  $('cSide').addEventListener('change',function(){state.coin.side=this.value;refresh();});
+  $('cMult').addEventListener('change',function(){state.coin.mult=parseInt(this.value,10);refresh();});
+
+  $('addGroup').addEventListener('click',function(){
+    var d=state.device; if(d!=='spinner'&&d!=='bag') return;
+    if(state[d].length>=6) return;
+    state[d].push({name:'New colour',count:1,colour:COLOURS[state[d].length%COLOURS.length]});
+    drawGroups(); refresh();
+  });
+
+  pressGroup([$('predOn'),$('predOff')],function(b){
+    state.predictOn=(b.id==='predOn');
+    resetPrediction(); drawSample(); drawPredict();
+  });
+  $('chartBars').addEventListener('click',function(){setChartType('bars');});
+  $('chartSettle').addEventListener('click',function(){setChartType('settle');});
+
+  $('lockBtn').addEventListener('click',lockPrediction);
+  $('unlockBtn').addEventListener('click',function(){
+    resetPrediction(); drawSample(); drawPredict();
+  });
+
+  $('runBtn').addEventListener('click',function(){
+    var res=simulate(state.trials);
+    if(!res){$('resultsHint').textContent='There is nothing to simulate yet. Check Step 2 — every outcome is set to zero.';return;}
+    showResults(res);
+  });
+  $('runAllBtn').addEventListener('click',function(){
+    [20,200,2000].forEach(function(n){var r=simulate(n); if(r) showResults(r);});
+  });
+  $('clearBtn').addEventListener('click',function(){
+    $('live').innerHTML=''; $('chartWrap').hidden=true; state.lastRes=null;
+    $('resultsHint').textContent='Run the simulation to see your results.';
+  });
+
+  $('rollBtn').addEventListener('click',function(){
+    rollDie(mys.A,mys.countsA,mys.rolls); mys.totA+=mys.rolls;
+    rollDie(mys.B,mys.countsB,mys.rolls); mys.totB+=mys.rolls;
+    drawDice();
+  });
+  $('newBtn').addEventListener('click',newMystery);
+  $('againBtn').addEventListener('click',newMystery);
+  $('revealBtn').addEventListener('click',function(){
+    var which=mys.A.loaded?'A':'B', face=mys.A.loaded?mys.A.face:mys.B.face;
+    $('answerText').textContent='Die '+which+' is the weighted one. Face '+face+
+      ' was three times as likely as any other face, so its real probability was 3/8 — about 38% — not 1/6, which is about 17%. '+
+      'Look back at your counts: at how many rolls did your evidence first point the right way?';
+    document.body.classList.add('revealed');
+  });
+
+  $('printBtn').addEventListener('click',function(){window.print();});
+  $('wipeBtn').addEventListener('click',function(){
+    state.record=[];state.runNo=0;drawRecord();$('copyMsg').textContent='All results cleared.';
+  });
+  $('copyBtn').addEventListener('click',function(){
+    if(!state.record.length){$('copyMsg').textContent='There is nothing to copy yet. Run a simulation first.';return;}
+    var rows=[['Run','Device','Trials','Outcome','Probability','You predicted','Expected','Observed','Difference','Relative frequency']];
+    state.record.forEach(function(r){rows.push([r.run,r.device,r.n,r.name,r.prob,
+      (r.pred===null||r.pred===undefined?'':r.pred),
+      Math.round(r.exp*100)/100,r.obs,Math.round(r.diff*100)/100,Math.round(r.rel*10000)/10000]);});
+    var tsv=rows.map(function(r){return r.join('\t');}).join('\n');
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(tsv).then(
+        function(){$('copyMsg').textContent='Copied. Paste into Excel with Ctrl+V.';},
+        function(){fallbackCopy(tsv);});
+    } else fallbackCopy(tsv);
+  });
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');$('copyMsg').textContent='Copied. Paste into Excel with Ctrl+V.';}
+    catch(e){$('copyMsg').textContent='Copying is blocked on this device. Print the record instead.';}
+    document.body.removeChild(ta);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 6 — Is this die fair? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.rejoin{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:12px 0}
+.rejoin h3{margin-top:0;color:var(--gold)}
+.formula{background:var(--navy);color:#fff;border-radius:9px;padding:16px 18px;margin:14px 0;text-align:center}
+.formula b{font-size:20px;font-weight:800}
+.formula span{display:block;font-size:14px;color:var(--navy-line);margin-top:6px}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.big{color:var(--red);font-weight:800}
+.ok{color:var(--green);font-weight:800}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill,.formula{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .formula span{color:#333}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 6 of 15</p>
+    <h1>Is this die fair?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6P02</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 3, Week 10</span>
+      <span class="pill flag">Withdrawal-safe</span>
+      <span class="pill flag">Reasoning checkpoint</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Learning intention</h2>
+    <p>We are learning to judge whether the evidence we have is strong enough to answer the question we are asking.</p>
+    <h3>Success criteria</h3>
+    <ul class="checklist">
+      <li>I can say what a result would look like if a die were fair.</li>
+      <li>I can explain why a small number of rolls cannot settle the question.</li>
+      <li>I can design a test: how many trials, why that many, and what result would convince me.</li>
+      <li>I can say "we cannot tell yet" when that is the honest answer.</li>
+    </ul>
+    <h3>Curriculum</h3>
+    <p><strong>AC9M6P02</strong> — conduct repeated chance experiments and run simulations with an increasing number of trials using digital tools; compare observations with expected results and discuss the effect on variation of increasing the number of trials.</p>
+
+    <div class="note warn"><strong>This is the reasoning checkpoint of the probability block.</strong>
+      The written justifications you collect today are the best predictor you will get of how students will handle assessment item A7 — the fairness judgement, which is the only complex unfamiliar item in Part A. Read them before you plan Lesson 7.</div>
+
+    <div class="teach"><strong>What makes this lesson different.</strong> Every lesson so far has had an answer. Today the honest answer for most of the lesson is "we do not have enough evidence", and students find that genuinely uncomfortable. Naming that discomfort is part of the teaching: mathematicians say "not yet" all the time, and it is a stronger answer than a confident guess.
+    <br><br>Lesson 5 established that more trials make the fraction settle. Today applies it under pressure, when there is something at stake in the answer.</div>
+  </div>
+
+  <div class="card">
+    <h2>Shape of the lesson</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Phase</th><th>Time</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Warm-up</strong></td><td>6 min</td><td>Two students, two dice, two very different results</td></tr>
+        <tr><td><strong>Launch</strong></td><td>12 min</td><td>The mystery pair. Twenty rolls each, then a class vote.</td></tr>
+        <tr><td><strong>Explore</strong></td><td>24 min</td><td>Design a test that would actually settle it, then run it</td></tr>
+        <tr><td><strong>Summarise</strong></td><td>10 min</td><td>Evidence proportionate to the claim. Reveal.</td></tr>
+        <tr><td><strong>Review</strong></td><td>4 min</td><td>Exit ticket</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="rejoin">
+      <h3>Withdrawal-safe — five-minute rejoin note</h3>
+      <p style="margin:0 0 8px"><strong>No new content is taught today.</strong> The lesson applies Lessons 4 and 5 rather than adding to them, so the extension withdrawal group loses nothing. When they return, reinstate three things:</p>
+      <ol style="margin:0">
+        <li><strong>The headline.</strong> "Somebody rolled a die 20 times and got six 6s. Does that prove it is loaded?" Thirty seconds tells you whether they have it. The answer is no — that happens to a fair die about one time in ten.</li>
+        <li><strong>The phrase.</strong> "We cannot tell yet" is a legitimate mathematical answer, and it will be needed again in Lesson 14.</li>
+        <li><strong>The Games Day brief</strong> is coming in Lesson 7. Make sure they know their Family Group team is already assigned.</li>
+      </ol>
+      <p style="margin:8px 0 0">Then set them the Going Further items, which need no part of the Launch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WARM-UP ============ -->
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to judge whether the evidence we have is strong enough to answer the question we are asking.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can say what a result would look like if a die were fair.</li>
+      <li>I can explain why a small number of rolls cannot settle the question.</li>
+      <li>I can design a test: how many trials, why that many, and what result would convince me.</li>
+      <li>I can say "we cannot tell yet" when that is the honest answer.</li>
+    </ul>
+
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on. You will come back to it at the end.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? Saying in advance what result would convince you is the hardest part today &mdash; and the most important.</p>
+    </div>  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs. The assessment has questions at all three levels.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">You have seen this kind of question before and it is clear what to do. One step, friendly numbers.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">You know the method, but there is more than one step, or you have to pick which method to use.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the method. You work out what to do, and explain why you did it.</p></div>
+    </div>
+    <div class="note"><strong>A CU question is not a harder sum.</strong> It is usually one where you have to decide something and then justify it. Getting a number is not enough.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <p class="timing">Warm-up · 6 minutes</p>
+    <h2>Who has the fair die?</h2>
+    <div class="say">Two students each rolled a die twenty times.
+      <br><br>Ana counted her sixes: she got <strong>six 6s</strong>.
+      <br>Ben counted his sixes: he got <strong>none at all</strong>.
+      <br><br>One of them has a loaded die. Which one?</div>
+    <p>Hands up for Ana. Hands up for Ben. Hands up for "cannot tell". Record the three counts on the board — you will come back to them in the Summarise.</p>
+
+    <div class="teach"><strong>The answer is "cannot tell", and almost nobody will choose it.</strong> Here are the actual numbers for a perfectly fair die rolled twenty times, counting only the sixes:
+      <br><br>· expected number of 6s: <strong>3.33</strong>
+      <br>· chance of getting <strong>six or more</strong> 6s: <strong>10.2%</strong> — about one roll-of-twenty in ten
+      <br>· chance of getting <strong>no 6s at all</strong>: <strong>2.6%</strong>
+      <br><br>So in a class of thirteen pairs all rolling fair dice, you would expect roughly one pair to see Ana's result. Ben's is rarer but hardly impossible.
+      <br><br><strong>Do not give these numbers away now.</strong> Take the vote, write the three counts on the board, and move on. The numbers land properly in the Summarise, after students have felt the uncertainty themselves.</div>
+
+    <div class="note"><strong>If someone says "cannot tell" straight away.</strong> Ask them what would change their mind — what result would convince them? That question is the whole Explore, and you have just been handed it by a student.</div>
+  </div>
+</section>
+
+<!-- ============ LAUNCH ============ -->
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <p class="timing">Launch · 12 minutes</p>
+    <h2>The mystery pair</h2>
+    <p>Open the <strong>Mystery dice</strong> tab of the Chance Simulator on the board. Two dice, A and B. One is fair. The other is weighted so that one face is three times as likely as any other. Nothing on the screen says which.</p>
+
+    <div class="say">You get <strong>twenty rolls each</strong>. That is all. Which die is weighted?</div>
+
+    <p>Set the roll count to 20, roll both, and put the two tables side by side. Give groups two minutes to argue, then take a vote: A, B, or cannot tell.</p>
+
+    <div class="note warn"><strong>Do not reveal.</strong> Not after the vote, not when asked, not at the end of the Launch. The reveal belongs in the Summarise and it is worth much more there.</div>
+
+    <div class="teach"><strong>What will actually happen, measured.</strong> Using the obvious student strategy — whichever die has the biggest single-face count is the weighted one — here is how a class performs at each roll count:
+      <div class="scroll"><table>
+        <thead><tr><th class="num">Rolls each</th><th class="num">Right</th><th class="num">Wrong</th><th class="num">Too close to call</th></tr></thead>
+        <tbody>
+          <tr><td class="num"><strong>20</strong></td><td class="num ok">74%</td><td class="num big">13%</td><td class="num big">13%</td></tr>
+          <tr><td class="num">60</td><td class="num ok">97%</td><td class="num">1%</td><td class="num">1%</td></tr>
+          <tr><td class="num">200</td><td class="num ok">100%</td><td class="num">0%</td><td class="num">0%</td></tr>
+        </tbody>
+      </table></div>
+      So at twenty rolls, roughly a quarter of the room is either wrong or unable to separate the two dice — and the three quarters who are right cannot tell that they are right. That is exactly the situation you want before the Explore.
+      <br><br><strong>The weighted face is 3/8, or 37.5%.</strong> A fair face is 1/6, about 16.7%. The gap is large — and twenty rolls still is not enough to see it reliably. Students find that genuinely surprising.
+      <br><br><strong>If the class votes overwhelmingly one way,</strong> ask the confident students what result would have changed their minds. Most will not have an answer, and noticing that is the point.</div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <p class="timing">Explore · 24 minutes</p>
+    <h2>Design a test that would actually settle it</h2>
+    <p>Groups of three. The task is not to find the answer. The task is to design the test.</p>
+
+    <div class="say">Before you roll anything else, write down three things:
+      <br><br><strong>1.</strong> How many rolls will you use?
+      <br><strong>2.</strong> Why that many?
+      <br><strong>3.</strong> What result would convince you?</div>
+
+    <p>Only when all three are written do groups run the test in the simulator.</p>
+
+    <div class="note good"><strong>Question 3 is the one that matters.</strong> A group that cannot say in advance what would convince them has not designed a test — they are just rolling until something looks obvious. Push on this while circulating.</div>
+
+    <h3>REASONING CHECKPOINT — collect these</h3>
+    <p>Every student writes their own justification on page 2 of the worksheet, even though the design was a group decision. This is the formative evidence for the whole probability block.</p>
+
+    <div class="teach"><strong>What a strong response looks like.</strong> Not "we used 200 rolls because more is better", but something with a number attached to the reasoning: <em>"We used 200 because on a fair die each face should come up about 33 times, and on the weighted one it should be about 75. Those are far enough apart that we would not mix them up."</em>
+      <br><br>A student who can name what the fair result should look like has understood expected frequency. A student who can say how far apart the two predictions are has understood why sample size matters. Both are A-standard signals for item A7.
+      <br><br><strong>What to do with a group that says "1000 rolls".</strong> Ask whether they need that many. Then ask what the smallest number would be that they would still trust. Over-testing is not a mathematical error, but choosing a number without reasoning is.
+      <br><br><strong>Circulating question:</strong> "What would you expect to see if it were fair?" Groups that cannot answer this cannot design a test, because they have nothing to compare against. Send them back to their Lesson 4 expected-frequency table.</div>
+
+    <h3>Complexity bands on the worksheet</h3>
+    <p><span class="band sf">SF</span> Expected frequency for a fair die at a given roll count.</p>
+    <p><span class="band cf">CF</span> Two dice, two sets of results — which is more likely weighted, and how sure can you be?</p>
+    <p><span class="band cu">CU</span> Explain <em>why</em> more rolls give better evidence. "More is better" does not count.</p>
+
+    <h3>Differentiation</h3>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Trial numbers supplied — 20, 60 and 200. The student judges the evidence rather than choosing the scale.</li>
+          <li>Sentence stems from the shared pack, on the desk before they start.</li>
+          <li>Expected-frequency table pre-calculated for a fair die at each scale.</li>
+          <li>Group of three with a named recorder.</li>
+        </ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Choose their own roll count and justify it.</li>
+          <li>State in advance what result would convince them.</li>
+          <li>Individual written justification.</li>
+        </ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul style="margin:0;font-size:15px">
+          <li>Explain why more rolls reduce variation, not just that they do. <span class="hint">(AC9M7P02)</span></li>
+          <li>What is the smallest number of rolls you would trust? Defend it.</li>
+          <li>What would you say to someone who insists their twenty rolls prove the die is loaded?</li>
+        </ul></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Part B &middot; Design a test that would settle it</h2>
+    
+    <div class="note warn"><strong>Write all three BEFORE you roll anything else.</strong></div>
+    <div class="q cfq"><span class="qn">1</span><span class="cx cx-cf">CF</span><p>How many rolls will you use?</p></div>
+    <div class="q cuq"><span class="qn">2</span><span class="cx cx-cu">CU</span><p>Why that many? What made you choose that number?</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>What result would convince you? Write it down BEFORE you roll.</p></div>
+    <button class="reveal" data-ans="ansB6">Show the answers</button>
+    <div class="ans" id="ansB6"><b>What a strong answer looks like.</b> Not "we used 200 because more is better", but a number with reasoning attached: "We used 200 because on a fair die each face should come up about 33 times, and on the weighted one about 75. Those are far enough apart that we would not mix them up."<br><br><b>A student who can name what the fair result should look like</b> has understood expected frequency. A student who can say how far apart the two predictions are has understood why sample size matters. Both are A-standard signals for item A7.</div>
+  </div>
+  <div class="card">
+    <h2>Part C &middot; Show your thinking</h2>
+    
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>A fair six-sided die is rolled 60 times. How many 4s would you expect? Show your working.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>Two dice were each rolled 30 times. Die A showed a six 5 times. Die B showed a six 11 times. Which is more likely weighted? How sure can you be?</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>Explain WHY more rolls give better evidence. "More is better" is not an explanation &mdash; say what more rolls actually do.</p></div>
+    <button class="reveal" data-ans="ansC6">Show the answers</button>
+    <div class="ans" id="ansC6"><b>1</b> 10. 60 &divide; 6 = 10.<br><b>2</b> Die B looks more likely, since 11 is well above the 5 you would expect. But 30 rolls is still a small sample and you cannot be sure. "B, but I am not certain" is the strongest answer.<br><b>3</b> Each single roll has less power to move the fraction. One extra six out of 20 rolls shifts the result by 5%; out of 2000 it shifts it by 0.05%. An unlucky run gets swamped by all the ordinary results around it.</div>
+  </div>
+  <div class="card">
+    <h2>Talk it through with a partner</h2>
+    <p>Show your partner your answer to <strong>question 3 of Part B</strong>. Your partner picks <em>one</em> of these to ask you:</p>
+    <ul><li>What would you expect to see if the die WERE fair?</li><li>How far apart are your two predictions?</li><li>Would you still believe your answer if you got the opposite result?</li></ul>
+    <p class="hint">Write down the question you were asked and what you said back.</p>
+  </div>
+  <div class="card">
+    <h2>Choose your path</h2>
+    <p>Pick the one that matches where you are right now. You can change your mind.</p>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Friendlier numbers</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Finish the main questions</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>Use these roll counts.</strong> Here is what a FAIR die should give you, so you have something to compare against.</div>
+      <div class="scroll"><table><thead><tr><th class="num">Rolls</th><th class="num">Each face should be about</th><th class="num">A weighted face would be about</th></tr></thead><tbody><tr><td class="num">20</td><td class="num">3</td><td class="num">8</td></tr><tr><td class="num">60</td><td class="num">10</td><td class="num">22</td></tr><tr><td class="num">200</td><td class="num">33</td><td class="num">75</td></tr></tbody></table></div>
+      <div class="q sfq"><span class="qn">S1</span><span class="cx cx-sf">SF</span><p>Roll both dice 20 times each. Write down which die you think is weighted.</p></div>
+      <div class="q cfq"><span class="qn">S2</span><span class="cx cx-cf">CF</span><p>Now roll both 200 times each. Did your answer change? Which set of rolls do you trust more, and why?</p></div></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Keep going.</strong> Choose your own roll count, justify it, and say in advance what would convince you. Then run it and write your own justification &mdash; even though the design was a group decision.</div></div>
+    <div class="path" id="path-ext"><div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>What is the smallest number of rolls you would trust? Defend it.</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>What would you say to someone who insists their twenty rolls prove the die is loaded?</p></div>
+      <button class="reveal" data-ans="ansE6">Show the answers</button>
+    <div class="ans" id="ansE6"><b>&#9733;1</b> Any number with reasoning. Around 60 rolls gets you to about 97% reliable; 200 is effectively certain. Look for a student who connects the number to how far apart the two predictions are.<br><b>&#9733;2</b> A fair die produces six or more 6s in twenty rolls about one time in ten. Their result is not surprising enough to prove anything. Strong answers offer a way to settle it rather than just disagreeing.</div></div>
+  </div>
+</section>
+
+<!-- ============ SUMMARISE ============ -->
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <p class="timing">Summarise · 10 minutes</p>
+    <h2>Now reveal it</h2>
+    <p>Press Reveal on the simulator. Then, before any celebrating, go back to the vote you recorded in the Launch and count how many groups were right.</p>
+
+    <div class="say">Everyone who was right — how did you know you were right? Could you have been sure at the time?</div>
+
+    <div class="teach"><strong>This is the sharpest moment in the lesson.</strong> The groups who guessed correctly at twenty rolls did not have better evidence than the groups who guessed wrongly. They had the same weak evidence and a luckier outcome. Getting that said out loud, by a student who was right, is worth more than anything you can tell them.
+      <br><br>Then return to the warm-up and give the real numbers: a fair die produces six or more 6s in twenty rolls about <strong>10% of the time</strong>, and no 6s at all about <strong>2.6%</strong> of the time. Both Ana and Ben could easily have had fair dice. Nobody in the room could have known.</div>
+
+    <h3>Three things to land</h3>
+    <ol>
+      <li><strong>A small sample cannot settle a question about fairness.</strong> Twenty rolls looks like data and behaves like noise.</li>
+      <li><strong>The evidence has to be proportionate to the claim.</strong> Saying a die is loaded is a big claim, and it needs more than a hunch and twenty rolls.</li>
+      <li><strong>"We cannot tell yet" is a real answer.</strong> It is what a mathematician says when the evidence is not there, and it is stronger than a confident guess.</li>
+    </ol>
+
+    <div class="formula">
+      <b>How sure you are should depend on how much evidence you have.</b>
+      <span>Not on how strongly you feel about it</span>
+    </div>
+
+    <h3>Vocabulary</h3>
+    <p>Add to the Frayer boards: <strong>variation</strong>. Students now have the best possible example for the Examples quadrant — the spread of results between groups at twenty rolls, compared with the spread at two hundred.</p>
+
+    <div class="note good"><strong>Forward link.</strong> Say this out loud before they leave: in Lesson 14 the class will read a newsletter article that makes a big claim from a very small sample. Today is the lesson that makes that critique possible.</div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <p class="timing">Review · 4 minutes</p>
+    <h2>Exit ticket</h2>
+    <div class="note"><strong>Kai has a spinner with 4 equal sections. One section is red. Kai spun it 12 times and it landed on red 5 times. Kai says the spinner is rigged.</strong></div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>How many reds would you expect in 12 spins?</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>Is Kai right that the spinner is rigged? Explain your answer.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>What would you do to find out for sure? Say how many spins you would use and why.</p></div>
+
+    <div class="teach"><strong>Why a spinner and not a die.</strong> The whole lesson is dice. Using a spinner forces transfer rather than recall, and the numbers are new — 12 spins, expected 3, observed 5.
+      <br><br><strong>Answers.</strong>
+      <br><strong>1.</strong> 3. Method 1: 12 ÷ 4 = 3, then × 1 = 3. Method 2: 1 ÷ 4 = 0.25, then × 12 = 3.
+      <br><strong>2.</strong> No — or more precisely, we cannot tell. Five is more than three, but twelve spins is a very small sample and a fair spinner would produce five reds fairly often. Accept "we cannot tell yet" as the strongest answer. Accept "no, because 12 spins is not enough" as fully correct. Do not accept "no, because 5 is close to 3" without the sample-size reasoning — that is the right answer for the wrong reason.
+      <br><strong>3.</strong> Any number with reasoning attached. Look for a student who says what the fair result would look like at their chosen scale — "if I spun it 200 times I would expect about 50 reds, so if I got 90 I would believe Kai". The number matters far less than whether a prediction comes with it.
+      <br><br><strong>The discriminator is question 3, not question 2.</strong> Most students will get question 2 right by now. Question 3 asks them to design, which is what item A7 asks. A student who writes a number with no reasoning has not met the success criteria, even if the number is sensible.
+      <br><br><strong>Support version.</strong> Same three questions, but the spinner is spun 16 times and lands on red 6 times, so the expected number is 4. The excess is smaller relative to the sample, which makes "we cannot tell" easier to reach.
+      <br><br><strong>Sorting for Lesson 7.</strong> Students who write a prediction into question 3 are ready to lead their Family Group team's game design. Put one in each team.</div>
+  </div>
+
+  <div class="card">
+    <h2>Think back</h2>
+    <div class="goal">
+      <h3>Your goal</h3>
+      <p style="margin:0 0 8px">Go back to the Intentions tab and read the goal you set. Did you meet it?</p>
+      <label for="r1" class="hint">1. Which strategy did you use most today, and did it work?</label>
+      <textarea id="r1" placeholder="The strategy I used most was&hellip;"></textarea>
+      <label for="r2" class="hint" style="display:block;margin-top:10px">2. What would you do differently next time?</label>
+      <textarea id="r2" placeholder="Next time I would&hellip;"></textarea>
+      <label for="r3" class="hint" style="display:block;margin-top:10px">3. Did you meet the goal you set at the start? How do you know?</label>
+      <textarea id="r3" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+    <p class="hint">Nothing you type here is saved. Copy it into your book before you close the page.</p>
+  </div>
+</section>
+
+<!-- ============ RESOURCES ============ -->
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need</h2>
+    <h3>Digital</h3>
+    <ul class="checklist">
+      <li><strong><a class="res" href="../../shared/chance-simulator.html">shared/chance-simulator.html</a></strong> — the <em>Mystery dice</em> tab. One per group plus the board copy. The weighted face is chosen fresh each time, so the answer cannot travel between groups or between your two classes.</li>
+    </ul>
+    <h3>Print</h3>
+    <ul class="checklist">
+      <li><strong><a class="res" href="resources/l6-01-worksheet-core.pdf">resources/l6-01-worksheet-core.pdf</a></strong> — 3 pages</li>
+      <li><strong><a class="res" href="resources/l6-02-worksheet-support.pdf">resources/l6-02-worksheet-support.pdf</a></strong> — 3 pages, roll counts supplied and the fair-die table pre-calculated</li>
+      <li><strong><a class="res" href="../../shared/sentence-stems.pdf">shared/sentence-stems.pdf</a></strong> — the <em>Judging fairness</em> block. Put it out before students start, not after they struggle.</li>
+      <li><strong><a class="res" href="../../shared/frayer-boards.pdf">shared/frayer-boards.pdf</a></strong> — print the <em>variation</em> page</li>
+    </ul>
+    <h3>Optional</h3>
+    <ul class="checklist">
+      <li>A physical weighted die, if you have one. Not required — the simulator does the job and gives you a fresh pair every time.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Lesson-specific adjustments</h2>
+    <p class="hint">Standing adjustments are on the linked Personalised Adjustments document and are not repeated here.</p>
+    <ul>
+      <li><strong>WITHDRAWAL-SAFE lesson.</strong> No new content. The rejoin note is on the Overview tab.</li>
+      <li><strong>Private advance notice</strong> for students who find being wrong aversive. The Launch is designed so that most of the class votes without enough evidence, and about a quarter will be wrong. Tell those students beforehand that being wrong is the plan, and that nobody will be singled out.</li>
+      <li><strong>Roll counts supplied</strong> — 20, 60 and 200 — so the student judges the evidence rather than designing the scale. The reasoning is still theirs.</li>
+      <li><strong>Fair-die expected frequencies pre-calculated</strong> on the Support worksheet, so the comparison is available without redoing Lesson 4.</li>
+      <li><strong>Sentence stems on the desk from the start.</strong> This lesson asks for more written justification than any lesson so far.</li>
+      <li><strong>Named recorder in each group of three</strong>, but every student writes their own justification — the checkpoint is individual.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Misconceptions to expect today</h2>
+    <details class="explain">
+      <summary>"Six 6s in twenty rolls proves it's loaded"</summary>
+      <div class="body"><p>The headline misconception. A run that feels extreme is treated as proof.</p>
+      <p><strong>Response.</strong> The number: a fair die does that about 10% of the time. Roll twenty on the simulator ten times over and let the class watch how often something surprising turns up.</p></div>
+    </details>
+    <details class="explain">
+      <summary>"I was right, so my method was good"</summary>
+      <div class="body"><p>Groups that guessed correctly at twenty rolls conclude their reasoning was sound. It was not — they were lucky.</p>
+      <p><strong>Response.</strong> Ask them to predict again with a fresh mystery pair, still at twenty rolls. A second round separates method from luck quickly.</p></div>
+    </details>
+    <details class="explain">
+      <summary>"More rolls is better" with nothing behind it</summary>
+      <div class="body"><p>Students repeat Lesson 5's conclusion as a slogan without the mechanism.</p>
+      <p><strong>Response.</strong> "Better how?" Then point at the one-extra-roll table from Lesson 5. At twenty rolls, one extra six moves the fraction by 5%.</p></div>
+    </details>
+    <details class="explain">
+      <summary>Refusing to commit to any answer</summary>
+      <div class="body"><p>The opposite failure, and it appears after the Summarise. Students learn that "cannot tell" is safe and apply it to everything.</p>
+      <p><strong>Response.</strong> Run 2000 rolls on the mystery pair. The evidence is overwhelming and "cannot tell" is now the wrong answer. Enough evidence means you should commit.</p></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>What comes next</h2>
+    <p><strong>Lesson 7 — Designing for our buddies.</strong> Family Group teams design a chance game for their Prep buddies, list the sample space, assign probabilities, and simulate it. The design brief constraints are non-negotiable, and peer critique uses the protocol cards.</p>
+    <div class="teach"><strong>Carry forward.</strong> Read the justifications tonight. Students who wrote a prediction into their test design are the ones to distribute across the Family Group teams — one per team if you can. They are the students who will ask "but what would fair look like?" when their team is designing, and that question is the whole of assessment item A7.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

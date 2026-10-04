@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 8 — Buddy Games Day folio: Part A | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+.pinwall{border:2px solid var(--navy);border-radius:12px;background:#F4F7FB;padding:22px;margin:18px 0}
+.pinwall h3{margin:0 0 6px;color:var(--navy)}
+.pinwall p{margin:0 0 12px;font-size:15px}
+.pinrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pinwall input{font:inherit;font-size:18px;letter-spacing:3px;padding:9px 12px;width:150px;
+  border:2px solid var(--navy-line);border-radius:8px;text-align:center}
+.pinwall button{font:inherit;font-weight:700;background:var(--navy);color:#fff;border:0;
+  border-radius:8px;padding:11px 18px;cursor:pointer}
+.pinmsg{font-size:14px;font-weight:700;color:#A33;min-height:18px;margin:8px 0 0}
+#assess{display:none}
+body.unlocked #assess{display:block}
+body.unlocked #pinwall{display:none}
+@media print{#pinwall{display:none}#assess{display:block}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 8 of 15</p>
+    <h1>Buddy Games Day folio: Part A</h1>
+    <div class="meta">
+      <span class="pill">AC9M6P01</span>
+      <span class="pill">AC9M6P02</span>
+      <span class="pill">55 minutes</span>
+      <span class="pill">Term 3, Week 10</span>
+      <span class="pill flag">Summative — Part A of the folio</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> today is your assessment. The items are on the <strong>Explore</strong> tab once your teacher releases them. You write in your paper booklet.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 8 &middot; Buddy Games Day folio: Part A</h2>
+    <p>The summative assessment for the probability half of the unit. Students sit it individually and under supervision, using the game their team designed in Lesson 7 and the planner they have already had critiqued. Nothing new is taught today.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;5</td><td>Planners returned. Students check the three things on the Warm-up tab. Devices open to the Chance Simulator, nothing else.</td></tr>
+      <tr><td>5&ndash;10</td><td>Conditions briefing from the Launch tab. Release code entered on the projected page so the items are visible.</td></tr>
+      <tr><td>10&ndash;50</td><td>Students work through A1 to A7 in their booklet. Teacher circulates, does not teach.</td></tr>
+      <tr><td>50&ndash;55</td><td>Collection routine. Booklets stapled to planners. Silent self-check against the criteria.</td></tr>
+    </table>
+    <div class="note warn"><strong>A team whose sample space is still incomplete cannot sit A1.</strong> Check every planner the night before, not at the start of the lesson. A team that is not ready works from the fallback game on the Resources tab and that is recorded on the folio &mdash; it is a change of apparatus, not a change of standard.</div>
+    <div class="teach">
+      <h3>What you are watching for</h3>
+      <p>Circulate for recording, not for thinking. The things worth a quiet prompt are procedural: a student who has not written anything in the observed column after fifteen minutes, a device that has lost the simulator, a booklet where A4 has been skipped because the student is waiting to run the simulation first.</p>
+      <p>The things <em>not</em> worth a prompt are A6 and A7. Those two items carry the A and B evidence, and a prompt that names the pattern hands over exactly what is being judged. If a student is stuck on A7, the only allowable prompt is to re-read their own A6 answer.</p>
+      <p><strong>Two students from the same team share raw data and should not share sentences.</strong> Identical wording in A6 or A7 from teammates is worth investigating before any judgement is recorded.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Conditions</h2>
+    <table class="scroll">
+      <tr><th style="width:150px">Technique</th><td>Folio, Part A of two. Part B is Lesson 15.</td></tr>
+      <tr><th>Conditions</th><td>Individual, supervised, in class. Approximately 55 minutes.</td></tr>
+      <tr><th>Open</th><td>Their own Lesson 7 planner, the conversion mat, a calculator, the Chance Simulator.</td></tr>
+      <tr><th>Closed</th><td>Teammates, other lessons&rsquo; worksheets, the internet.</td></tr>
+      <tr><th>Judged</th><td>Understanding (A1, A3) &middot; Fluency (A2, A4) &middot; Problem-solving (A5) &middot; Reasoning (A6, A7), on balance across the whole folio once Part B is complete.</td></tr>
+    </table>
+    <div class="note warn"><strong>Students on a Personalised Learning Plan that specifies additional time for written assessment receive it here.</strong> Confirm the arrangement and any adjusted criteria with the Support Teacher: Inclusive Education before the lesson, and note on the folio which adjustments were applied.</div>
+    <div class="branch">
+      <div class="col support"><h4>Approved adjustments</h4>
+        <ul><li>Booklet with additional recording structure &mdash; <strong>identical items</strong>, more lines and a worked layout.</li>
+        <li>Conversion mat on the desk from the start.</li>
+        <li>Task analysis strip for A4 and A5.</li>
+        <li>Scribe for A6 and A7 where the PLP specifies it. The student dictates; the scribe does not prompt.</li>
+        <li>Additional time as per PLP.</li>
+        <li>Separate space for the withdrawal group, same conditions.</li></ul></div>
+      <div class="col core"><h4>Standard conditions</h4>
+        <ul><li>Standard booklet, A1 to A7.</li>
+        <li>Conversion mat available on request.</li>
+        <li>Calculator available throughout.</li></ul></div>
+      <div class="col ext"><h4>Finished early</h4>
+        <ul><li>Two further prompts on the Explore tab.</li>
+        <li>They are <strong>not marked</strong> and not part of the folio. They set up the sampling idea Part B needs.</li>
+        <li>Nothing is gained by rushing to reach them.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What today is for</h2>
+    <p>Today you show what you can do on your own. You are not learning anything new &mdash; you are using what you already know about your team&rsquo;s game.</p>
+    <h3>I will show that I can&hellip;</h3>
+    <ul class="checklist">
+      <li>list every outcome of my game, with nothing missing and nothing counted twice;</li>
+      <li>write each probability as a fraction, a decimal and a percentage;</li>
+      <li>work out how many times each outcome should happen in 20, 200 and 2000 trials;</li>
+      <li>run the simulation and record what actually happened;</li>
+      <li>explain what happens to the gap between expected and observed, and why;</li>
+      <li>decide whether my game is fair for a Prep buddy, and prove it with my own numbers.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the list above. Which one is the biggest stretch for you today? Write it down before you start. You will come back to it at the end of the lesson.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to make sure I&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The last two are the ones that need writing, not just numbers. Leave yourself time for them.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every item today is labelled, the same as in every lesson of this unit. The labels tell you what kind of thinking the item wants, not how many marks it is worth.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">You have done this kind of thing before and it is clear what to do. A1, A2 and A3 are here.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">You know the method, but there is more than one step. A4, A5 and A6 are here.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the answer or the method. A7 is here, on its own.</p></div>
+    </div>
+    <div class="note"><strong>A7 is the one item where there is no right answer waiting to be found.</strong> Two students can reach opposite judgements and both be right. What separates them is the evidence they use.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>Before you start &mdash; three checks</h2>
+    <p>Five minutes, on your own, with your Lesson 7 planner in front of you. This is not marked. It stops you discovering a problem at minute forty.</p>
+    <div class="say">
+      <p><strong>1.</strong> Is every outcome of your game written on your planner? Say the game out loud in your head and ask: can anything else happen?</p>
+      <p><strong>2.</strong> Do your probabilities add to 1? Add the fractions. If they do not come to 1, an outcome is missing or one is counted twice.</p>
+      <p><strong>3.</strong> Can you open the Chance Simulator and build your game in it right now? Build it before the assessment starts, not during.</p>
+    </div>
+    <div class="teach">
+      <h3>Why this is five minutes well spent</h3>
+      <p>Every one of these three faults turned up in the Lesson 7 critique round, and each one is fatal in a different way. A missing outcome breaks A1, A2 and A4 together. Probabilities that do not total 1 usually mean a &ldquo;nothing happens&rdquo; case nobody counted. A simulator that will not build the game stops A5 dead, which is the Problem-solving evidence.</p>
+      <p>A student who finds a fault now has a decision to make, and it is yours to make with them: fix the game and assess the fixed game, or assess the game as planned with the fault noted. Fixing it is almost always better &mdash; the assessment is of the student, not of the planner.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>The conditions, read out</h2>
+    <div class="say">
+      <p>&ldquo;This is Part A of your assessment. It is the first half of your folio &mdash; the second half happens in Term 4, after Games Day, and I judge the two together.</p>
+      <p>You work on your own. You can use your own planner, the conversion mat, a calculator and the Chance Simulator. You cannot use anything else and you cannot talk to your teammates, even though you share a game.</p>
+      <p>There are seven items. A1 to A3 you can do straight from your planner. A4 and A5 need the simulator. A6 and A7 need writing, and they are the two I will be reading most closely, so leave yourself time for them.</p>
+      <p>If the simulator will not work on your device, put your hand up. Do not sit and wait.&rdquo;</p>
+    </div>
+    <div class="note warn"><strong>Say the last line and mean it.</strong> A device fault that costs a student twenty minutes costs them A5 and A6, which is half the Reasoning and all of the Problem-solving evidence in Part A. Have two spare devices already open to the simulator at the front.</div>
+    <div class="teach">
+      <h3>Entering the release code</h3>
+      <p>The items on the Explore tab are behind a code so they are not readable on a student device in the lessons before today. Enter it once on the projected screen when you start. The code is in the script at the bottom of this file and you can change it &mdash; it is a speed bump, not security, since anyone who views the page source can read it. The booklets are the thing students write in; the projection is so the room can see which item we are on.</p>
+      <p><strong>What to do if the code does not work:</strong> the booklet carries every item in full. Project nothing and run the lesson from paper. Nothing in Part A depends on the screen except the simulator.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>Part A &middot; seven items</h2>
+    <div class="pinwall no-print" id="pinwall">
+      <h3>This is the assessment</h3>
+      <p>Your teacher will enter the release code to show the items. Everything you write goes in your paper booklet.</p>
+      <form id="pinform" class="pinrow">
+        <label for="pininput" class="hint" style="width:100%;margin:0">Release code</label>
+        <input id="pininput" type="text" inputmode="numeric" autocomplete="off" aria-describedby="pinmsg">
+        <button type="submit">Show the items</button>
+      </form>
+      <p class="pinmsg" id="pinmsg" role="status"></p>
+    </div>
+
+    <div id="assess">
+    <p>Work on your own, in order. Use your Lesson 7 planner. Write everything in your booklet.</p>
+    <div class="q sfq"><span class="qn">A1</span><span class="cx cx-sf">SF</span><p>List every possible outcome of your team&rsquo;s game. One row per outcome. Your list must cover everything that can happen, with nothing listed twice.</p></div>
+    <div class="q sfq"><span class="qn">A2</span><span class="cx cx-sf">SF</span><p>For each outcome, write the probability as a <strong>fraction</strong>, a <strong>decimal</strong> and a <strong>percentage</strong>.</p></div>
+    <div class="q sfq"><span class="qn">A3</span><span class="cx cx-sf">SF</span><p>Choose two of your outcomes. Mark each one on the 0 to 1 scale in your booklet. Underneath, explain why each one sits where you put it.</p></div>
+    <div class="q cfq"><span class="qn">A4</span><span class="cx cx-cf">CF</span><p>Work out the expected frequency of each outcome for <strong>20 trials</strong>, <strong>200 trials</strong> and <strong>2000 trials</strong>. Show your working for one of them.</p></div>
+    <div class="q cfq"><span class="qn">A5</span><span class="cx cx-cf">CF</span><p>Run your game in the Chance Simulator at 20, then 200, then 2000 trials. Record the observed frequency of each outcome at each scale in the table.</p></div>
+    <div class="q cfq"><span class="qn">A6</span><span class="cx cx-cf">CF</span><p>Compare observed with expected at each scale. Describe what happens to the difference as the number of trials grows, and explain <em>why</em> it happens.</p></div>
+    <div class="q cuq"><span class="qn">A7</span><span class="cx cx-cu">CU</span><p>Is this a fair game for a Prep buddy? Make a judgement and justify it using the evidence in your own table.</p></div>
+    <button class="reveal" data-ans="ansEx8">Show the answers</button>
+    <div class="ans" id="ansEx8"><b>A1&ndash;A3 are accuracy items.</b> The sample space must be complete and non-overlapping; the three representations must be equivalent, not merely present; the two marks on the scale must be positioned consistently with the numbers written in A2. A student who writes 1/3 and 0.3 and 30% has not converted accurately, and that is a Fluency observation, not a slip.<br><br><b>A4 is where the method shows.</b> Either route is fine &mdash; fraction then divide-and-multiply, or decimal then multiply. What is being judged is whether the same procedure is applied correctly at all three scales. A student who gets 20 right and then guesses at 2000 has partial procedures.<br><br><b>A6 is the item most likely to be half-right.</b> The expected answer is that the gap shrinks, and for most games the gap <em>as a fraction of the trials</em> does shrink sharply. But the raw difference usually <em>grows</em> &mdash; a game run 2000 times can sit 40 away from expected when the 20-trial run was only 2 away. A student who writes &ldquo;the difference gets smaller&rdquo; and whose own table shows it getting bigger has described what they were told to expect rather than what they found. The responses worth an A are the ones that notice this and resolve it: the gap is smaller <em>compared to how many trials there were</em>. Do not prompt for this. It is the discriminating evidence.<br><br><b>A7 has no supplied answer.</b> &ldquo;Fair&rdquo; is left undefined on purpose and carries two readings &mdash; every player has the same chance, or a five-year-old can actually win sometimes. A response that names which reading it is using, and then argues from its own figures, is doing what the item asks. A response that says &ldquo;yes it is fair because everyone gets a turn&rdquo; has not used the evidence. Both a yes and a no can be an A answer; a judgement with no numbers attached cannot.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>While you work</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">What I am allowed<small>Approved adjustments</small></button>
+      <button data-path="core" aria-pressed="true">Standard conditions<small>What everyone does</small></button>
+      <button data-path="ext" aria-pressed="false">Finished early<small>Not marked</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>These change how you record, not what you are asked.</strong> The items are identical. Using one of these is not worth fewer marks.</div>
+      <ul><li>The booklet with extra recording structure &mdash; same seven items, more room and a worked layout.</li>
+      <li>The conversion mat on your desk from the start. You do not have to ask.</li>
+      <li>The task analysis strip for A4 and A5, so you can see the steps in order.</li>
+      <li>Someone to write for you on A6 and A7 if that is in your plan. You say it, they write it.</li>
+      <li>Extra time if that is in your plan.</li></ul>
+      <p class="hint">If you are not sure whether something is allowed, put your hand up and ask. Asking is never a problem.</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Work in order, A1 to A7.</strong> A1, A2 and A3 come straight off your planner, so do not spend long on them. A4 before A5 &mdash; work out what <em>should</em> happen before you run it, or you will talk yourself into whatever the simulator gives you. Leave at least ten minutes for A6 and A7, because those two need sentences, not numbers.</div>
+      <p class="hint">Stuck on A7? Read your own A6 answer again. The evidence you need is already in your table.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>These are not marked and are not part of your folio.</strong> They are here so that finishing early is still thinking time. Do them in the back of your booklet.</div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Run your game at 20 trials five separate times and write down all five results. How different are the five from each other? What does that tell you about trusting a single run of 20?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Without changing how many sections, counters or faces your game has, what could you change to make it fairer for a Prep buddy? Explain what would happen to the numbers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>Collecting the work</h2>
+    <div class="say">
+      <p>&ldquo;Pens down. Staple your booklet to your Lesson 7 planner &mdash; planner behind, booklet in front. Name on both.</p>
+      <p>Before you hand it up, read your A7 answer one more time. Does it have at least one number from your own table in it? If it does not, you have given me an opinion, not an answer. You have two minutes.&rdquo;</p>
+    </div>
+    <div class="note"><strong>No discussion of answers today.</strong> Part A is assessment, not instruction. The conversation about what people found happens in Lesson 9, after the work is collected and after the break.</div>
+    <div class="teach">
+      <h3>The two-minute A7 check is deliberate</h3>
+      <p>It is the only prompt given during the assessment, it is given to everyone at once, and it names a requirement that was already written in the item. It lifts a handful of students from an unsupported assertion to a supported one without telling anybody what to conclude. That is an allowable condition of the task, and it is worth more than any amount of circulating.</p>
+      <h3>Sorting the folios tonight, not next week</h3>
+      <p>Sort into three piles as you collect: A6 and A7 both attempted with numbers; one of the two thin; one or both blank. The third pile tells you who needs the Lesson 9 recap aimed at them, and it tells you now rather than in Week 2 of Term 4.</p>
+      <p>Do not mark yet. The folio is judged as a whole after Part B. What you are doing tonight is reading, not grading.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Back to your goal</h2>
+    <div class="note">Open the <strong>Intentions</strong> tab and read what you wrote at the start of the lesson. Then answer these three, out loud with the person next to you or in your head.</div>
+    <div class="q sfq"><span class="qn">1</span><p>Did you do the thing you set out to do today? What is your evidence &mdash; which item shows it?</p></div>
+    <div class="q sfq"><span class="qn">2</span><p>Which item took you the longest? Was that because it was hard, or because of how you set it out?</p></div>
+    <div class="q sfq"><span class="qn">3</span><p>Part B happens after the holidays and uses the data from Games Day. What is one thing you want to do differently next time?</p></div>
+    <div class="teach">
+      <h3>Hearing this one</h3>
+      <p>Question 2 is the useful one for you. Students who say an item took long because of how they set it out are describing a recording problem, and that is fixable before Part B with a template. Students who say the thinking was hard are describing something else entirely, and the two need different responses in Lesson 9.</p>
+      <p>Resist turning this into a post-mortem of the content. Nobody should leave the room knowing whether they got A4 right, because the next conversation about it happens in Term 4 and it should be about the pattern, not about marks.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>One line before you go</h3>
+      <p style="margin:0 0 8px">Write the sentence you would want your Term 4 self to read before Part B.</p>
+      <label for="goal2" class="hint">Note to myself for Part B&hellip;</label>
+      <textarea id="goal2" placeholder="Next time I will&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:290px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l8-01-part-a-booklet.pdf">resources/l8-01-part-a-booklet.pdf</a></td><td>One per student. Print single sided &mdash; students work across the tables.</td></tr>
+      <tr><td><a class="res" href="resources/l8-02-part-a-booklet-adjusted.pdf">resources/l8-02-part-a-booklet-adjusted.pdf</a></td><td>Same seven items with more recording structure. For students whose plan specifies it, and for anyone who asks.</td></tr>
+      <tr><td><a class="res" href="resources/l8-03-fallback-game-card.pdf">resources/l8-03-fallback-game-card.pdf</a></td><td>Spares only, for a team whose game is not assessable. Hand out individually, not to the room.</td></tr>
+      <tr><td><a class="res" href="../../shared/chance-simulator.html">shared/chance-simulator.html</a></td><td>Open on every device before students arrive.</td></tr>
+      <tr><td><a class="res" href="../../shared/conversion-mat.pdf">shared/conversion-mat.pdf</a></td><td>On the desk for approved students, on the side bench for everyone else.</td></tr>
+      <tr><td><a class="res" href="../../shared/task-analysis-strips.pdf">shared/task-analysis-strips.pdf</a></td><td>For A4 and A5 where the plan specifies it.</td></tr>
+      <tr><td>Lesson 7 planners</td><td>Returned at the start, handed up stapled behind the booklet at the end.</td></tr>
+      <tr><td><a class="res" href="../../teacher-only-NOT-for-github/Buddy_Games_Day_Task_Spec_and_Marking_Guide_v1.docx">teacher-only-NOT-for-github/Buddy_Games_Day_Task_Spec_and_Marking_Guide_v1.docx</a></td><td>Yours. The item map and the marking guide.</td></tr>
+    </table>
+    <div class="note good"><strong>Before the lesson:</strong> every planner checked for a complete sample space; the simulator tested on the devices being used today; PLP time allowances and any adjusted criteria confirmed with the Support Teacher: Inclusive Education; the withdrawal group&rsquo;s space booked with the same conditions.</div>
+  </div>
+  <div class="card">
+    <h2>After the lesson</h2>
+    <p>Part A is half a folio. It is not reported on its own and it is not marked yet.</p>
+    <ul><li>Read the folios into the three piles described on the Summarise tab. Do not grade.</li>
+    <li>Keep the cleaned team data files from Games Day &mdash; Part B depends on them being distributed and openable before Lesson 15.</li>
+    <li>The newsletter stimulus for B6 needs the class&rsquo;s real Games Day figures dropped into it. It only works if students recognise the numbers as their own.</li>
+    <li>Moderate with the Year 6 team using A7 responses first, once Part B is in. Bring two folios you are confident about and one you are not.</li></ul>
+    <div class="teach">
+      <h3>Where Part A sits in the achievement standard</h3>
+      <p>A1 to A3 evidence &ldquo;assign probabilities as fractions, decimals and percentages&rdquo;. A5 evidences &ldquo;conduct simulations using digital tools&rdquo;. A6 evidences &ldquo;compare observed frequencies to expected&rdquo;. A4 is the procedural bridge between the two.</p>
+      <p>What Part A does <em>not</em> evidence is anything in the statistics half of the standard &mdash; comparing distributions and critiquing statistics in the media. That is the whole of Part B, and it is why the folio is split rather than the probability half being reported on its own.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. Standard elaborations material &copy; State of Queensland (QCAA) 2025, licensed under CC BY 4.0. Neither ACARA nor QCAA endorses this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+
+  // ---- Release code -------------------------------------------------
+  // Change this one line to set your own code. It keeps the paper off
+  // student screens before the assessment; it is not security, because
+  // anyone who views the page source can read it.
+  var TEACHER_PIN = '8365';
+  var pf = document.getElementById('pinform');
+  if (pf) {
+    pf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = document.getElementById('pininput').value.trim();
+      if (v === TEACHER_PIN) {
+        document.body.classList.add('unlocked');
+      } else {
+        document.getElementById('pinmsg').textContent =
+          'That code is not right. Ask your teacher.';
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>

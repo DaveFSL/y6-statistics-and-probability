@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 10 — Can we trust our data? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 10 of 15</p>
+    <h1>Can we trust our data?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6ST03</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 4, Week 1</span>
+      <span class="pill flag">After Games Day</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 10 &middot; Can we trust our data?</h2>
+    <p>Games Day has happened and every team has a paper sheet. This lesson turns that paper into a file that can be trusted, and it teaches the part of statistics that nobody sees in the finished graph: deciding what to do about the rows that are wrong.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;5</td><td>Warm-up. The four types from Lesson 9, out loud.</td></tr>
+      <tr><td>5&ndash;15</td><td>Launch. Team Comet&rsquo;s sheet on the board. Ninety seconds to find three things wrong, then the spreadsheet finds them properly.</td></tr>
+      <tr><td>15&ndash;35</td><td>Explore. The seven faults, in pairs: what kind of fault, what to do, and why that is defensible.</td></tr>
+      <tr><td>35&ndash;50</td><td>Teams type in their own Games Day data and fill in their own decision log.</td></tr>
+      <tr><td>50&ndash;55</td><td>Summarise and exit ticket.</td></tr>
+    </table>
+    <div class="note warn"><strong>Team Comet is not a real team.</strong> It is a made-up sheet with seven planted faults, which means the lesson works no matter what came back from Games Day. Every student meets the same seven problems and the discussion is the same in every pair. Teams clean their own data afterwards, with the thinking already done.</div>
+    <div class="teach">
+      <h3>The idea this lesson is actually about</h3>
+      <p>Not tidiness. The sentence to get out of the room is <strong>fix what you can prove, blank what you cannot, never invent a number, and write down every decision</strong>. Students arrive believing that cleaning data means making it look right, and the planted faults are chosen so that two of them can be fixed with certainty and three cannot.</p>
+      <p>The one that does the most work is Ethan&rsquo;s 4500 seconds. Everyone wants to change it to 45. It is almost certainly 45. But &ldquo;almost certainly&rdquo; is not evidence, and a number invented by the person analysing the data is worse than a missing one, because nobody downstream can tell it was invented.</p>
+      <h3>Blank is not zero</h3>
+      <p>Chloe&rsquo;s row is the quiet one. Her buddy walked off, so there is no time and no rating. A blank says <em>we do not know</em>. A zero says <em>it happened zero times</em>, which for a stopwatch is a claim that the visit was instantaneous. Students type zeros into blanks constantly and it shifts every average they calculate afterwards.</p>
+      <h3>If a team came back with nothing</h3>
+      <p>They work Team Comet&rsquo;s sheet as their own data for the rest of the unit, and they say so in Part B item B2. That is a real limitation of a real method, honestly reported, and it is worth more than a borrowed data set presented as their own.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Differentiation</h2>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul><li>Three faults instead of seven, with the fault already circled on the printed sheet.</li>
+        <li>The decision is the task; finding it is not.</li>
+        <li>Decision log with the first row filled in.</li>
+        <li>Types their own data into the pre-built workbook, which already has the headings and the checks.</li></ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul><li>All seven faults, found as well as decided.</li>
+        <li>Decision log from blank.</li>
+        <li>Own data typed in and checked.</li></ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul><li>Two prompts on the Explore tab, both about prevention rather than repair.</li>
+        <li>Prompt 1 is really about data validation, which is already built into the template &mdash; show them where it lives once they have asked for it.</li></ul></div>
+    </div>
+    <div class="note"><strong>Lesson-specific adjustment today:</strong> the printed copy of Team Comet&rsquo;s sheet with the three faults circled, so that students who cannot scan a table under time pressure still do the thinking the lesson is for.</div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to check a set of data, decide what to do about anything that looks wrong, and record those decisions so that somebody else could follow them.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can use a spreadsheet to find faults I could not see by reading;</li>
+      <li>I can tell the difference between a fault I can prove how to fix and one I can only flag;</li>
+      <li>I can explain why a blank is not the same as a zero;</li>
+      <li>I can write down a decision in a way that somebody else could check.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The second one is the one most people get wrong, because fixing something feels more useful than flagging it.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">Find the fault. The spreadsheet has already told you roughly where it is.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">Decide what to do about one fault, and say why that decision is defensible.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Work out the rule that separates the faults you can fix from the ones you cannot.</p></div>
+    </div>
+    <div class="note"><strong>There is no mark for tidiness today.</strong> A sheet with three blanks in it and a decision log that explains all three is better work than a sheet with no blanks at all.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>Warm-up &middot; the four types</h2>
+    <div class="note">Five minutes, out loud, no writing. Hands up, cold call, move fast.</div>
+    <div class="say">
+      <p><strong>1.</strong> Which outcome a buddy got. &mdash; <em>Nominal categorical. Groups with no order.</em></p>
+      <p><strong>2.</strong> How much they liked it, 1 to 4. &mdash; <em>Ordinal categorical. The order means something; the gaps are not measured.</em></p>
+      <p><strong>3.</strong> How many of three turns they won. &mdash; <em>Discrete numerical. Counted.</em></p>
+      <p><strong>4.</strong> How long the visit took. &mdash; <em>Continuous numerical. Measured.</em></p>
+      <p><strong>5.</strong> What is the test that separates the last two? &mdash; <em>Does half of one make sense?</em></p>
+    </div>
+    <div class="teach">
+      <h3>Why this is worth five minutes on a day with a lot to do</h3>
+      <p>The four types were met once, a week ago, with Games Day in between. Spaced retrieval is the point: asking for them cold is what makes them stick, and they are needed in Lesson 11, Lesson 13 and item B1 of the folio. Reading them off a poster is not retrieval.</p>
+      <p>If more than a few students are stuck on nominal against ordinal, do not reteach now. Note it, and use the Lesson 11 warm-up for it, because today&rsquo;s work does not depend on the names.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>Team Comet&rsquo;s sheet</h2>
+    <div class="say">
+      <p>&ldquo;Here is a sheet from a team at another school. They played a game called Treasure Bag, with three outcomes: Gold, Silver and Blue. Sixteen buddies came.</p>
+      <p>Ninety seconds. Find three things wrong with it. Do not call out &mdash; write them down.&rdquo;</p>
+    </div>
+    <div class="note"><strong>Open</strong> <a class="res" href="resources/l10-03-cleaning-practice.xlsx">resources/l10-03-cleaning-practice.xlsx</a> on the board, sheet <em>Team Comet&rsquo;s sheet</em>. Give the ninety seconds properly. Take three answers, then show the panel on the right of the screen.</div>
+    <table class="scroll">
+      <tr><th style="width:290px">What the spreadsheet says</th><th style="width:70px">Value</th><th>What that tells you</th></tr>
+      <tr><td>Rows typed in</td><td>16</td><td>Matches the paper sheet. Nothing is missing.</td></tr>
+      <tr><td>Different outcomes used</td><td>4</td><td>But the game only has three. Something is spelled two ways.</td></tr>
+      <tr><td>Biggest &ldquo;won out of 3&rdquo;</td><td>5</td><td>Impossible. There were only three turns.</td></tr>
+      <tr><td>Biggest &ldquo;seconds&rdquo;</td><td>4500</td><td>Seventy-five minutes for one visit.</td></tr>
+      <tr><td>Smallest &ldquo;liked it&rdquo;</td><td>0</td><td>The scale starts at 1.</td></tr>
+      <tr><td>Cells counted as numbers in &ldquo;seconds&rdquo;</td><td>14</td><td>Two of the sixteen are not numbers at all.</td></tr>
+    </table>
+    <div class="say">
+      <p>&ldquo;Four of those six you could not have found by reading, because nothing looks wrong until you compare it with something. That is what a spreadsheet is for. It does not know what the data means &mdash; it just knows what does not fit.&rdquo;</p>
+    </div>
+    <div class="teach">
+      <h3>The formula worth showing them</h3>
+      <p>&ldquo;Different outcomes used&rdquo; counts distinct text values. You do not need to teach the formula, but do say what it did: it found that the sheet contains four different spellings in a column that should only ever hold three. That single number catches both spelling faults at once, and it is the kind of check that scales to a data set too big to read.</p>
+      <h3>Do not fix anything yet</h3>
+      <p>The temptation at this point is to clean it together on the board, which does the whole lesson for them. Stop at &ldquo;here are six numbers that should worry you&rdquo;. The deciding is the work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>Seven faults</h2>
+    <div class="note"><strong>In pairs, on the printed sheet.</strong> For each one: what kind of fault is it, what will you do, and why could you defend that decision to somebody who was not there?</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>The sheet uses four different outcome names, but Treasure Bag only has three. Find the two rows that cause it. What is the fix, and how do you know it is right?</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>Two cells in the Seconds column are not counted as numbers. Find them both. Why does that matter to the spreadsheet?</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>Zoe&rsquo;s row says she won 5 out of 3. Can you work out what it should be? What should you do about it?</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>Ethan&rsquo;s visit says 4500 seconds. Someone says &ldquo;that is obviously 45, just change it&rdquo;. Why is that a bad idea, and what should happen instead?</p></div>
+    <div class="q cfq"><span class="qn">5</span><span class="cx cx-cf">CF</span><p>Chloe&rsquo;s row has a blank for seconds and a blank for liked it. Should you type 0 in them? Explain what each choice would mean.</p></div>
+    <div class="q cfq"><span class="qn">6</span><span class="cx cx-cf">CF</span><p>Lucas appears twice with identical numbers. Give the two possible explanations, and say how you would find out which one it is.</p></div>
+    <div class="q cuq"><span class="qn">7</span><span class="cx cx-cu">CU</span><p>Sort all seven faults into two groups: ones where you can <em>prove</em> the fix, and ones you can only flag. What is the rule that separates the two groups?</p></div>
+    <div class="q cuq"><span class="qn">8</span><span class="cx cx-cu">CU</span><p>After cleaning there are 15 rows but only 13 times. A team member wants to delete the two rows with missing times so that every row is complete. What would that do to their results?</p></div>
+    <button class="reveal" data-ans="ansEx10">Show the answers</button>
+    <div class="ans" id="ansEx10"><b>1.</b> Row 4 has &ldquo;gold&rdquo; and row 15 has &ldquo;Bleu&rdquo;. Both are fixable with certainty, and the reason matters: the game has exactly three outcomes, so neither spelling can be a fourth thing. That is proof, not a guess.<br><br><b>2.</b> Jack&rsquo;s &ldquo;forty&rdquo; and Chloe&rsquo;s blank. A spreadsheet will not add text, so every calculation on that column silently skips them. The blank is honest; the word is a typing choice that can be fixed, because &ldquo;forty&rdquo; has exactly one numerical meaning.<br><br><b>3.</b> No. You cannot recover it &mdash; 5 could be a slip for 3, for 2, or for anything. Check the paper sheet first; if the paper also says 5, the value is unusable. Blank it and log it. The marker of a strong answer is that the student goes back to the source before deciding.<br><br><b>4.</b> <b>This is the one.</b> It almost certainly is 45, and that is exactly the problem: &ldquo;almost certainly&rdquo; is a guess by the person who is about to analyse the data. A number you invented is worse than a missing one, because nobody reading your results afterwards can tell which numbers were real. Check the paper sheet; if it says 4500 too, blank it and log it.<br><br><b>5.</b> No. A blank means <em>we do not know</em>. A zero in seconds claims the visit took no time at all, and a zero in the liked column is not even on the scale. Both zeros would drag any average down and neither is true.<br><br><b>6.</b> Either the row was typed twice, or Lucas really came back and played again. The numbers being <em>identical</em> &mdash; same outcome, same wins, same seconds to the second &mdash; points hard at a double entry, because a second real visit would not match to the second. Go back to the paper sheet and count the rows. This is the question the Lesson 9 extension prompt already asked them.<br><br><b>7.</b> Provable: the two spellings, and &ldquo;forty&rdquo;. Flag only: the 5 wins, the 4500 seconds, the 0 rating, and the duplicate until the paper sheet is checked. The rule students are reaching for is <em>can the true value be worked out from something other than my own guess?</em> A spelling has one possible correct value; an out-of-range number has many.<br><br><b>8.</b> It would throw away two buddies&rsquo; outcomes and ratings that are perfectly good, just because one cell is missing. The number of buddies would drop from 15 to 13, every count would change, and the missing rows are not a random pair &mdash; they are the buddy who walked off and the one whose stopwatch failed, which may be exactly the slowest and least engaged visits. Keep the rows; leave the cells blank.</div>
+  </div>
+  <div class="card">
+    <h2>Now your own data</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Three faults, already found</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>All seven, then your own</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>The three faults are already circled on your sheet.</strong> You do not have to find them. Deciding what to do is the job.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>Row 5 says Zoe won 5 out of 3 turns. Is that possible? What should you write instead?</p></div>
+      <div class="q sfq"><span class="qn">B</span><span class="cx cx-sf">SF</span><p>Row 4 says &ldquo;gold&rdquo; and row 1 says &ldquo;Gold&rdquo;. Are they the same outcome? What should you do?</p></div>
+      <div class="q sfq"><span class="qn">C</span><span class="cx cx-sf">SF</span><p>Row 11 has nothing in the seconds box, because the buddy walked away. Should you type 0? Say why.</p></div>
+      <p class="hint">Then type your own team&rsquo;s data into the workbook. The headings and the checks are already there &mdash; you only type the rows.</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Then do the same for your own sheet.</strong> Open <a class="res" href="../09-what-are-we-going-to-find-out/resources/l9-05-data-entry-template.xlsx">lessons/09-what-are-we-going-to-find-out/resources/l9-05-data-entry-template.xlsx</a>, type in every row exactly as the paper says &mdash; including anything that looks wrong &mdash; then run the checks on the right, then clean it and fill in your decision log. Type first, judge second. A row changed while you are typing is a decision nobody wrote down.</div>
+      <p class="hint">Your team&rsquo;s faults will not be the same as Team Comet&rsquo;s. If your checks come back clean, read the second Going Further question before you believe them.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>Both of these are about stopping the fault, not repairing it.</strong></div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Design a rule the spreadsheet could use to stop Zoe&rsquo;s 5 being typed in the first place. What exactly would it allow, and what would it refuse? Then find where that rule already lives in the template.</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Your team&rsquo;s checks come back with nothing wrong at all. Is that more likely because you were careful, or because nobody has checked properly? Describe one check you could do that the spreadsheet cannot.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>The rule</h2>
+    <div class="note good" style="font-size:19px;font-weight:700;text-align:center">Fix what you can prove.<br>Blank what you cannot.<br>Never invent a number.<br>Write down every decision.</div>
+    <div class="say">
+      <p>&ldquo;Four of Team Comet&rsquo;s faults you could not fix, and that is not a failure. Their cleaned sheet has fifteen rows and only thirteen times in it, and that is the <em>correct</em> answer. A sheet with no gaps in it, where there should have been gaps, is a sheet somebody has made up.</p>
+      <p>And every single one of those decisions goes in the log, because in three weeks I am going to ask you how your data was collected and what was wrong with it. The log is that answer, written while you still remember.&rdquo;</p>
+    </div>
+    <table class="scroll">
+      <tr><th style="width:230px">Blank</th><th>Zero</th></tr>
+      <tr><td>We do not know what happened.</td><td>It happened, and the amount was none.</td></tr>
+      <tr><td>Calculations skip it.</td><td>Calculations include it and it pulls the average down.</td></tr>
+      <tr><td>Chloe&rsquo;s stopwatch never started.</td><td>Oliver won zero of his three turns.</td></tr>
+    </table>
+    <div class="teach">
+      <h3>Collect the decision logs before the end of the lesson</h3>
+      <p>Not the cleaned data &mdash; that lives in their file. The log is the thing that disappears, and it is the whole of item B2. A photograph of it on a tablet is fine; a log that stays in a team folder until Lesson 15 is a log that will not exist.</p>
+      <h3>The sentence to listen for</h3>
+      <p>&ldquo;We changed it to what it probably was.&rdquo; Every time you hear it, ask what the evidence was. If the answer is the paper sheet, that is a fix. If the answer is what seemed sensible, that is an invention, and it is worth stopping the room for.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Exit ticket</h2>
+    <div class="note">On your own. Five minutes. On the back of your worksheet.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>A sheet has 20 rows but the spreadsheet counts only 18 numbers in the height column. Give one reason that could happen.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>A team finds one buddy&rsquo;s rating written as 7 on a scale of 1 to 4. Write what they should do, and the reason, in one sentence each.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>Two teams have the same data. One team&rsquo;s file has no blanks. The other team&rsquo;s has four. Which team would you trust more, and what would you need to see to be sure?</p></div>
+    <div class="teach">
+      <h3>What each item tells you</h3>
+      <p><strong>1.</strong> Looking for: two cells are blank, or hold text rather than a number. A student who says &ldquo;two are wrong&rdquo; has not grasped that the spreadsheet is reporting what it <em>could not count</em>, not what is incorrect.</p>
+      <p><strong>2.</strong> The decision is to blank it; the reason is that 7 cannot be recovered to a value on the scale. Watch for &ldquo;change it to 4&rdquo;, which is the 4500-seconds error again, a lesson later.</p>
+      <p><strong>3.</strong> The answer the lesson is for: neither, until you see the decision logs. Blanks are evidence of checking, not of carelessness, and a file with no blanks at all is the one worth asking about. A student who picks the no-blanks team without qualification has heard the rule but not believed it.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>Back to your goal</h3>
+      <p style="margin:0 0 8px">Read what you wrote at the start on the Intentions tab. Did you do it? Write one sentence.</p>
+      <label for="goal2" class="hint">How I went today&hellip;</label>
+      <textarea id="goal2" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:300px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l10-03-cleaning-practice.xlsx">resources/l10-03-cleaning-practice.xlsx</a></td><td>On the board for the Launch, and open on every device for the Explore. Three sheets: Team Comet&rsquo;s sheet, Decision log, Our cleaned sheet.</td></tr>
+      <tr><td><a class="res" href="resources/l10-01-worksheet-core.pdf">resources/l10-01-worksheet-core.pdf</a></td><td>Most of the class. Team Comet&rsquo;s sheet printed, the seven questions, and a decision log.</td></tr>
+      <tr><td><a class="res" href="resources/l10-02-worksheet-support.pdf">resources/l10-02-worksheet-support.pdf</a></td><td>Three faults already circled, decision log with the first row done.</td></tr>
+      <tr><td><a class="res" href="../09-what-are-we-going-to-find-out/resources/l9-05-data-entry-template.xlsx">lessons/09-what-are-we-going-to-find-out/resources/l9-05-data-entry-template.xlsx</a></td><td>One copy per team, renamed with the team name, for their own data.</td></tr>
+      <tr><td>The paper collection sheets from Games Day</td><td>Back to the teams for this lesson only. Collected again at the end &mdash; they are the source of truth for every decision.</td></tr>
+      <tr><td><a class="res" href="../../shared/sentence-stems.pdf">shared/sentence-stems.pdf</a></td><td>For the &ldquo;why we could defend that&rdquo; column.</td></tr>
+    </table>
+    <div class="note warn"><strong>Before the lesson:</strong> the paper sheets photographed or photocopied; a copy of the entry template saved per team with the team name on it; and a decision made about any team that came back with no usable data &mdash; they work Team Comet&rsquo;s sheet from here on and report that in Part B.</div>
+  </div>
+  <div class="card">
+    <h2>Where this sits in the achievement standard</h2>
+    <p>This lesson is the second half of <strong>AC9M6ST03</strong>: acquire, validate and organise data. Validation is the word doing the work, and it is the part of the standard that disappears if students are handed a clean file.</p>
+    <p>In the folio it produces item <strong>B2</strong> directly &mdash; describe how the data was collected and identify one limitation of the method. The decision log <em>is</em> that evidence, which is why it is collected today rather than left to be reconstructed in Lesson 15.</p>
+    <div class="teach">
+      <h3>What has to be true before Lesson 11</h3>
+      <p>Every team has one file, named, with their own cleaned data in it, saved where they can find it again. Lesson 11 builds a display from it and there is no time to go looking. Check the files tonight, not at the start of the next lesson.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. ACARA does not endorse this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 14 — Reading between the lines | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 14 of 15</p>
+    <h1>Reading between the lines</h1>
+    <div class="meta">
+      <span class="pill">AC9M6ST02</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 4, Week 3</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 14 &middot; Reading between the lines</h2>
+    <p>A draft newsletter article about Games Day, written by a parent helper who has got everything factually right and the whole picture wrong. Five separate faults, not one of them a lie. This is the lesson that carries AC9M6ST02, and it is the one students remember.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;5</td><td>Warm-up. Two graphs of the same two numbers, from the diagnostic.</td></tr>
+      <tr><td>5&ndash;12</td><td>Launch. Read the article aloud. &ldquo;Should this go out?&rdquo; Hands up. Hold the vote.</td></tr>
+      <tr><td>12&ndash;35</td><td>Explore. Critique groups work through the article fault by fault.</td></tr>
+      <tr><td>35&ndash;48</td><td>Redraw the graph honestly, then write what changed.</td></tr>
+      <tr><td>48&ndash;55</td><td>Re-vote, summarise, exit ticket.</td></tr>
+    </table>
+    <div class="note warn"><strong>Every sentence in the article is true.</strong> Say this before they start and repeat it when somebody claims a sentence is a lie. The faults are in the sampling, the graph and the reasoning &mdash; not in the facts. That distinction is the whole lesson, and it is what makes this harder than spotting a wrong number.</div>
+    <div class="teach">
+      <h3>The five faults, in the order students usually find them</h3>
+      <ol>
+        <li><strong>The graph.</strong> The vertical axis starts at 8. Comet had 11 and Nebula had 9 &mdash; a ratio of 1.22 &mdash; but the visible bars are 3 high and 1 high, so Comet looks three times as popular. The article then states that in words.</li>
+        <li><strong>Four buddies.</strong> Three out of four is 75%, correctly calculated. Four buddies out of thirty-eight is not a basis for a claim about Prep students.</li>
+        <li><strong>Twice as many.</strong> Twice as many as what? There is no starting number anywhere. Two and four is also twice as many.</li>
+        <li><strong>One stall.</strong> Every buddy at one stall won a prize, and that is turned into &ldquo;a win for everyone&rdquo;.</li>
+        <li><strong>The last sentence.</strong> Nothing above it is about learning mathematics at all. Even if every other claim held, that conclusion would not follow.</li>
+      </ol>
+      <p>Fault 5 is the one classes find last and the one worth the most. A student who gets to &ldquo;none of this is about learning&rdquo; has done the Reasoning that item B6 is looking for.</p>
+      <h3>Hold the first vote and come back to it</h3>
+      <p>Most of the class will vote to publish. Write the numbers on the board. Re-vote at the end and point at the change &mdash; that gap is the clearest evidence they will ever get that a critique is a skill rather than a suspicion.</p>
+      <h3>Who leads the critique groups</h3>
+      <p>The students who explained item 7 on the statistics diagnostic. They saw the truncated axis before anybody taught them to, and that is recorded on the teacher analysis sheet from Lesson 9.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Differentiation</h2>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul><li>Three of the five faults, with the sentence already highlighted on the article.</li>
+        <li>The critique protocol cards, one fault per card.</li>
+        <li>Chart rebuilt from a supplied range; only the axis minimum changes.</li>
+        <li>Sentence frames for &ldquo;what it makes you think&rdquo; against &ldquo;what is actually true&rdquo;.</li></ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul><li>All five faults, found as well as explained.</li>
+        <li>Each one named by what kind of fault it is.</li>
+        <li>Graph redrawn fairly, with a sentence on what changed.</li></ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul><li>Rewrite the article so that every claim is supported.</li>
+        <li>Then the harder one: an honest article that still reads as good news.</li></ul></div>
+    </div>
+    <div class="note"><strong>Lesson-specific adjustment today:</strong> the article with three sentences pre-highlighted, so students who cannot scan a page of prose under time pressure still do the critique, which is what is being assessed.</div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to critique a statistical claim: to work out what a graph is making you think, what the numbers actually say, and whether the conclusion follows.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can explain how a graph can mislead without anybody changing a number;</li>
+      <li>I can say why a result from four people cannot speak for thirty-eight;</li>
+      <li>I can spot a comparison with no starting number;</li>
+      <li>I can redraw a misleading graph fairly and say what changed;</li>
+      <li>I can tell the difference between a claim that is wrong and a claim that does not follow.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The last one. A sentence can be completely true and still not prove what it is being used to prove.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">Read the real numbers off the graph and off the article.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">Explain how one particular trick works, and redraw the graph fairly.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Decide whether the conclusion follows, and say what the article would need to prove it.</p></div>
+    </div>
+    <div class="note"><strong>Nothing in the article is a lie.</strong> If you find yourself writing &ldquo;this is wrong&rdquo;, check it again &mdash; it is probably true. The question is not whether it is true. The question is what it makes you believe.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>Warm-up &middot; the same two numbers</h2>
+    <div class="note">Five minutes. Put the two graphs from the statistics diagnostic back on the board &mdash; Team A scored 18 and Team B scored 22, drawn twice.</div>
+    <div class="say">
+      <p><strong>1.</strong> Which graph makes the difference look bigger? <em>The second one.</em></p>
+      <p><strong>2.</strong> How many points is the difference, really? <em>Four, in both graphs.</em></p>
+      <p><strong>3.</strong> What is different about the two graphs, then? <em>Where the vertical axis starts.</em></p>
+      <p><strong>4.</strong> Did anybody change a number? <em>No.</em></p>
+    </div>
+    <div class="teach">
+      <h3>This is item 7 from the diagnostic, deliberately</h3>
+      <p>Most of the class got it wrong or left it blank ten weeks ago, before anybody had taught them to look. Say so out loud. Doing it again now, knowing the answer, is not a waste of five minutes &mdash; it is the moment the class sees that this was always learnable and that they have learned it.</p>
+      <p>The students who explained it correctly back then are the ones to put at the head of each critique group in twenty minutes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>Should this go out?</h2>
+    <div class="note">Hand out <strong><a class="res" href="resources/l14-03-newsletter-article.pdf">resources/l14-03-newsletter-article.pdf</a></strong>. Read it aloud yourself, straight, without any hint in your voice. Then put the question.</div>
+    <div class="say">
+      <p>&ldquo;This is a draft. Somebody has written it about our Games Day and it has not gone out yet.</p>
+      <p>Hands up if you think it should be published as it is.&rdquo; <em>[Count. Write the number on the board and leave it there.]</em></p>
+      <p>&ldquo;Right. Now the thing you need to know before you start. Every single sentence in that article is true. Nobody has lied to you. Your job is to work out why it is still a problem.&rdquo;</p>
+    </div>
+    <div class="note good"><strong>Keep the first vote visible all lesson.</strong> You will come back to it at the end, and the change in the numbers is the lesson&rsquo;s own evidence that critique is a skill.</div>
+    <div class="teach">
+      <h3>Resist the first hand</h3>
+      <p>Someone will spot the graph in the first thirty seconds, because the axis is the one trick they have met before. Take the observation, write &ldquo;the graph&rdquo; on the board, and move on without explaining it. If you unpack the axis now, the other four faults go unfound &mdash; and the other four are where the Reasoning evidence lives.</p>
+      <h3>Then set them up properly</h3>
+      <p>Critique groups of three or four, with a protocol card each. One pass through the article per card. Nobody writes anything until the second pass &mdash; the first pass is only for noticing.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>Five things wrong with a true article</h2>
+    <div class="note"><strong>Two passes.</strong> First pass: read and notice, writing nothing. Second pass: one protocol card at a time, and now you write. Work from <strong><a class="res" href="resources/l14-03-newsletter-article.pdf">resources/l14-03-newsletter-article.pdf</a></strong>, with <strong><a class="res" href="resources/l14-04-misleading-charts.xlsx">resources/l14-04-misleading-charts.xlsx</a></strong> open for questions 3 and 8.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Look at the graph. How many buddies said they liked Team Comet&rsquo;s game? How many liked Team Nebula&rsquo;s?</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>The article says Comet&rsquo;s game was three times more popular than Nebula&rsquo;s. Is 11 three times 9?</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>The graph has not been faked &mdash; both numbers are right. So how does it make Comet look three times as popular? Look hard at the vertical axis.</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>Four Prep students were asked, and three said it was the best day of the year. The article turns that into 75% of Prep students. The arithmetic is correct. What is wrong with the claim?</p></div>
+    <div class="q cfq"><span class="qn">5</span><span class="cx cx-cf">CF</span><p>&ldquo;Twice as many Preps asked to play again this year as asked last year.&rdquo; What would you need to know before that sentence told you anything?</p></div>
+    <div class="q cfq"><span class="qn">6</span><span class="cx cx-cf">CF</span><p>&ldquo;At one stall, every single buddy who played won a prize. Games Day was a win for everyone.&rdquo; The first sentence is true. Why does the second one not follow from it?</p></div>
+    <div class="q cuq"><span class="qn">7</span><span class="cx cx-cu">CU</span><p>Read the last sentence again. Suppose every other claim in the article were completely sound. Would the last sentence follow? What evidence would the article need before it could say that?</p></div>
+    <div class="q cuq"><span class="qn">8</span><span class="cx cx-cu">CU</span><p>Redraw the graph fairly, then write one sentence about what changed and one about what did <em>not</em> change.</p></div>
+    <button class="reveal" data-ans="ansEx14">Show the answers</button>
+    <div class="ans" id="ansEx14"><b>1.</b> Comet 11, Nebula 9. Orion 10. Students have to read these off an axis that starts at 8, which is already the first encounter with the trick.<br><br><b>2.</b> No. 11 is a little over one and a fifth times 9. Three times 9 would be 27.<br><br><b>3. The axis starts at 8.</b> So the visible part of Comet&rsquo;s bar is 3 units and the visible part of Nebula&rsquo;s is 1, and the eye reads the heights, not the labels. Nobody changed a number; somebody changed where the picture begins. The workbook works this out on screen: 1.22 times in the data, 3 times on the page.<br><br><b>4.</b> Four buddies out of thirty-eight. Three out of four really is 75%, and that is what makes the sentence slippery &mdash; the maths is right and the claim is not. With four people you could only ever get 0%, 25%, 50%, 75% or 100%, and one more buddy with a different answer would have moved it by 25 points. Watch for &ldquo;they should have asked more people&rdquo;; press for why, and the answer is that a tiny sample cannot speak for a big group.<br><br><b>5.</b> How many asked last year. Two and four is twice as many. So is forty and eighty, and those two sentences mean completely different things. A comparison with no starting number tells you nothing at all.<br><br><b>6.</b> One stall is not every stall. The first sentence is about the buddies who played one game; the second is about everybody at Games Day. The strongest answers notice the stall was probably chosen <em>because</em> it was the one where that was true.<br><br><b>7. The one worth the most.</b> No, and this is the hardest fault to see because it is not about numbers at all. Nothing in the article measures learning &mdash; it measures enjoyment, prizes and requests to play again. Even with a perfect sample and an honest graph, &ldquo;they liked it&rdquo; does not establish &ldquo;this is the best way to learn mathematics&rdquo;. To say that you would need to measure what the children learned, and to compare it with children taught another way.<br><br><b>8.</b> With the axis from zero the three bars are nearly the same height, and the honest sentence is that the three games were about equally popular. What did <em>not</em> change: the numbers. Comet still had 11 and Nebula still had 9, and Comet was still the most popular. That second half matters &mdash; fixing a misleading graph is not the same as proving the opposite.</div>
+  </div>
+  <div class="card">
+    <h2>Fix the graph</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Three faults, highlighted</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>All five, then redraw</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>Three sentences are highlighted on your copy.</strong> You do not have to find them. Explaining what each one makes you think, and what is actually true, is the job.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>The highlighted graph sentence says Comet was three times more popular. What are the two real numbers? Is one three times the other?</p></div>
+      <div class="q cfq"><span class="qn">B</span><span class="cx cx-cf">CF</span><p>The highlighted sentence about four Prep students. How many Preps came to Games Day altogether? Why does four not speak for all of them?</p></div>
+      <div class="q cfq"><span class="qn">C</span><span class="cx cx-cf">CF</span><p>The highlighted sentence says &ldquo;twice as many&rdquo;. Twice as many as what? What would you need to be told?</p></div>
+      <p class="hint">Frames: &ldquo;This makes you think ______.&rdquo; &middot; &ldquo;What is actually true is ______.&rdquo; &middot; &ldquo;To know that, you would need ______.&rdquo;</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Open the <em>Redraw it fairly</em> sheet.</strong> Build the same three bars with the axis starting at zero. Title it, label the axis, then write one sentence about what changed and one about what did not. Both sentences matter: an honest graph still shows Comet in front.</div>
+      <p class="hint">Right-click the vertical axis, Format Axis, set the minimum to 0. That one setting is the entire difference between the two graphs.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>The second one is much harder than it looks.</strong></div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Rewrite the article so that every claim in it is supported by the evidence. You may cut anything that cannot be supported.</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Now the hard one. Write an article that is completely honest and still reads as good news about Games Day. What can you say, and what do you have to give up?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>The second vote</h2>
+    <div class="say">
+      <p>&ldquo;At the start, [number] of you thought this should be published. Hands up again now.&rdquo; <em>[Count. Write it next to the first number.]</em></p>
+      <p>&ldquo;Nothing in the article changed. Not one sentence, not one number. What changed is that you can now see five things you could not see forty minutes ago. That is what critiquing statistics means.&rdquo;</p>
+    </div>
+    <table class="scroll">
+      <tr><th style="width:190px">What to look at</th><th style="width:230px">The question to ask</th><th>In this article</th></tr>
+      <tr><td>Where the axis starts</td><td>Does it start at zero? If not, why not?</td><td>It starts at 8, so a gap of 2 looks like a gap of 3 whole bars.</td></tr>
+      <tr><td>How many people were asked</td><td>How many, out of how many?</td><td>Four, out of thirty-eight.</td></tr>
+      <tr><td>A comparison</td><td>Compared with what? What was the starting number?</td><td>&ldquo;Twice as many&rdquo; with nothing to compare to.</td></tr>
+      <tr><td>Who was chosen</td><td>Is this one case being used to speak for all of them?</td><td>One stall becomes &ldquo;everyone&rdquo;.</td></tr>
+      <tr><td>The conclusion</td><td>Does this follow from the evidence above it?</td><td>Nothing in the article measures learning at all.</td></tr>
+    </table>
+    <div class="note good"><strong>The sentence to leave them with:</strong> a claim can be completely true and still not prove what it is being used to prove. That is why you check the evidence and not just the facts.</div>
+    <div class="teach">
+      <h3>Hold the honest graph up next to the article</h3>
+      <p>Put a student&rsquo;s redrawn chart beside the original on the board. Same three numbers, same three teams, two completely different impressions. It is the most compact argument in the whole unit and it takes thirty seconds.</p>
+      <h3>Before Lesson 15</h3>
+      <p>Part B is next. Every student needs their cleaned file, their displays from Lessons 11 to 13, their decision log, and a copy of this article. Item B6 is the critique and item B7 is the redraw &mdash; both of them are today&rsquo;s lesson, done alone and without the protocol cards.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Exit ticket</h2>
+    <div class="note">On your own. Five minutes.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>A graph&rsquo;s vertical axis starts at 40. Two bars reach 44 and 48. What is the real difference, and how many times taller does the second bar look?</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>A poster says &ldquo;9 out of 10 students prefer our canteen&rdquo;. Write the one question you would ask before you believed it.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>&ldquo;Every student who ate breakfast got above 80% on the test. Breakfast makes you better at maths.&rdquo; Both sentences could be true. Explain why the second one still does not follow.</p></div>
+    <div class="teach">
+      <h3>The answers</h3>
+      <p><strong>1.</strong> The real difference is 4. On an axis starting at 40 the visible bars are 4 and 8, so the second looks twice as tall when it is really 48 against 44 &mdash; about one and a tenth times. Students who answer &ldquo;twice&rdquo; without noticing that is the illusion have the arithmetic and not the point.</p>
+      <p><strong>2.</strong> How many students were asked. &ldquo;9 out of 10&rdquo; is a ratio; it could be nine people. Accept also: who asked them, and where. The strongest responses notice that a sample chosen inside the canteen is not the school.</p>
+      <p><strong>3.</strong> The students who eat breakfast may differ in a dozen other ways &mdash; more sleep, more support at home, more time to get ready. The breakfast and the marks arrive together; that does not make one the cause of the other. At Year 6 do not expect the word &ldquo;cause&rdquo;; expect &ldquo;there might be another reason&rdquo;, which is the same idea and is worth full credit.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>Back to your goal</h3>
+      <p style="margin:0 0 8px">Read what you wrote at the start on the Intentions tab. Did you do it? Write one sentence.</p>
+      <label for="goal2" class="hint">How I went today&hellip;</label>
+      <textarea id="goal2" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:300px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l14-03-newsletter-article.pdf">resources/l14-03-newsletter-article.pdf</a></td><td>One per student. Ready to use as it is.</td></tr>
+      <tr><td><a class="res" href="resources/l14-newsletter-article-EDITABLE.docx">resources/l14-newsletter-article-EDITABLE.docx</a></td><td>Yours, if you want the class&rsquo;s own Games Day figures in it. The first page lists exactly what has to stay true when you change a number, because the faults are structural and will survive the swap if you keep to it.</td></tr>
+      <tr><td><a class="res" href="resources/l14-04-misleading-charts.xlsx">resources/l14-04-misleading-charts.xlsx</a></td><td>Two sheets: the article&rsquo;s chart with its axis minimum set to 8 and the arithmetic of the illusion worked out beside it, and a blank one for redrawing it honestly.</td></tr>
+      <tr><td><a class="res" href="resources/l14-01-worksheet-core.pdf">resources/l14-01-worksheet-core.pdf</a></td><td>Most of the class.</td></tr>
+      <tr><td><a class="res" href="resources/l14-02-worksheet-support.pdf">resources/l14-02-worksheet-support.pdf</a></td><td>Three faults, pre-highlighted on the article extract, with frames.</td></tr>
+      <tr><td><a class="res" href="../../shared/critique-protocol-cards.pdf">shared/critique-protocol-cards.pdf</a></td><td>One per student in each critique group. One card, one pass.</td></tr>
+      <tr><td>The two graphs from the statistics diagnostic</td><td>For the warm-up. Project item 7 from <a class="res" href="../09-what-are-we-going-to-find-out/resources/l9-03-statistics-pre-test.pdf">lessons/09-what-are-we-going-to-find-out/resources/l9-03-statistics-pre-test.pdf</a>.</td></tr>
+    </table>
+    <div class="note warn"><strong>Before the lesson:</strong> decide whether you are localising the article; name the critique group leaders from the Lesson 9 diagnostic analysis, item 7; and have a redrawn honest chart ready in case no student finishes one in time to show.</div>
+  </div>
+  <div class="card">
+    <h2>Where this sits in the achievement standard</h2>
+    <p><strong>AC9M6ST02</strong> is <em>identify statistically informed arguments presented in the media, interpret and critique them</em>. This is the only lesson in the unit that addresses it directly, and it is the reason the unit does not end at Lesson 13.</p>
+    <p>In the folio it produces items <strong>B6</strong> and <strong>B7</strong> &mdash; the critique and the honest redraw. B6 is one of the two complex unfamiliar items in the whole task, and with A7 it carries the A and B evidence. A student who can name a fault but not explain its effect on a reader is sitting at C on this item.</p>
+    <div class="teach">
+      <h3>A note on where this goes beyond Year 6</h3>
+      <p>The third exit ticket question is a question about cause, which belongs to a later year. It is here because students raise it themselves every time &mdash; somebody always says &ldquo;but maybe they were just good at maths anyway&rdquo; &mdash; and the honest response is to tell them they have found something real and that it has a name they will meet later. Do not build a lesson on it, and do not mark it.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. ACARA does not endorse this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

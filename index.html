@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buddy Games Day &mdash; Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#555F6E; --paper:#F7F9FC; --line:#DDE4EE;
+  --sf:#2F7A4F; --cf:#B7791F; --cu:#6B4C9A;
+  --sans:"Nunito","Segoe UI",Roboto,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+
+header{background:var(--navy);color:#fff;padding:38px 0 34px;border-bottom:3px solid var(--cf)}
+.meta{font-size:14px;color:#A9BEDC;margin-bottom:10px;letter-spacing:.02em}
+h1{font-size:2.5rem;line-height:1.1;margin:0 0 10px;letter-spacing:-.015em}
+.q{font-size:1.15rem;color:#DCE6F1;margin:0 0 6px}
+.sub{color:#A9BEDC;font-size:.97rem;margin:0}
+
+main{padding:34px 0 70px}
+h2{font-size:1.3rem;color:var(--navy);margin:0 0 6px}
+.lede{color:var(--muted);margin:0 0 22px}
+
+.strip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px;margin:0 0 36px}
+.weeks{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.wk{text-align:center;font-size:13px;color:var(--muted);font-weight:700}
+.wk small{display:block;font-weight:600;color:var(--navy-mid);font-size:12px;margin-top:3px}
+.lane-label{font-size:12.5px;color:var(--muted);margin:16px 0 5px;letter-spacing:.02em}
+.lane{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;align-items:center}
+.band{background:var(--navy-soft);border:1px solid var(--navy-line);color:var(--navy);
+  border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:700;text-align:center}
+.band.prob{grid-column:1 / span 2}
+.band.stat{grid-column:3 / span 3;background:#EAF3EC;border-color:#BFDCC8;color:var(--sf)}
+.ev{display:flex;justify-content:center}
+.ev span{background:#FDF0DC;border:1px solid #EFD2A3;color:#8A5B12;font-size:12.5px;
+  font-weight:700;border-radius:6px;padding:4px 9px;white-space:nowrap}
+.cp{display:flex;justify-content:center}
+.cp span{background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;
+  border-radius:6px;padding:4px 9px;white-space:nowrap}
+
+.lessons{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.lesson a{display:grid;grid-template-columns:62px 1fr auto;gap:16px;align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+  text-decoration:none;color:inherit;border-left:5px solid var(--navy-mid)}
+.lesson a:hover{border-color:var(--cf);border-left-color:var(--cf);background:#FFFDF7}
+.lesson a:focus-visible{outline:3px solid var(--cf);outline-offset:2px}
+.num{font-size:1.9rem;font-weight:800;color:var(--navy);text-align:center;line-height:1}
+.num small{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:5px;letter-spacing:.03em}
+.t{font-weight:800;font-size:1.1rem;color:var(--navy);margin:0 0 2px}
+.d{font-size:15px;color:var(--muted);margin:0}
+.tag{font-size:12.5px;font-weight:700;border-radius:6px;padding:4px 9px;white-space:nowrap;
+  background:var(--navy);color:#fff}
+.go{color:var(--navy-mid);font-size:1.3rem;font-weight:700}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card h3{margin:0 0 6px;font-size:1.02rem;color:var(--navy)}
+.card p{margin:0;font-size:15px;color:var(--muted)}
+.card a{color:var(--navy);font-weight:700}
+
+.note{margin-top:22px;border-left:4px solid var(--cf);background:#FDF6E9;
+  border-radius:0 10px 10px 0;padding:14px 18px;font-size:15.5px}
+.note b{color:#8A5B12}
+footer{color:var(--muted);font-size:13px;padding:20px 0 40px;border-top:1px solid var(--line)}
+
+@media (max-width:640px){
+  h1{font-size:1.9rem}
+  .lesson a{grid-template-columns:48px 1fr;row-gap:8px}
+  .lesson .side{grid-column:2}
+  .cards{grid-template-columns:1fr}
+  .weeks,.lane{gap:3px}
+  .wk{font-size:11.5px}
+  .band{font-size:12px;padding:5px 8px}
+  .ev span,.cp span{font-size:11px;padding:3px 6px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="meta">Year 6 Mathematics &middot; Statistics and Probability &middot; Term 3&ndash;4</div>
+    <h1>Buddy Games Day</h1>
+    <p class="q">How can we use chance and data to design, run and honestly evaluate a Games Day for our Prep buddies?</p>
+    <p class="sub">Fifteen lessons. Eight on probability before the break, seven on statistics after it, and a real event in between.</p>
+  </div>
+</header>
+
+<main><div class="wrap">
+
+  <h2>How the unit fits together</h2>
+  <p class="lede">Year 6 teams design a chance game, run it for their Prep buddies, then analyse what actually happened. The two halves are assessed as one folio.</p>
+
+  <div class="strip" aria-label="Unit timeline">
+    <div class="weeks">
+      <div class="wk">T3 Wk 9<small>1 – 4</small></div>
+      <div class="wk">T3 Wk 10<small>5 – 8</small></div>
+      <div class="wk">T4 Wk 1<small>9 – 10</small></div>
+      <div class="wk">T4 Wk 2<small>11 – 13</small></div>
+      <div class="wk">T4 Wk 3<small>14 – 15</small></div>
+    </div>
+    <div class="lane-label">The learning</div>
+    <div class="lane">
+      <div class="band prob">Probability &mdash; design the game</div>
+      <div class="band stat">Statistics &mdash; what the data says</div>
+    </div>
+    <div class="lane-label">The event</div>
+    <div class="lane">
+      <div></div><div></div>
+      <div class="ev"><span>Games Day</span></div>
+      <div></div><div></div>
+    </div>
+    <div class="lane-label">Assessment &mdash; one folio, two parts</div>
+    <div class="lane">
+      <div></div>
+      <div class="cp"><span>Part A</span></div>
+      <div></div><div></div>
+      <div class="cp"><span>Part B</span></div>
+    </div>
+  </div>
+
+  <h2>Lessons</h2>
+  <p class="lede">Each lesson has its own page with everything needed to run it, and its printable sheets underneath.</p>
+
+  <ol class="lessons">
+    <li class="lesson"><a href="lessons/01-where-does-it-sit/">
+      <div class="num">1<small>TERM 3 WK 9</small></div>
+      <div><p class="t">Where does it sit?</p><p class="d">Every probability is a number between 0 and 1, placed on a scale and written three ways.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/02-sample-space-and-spinners/">
+      <div class="num">2<small>TERM 3 WK 9</small></div>
+      <div><p class="t">Sample space and spinners</p><p class="d">Listing every outcome, and why the bottom number counts everything that could happen.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/03-what-might-the-deck-be/">
+      <div class="num">3<small>TERM 3 WK 9</small></div>
+      <div><p class="t">What might the deck be?</p><p class="d">Working backwards from probabilities to a sample space. Withdrawal-safe.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/04-expected-or-observed/">
+      <div class="num">4<small>TERM 3 WK 9</small></div>
+      <div><p class="t">Expected or observed?</p><p class="d">Expected is calculated, observed is counted, and they are almost never equal.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/05-simulation-at-scale/">
+      <div class="num">5<small>TERM 3 WK 10</small></div>
+      <div><p class="t">Simulation at scale</p><p class="d">Twenty trials, then two hundred, then two thousand — and what happens to the gap.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/06-is-this-die-fair/">
+      <div class="num">6<small>TERM 3 WK 10</small></div>
+      <div><p class="t">Is this die fair?</p><p class="d">Judging a claim from evidence, and how many trials it takes to be sure. Withdrawal-safe.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/07-designing-for-our-buddies/">
+      <div class="num">7<small>TERM 3 WK 10</small></div>
+      <div><p class="t">Designing for our buddies</p><p class="d">Teams design a chance game for a Prep buddy, then critique each other against the brief.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/08-part-a-assessment/">
+      <div class="num">8<small>TERM 3 WK 10</small></div>
+      <div><p class="t">Buddy Games Day folio: Part A</p><p class="d">Summative. Seven items on the team’s own game, individually and under supervision.</p></div>
+      <div class="side"><span class="tag navy">Part A</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/09-what-are-we-going-to-find-out/">
+      <div class="num">9<small>TERM 4 WK 1</small></div>
+      <div><p class="t">What are we going to find out?</p><p class="d">The four data types, and designing the sheet the team carries at Games Day.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/10-can-we-trust-our-data/">
+      <div class="num">10<small>TERM 4 WK 1</small></div>
+      <div><p class="t">Can we trust our data?</p><p class="d">Seven planted faults. Fix what you can prove, blank what you cannot, never invent.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/11-what-does-our-data-look-like/">
+      <div class="num">11<small>TERM 4 WK 2</small></div>
+      <div><p class="t">What does our data look like?</p><p class="d">Mode, range and shape — and describing the data rather than the bars.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/12-whose-game-did-they-like-more/">
+      <div class="num">12<small>TERM 4 WK 2</small></div>
+      <div><p class="t">Whose game did they like more?</p><p class="d">Comparing two distributions, and why a raw count misleads when the groups differ in size.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/13-why-wont-the-times-make-a-graph/">
+      <div class="num">13<small>TERM 4 WK 2</small></div>
+      <div><p class="t">Why won’t the times make a graph?</p><p class="d">Continuous data, and grouping it into intervals that are equal, gapless and honest.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/14-reading-between-the-lines/">
+      <div class="num">14<small>TERM 4 WK 3</small></div>
+      <div><p class="t">Reading between the lines</p><p class="d">A newsletter article where every sentence is true and five things are wrong.</p></div>
+      <div class="side"><span class="go" aria-hidden="true">&rsaquo;</span></div>
+    </a></li>
+    <li class="lesson"><a href="lessons/15-part-b-assessment/">
+      <div class="num">15<small>TERM 4 WK 3</small></div>
+      <div><p class="t">Buddy Games Day folio: Part B</p><p class="d">Summative. Seven items on the team’s own data and on the newsletter article.</p></div>
+      <div class="side"><span class="tag navy">Part B</span></div>
+    </a></li>
+  </ol>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Shared resources</h3>
+      <p>Used across several lessons: the <a href="shared/chance-simulator.html">Chance Simulator</a>, the conversion mat, Frayer boards, sentence stems, task analysis strips, critique cards and the display board pack.</p>
+    </div>
+    <div class="card">
+      <h3>Teacher only</h3>
+      <p>The unit plan, the assessment spec and marking guide, the two diagnostic analyses and the QA scripts are in <code>teacher-only-NOT-for-github</code>, which is gitignored.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>On every lesson page</b> &mdash; eight tabs, a Teacher Mode toggle that reveals teaching notes, misconceptions and answers, projectable questions banded SF, CF and CU, and a three-way differentiation gate. Lessons 8 and 15 are the assessment and sit behind a release code.
+  </div>
+
+</div></main>
+
+<footer>
+  <div class="wrap">Year 6 Mathematics &middot; Term 3&ndash;4 &middot; St Joseph&rsquo;s Primary School, Corinda &middot; Australian Curriculum v9.0 &middot; AC9M6P01, AC9M6P02, AC9M6ST01, AC9M6ST02, AC9M6ST03</div>
+</footer>
+
+</body>
+</html>

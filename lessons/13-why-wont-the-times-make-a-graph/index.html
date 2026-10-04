@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 13 — Why won't the times make a graph? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 13 of 15</p>
+    <h1>Why won&rsquo;t the times make a graph?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6ST01</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 4, Week 2</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 13 &middot; Why won&rsquo;t the times make a graph?</h2>
+    <p>The last of the four data types, and the one that needs a technique of its own. Thirteen visit times, twelve of them different: a column graph of the raw values would have twelve bars, nearly all of them one high, and would show nothing. Grouping into intervals is the fix, and choosing the intervals is the thinking.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;5</td><td>Warm-up. Discrete or continuous, four quick ones.</td></tr>
+      <tr><td>5&ndash;15</td><td>Launch. Try to graph the raw times on the board. Watch it fail.</td></tr>
+      <tr><td>15&ndash;35</td><td>Explore. Equal, non-overlapping intervals; how many groups; what grouping costs you.</td></tr>
+      <tr><td>35&ndash;50</td><td>Teams group their own times and build a display.</td></tr>
+      <tr><td>50&ndash;55</td><td>Summarise and exit ticket.</td></tr>
+    </table>
+    <div class="note warn"><strong>If a team has fewer than about eight usable times, grouping will not work for them.</strong> That is not their fault and it should not cost them the lesson. The ruler drop data on the Resources tab is twenty-eight measurements with a clear shape, and any team can use it for today and for item B4 of the folio, saying so in item B2.</div>
+    <div class="teach">
+      <h3>Let the failure happen</h3>
+      <p>The Launch is a graph that does not work. Build it on the board from the raw times, let the class look at twelve bars of height one, and ask what it tells them. Nothing. Then group and build it again. Students who are told &ldquo;continuous data has to be grouped&rdquo; remember a rule; students who watch the ungrouped graph fail remember a reason.</p>
+      <h3>Where does 35 go?</h3>
+      <p>The boundary question is the one that separates a working set of intervals from a broken one. &ldquo;30 to 35&rdquo; and &ldquo;35 to 40&rdquo; both contain 35, so a value can be counted twice or argued about. Whole-second intervals &mdash; 30 to 33, 34 to 37 &mdash; dodge it. With decimals you need &ldquo;30 up to but not including 35&rdquo;, and that is the extension question, not the core.</p>
+      <h3>What grouping costs</h3>
+      <p>Once the times are in groups, 38 and 41 look identical. That is the trade and it should be said out loud: grouping buys you a shape and it pays for it with detail. A student who can state the trade is doing the Reasoning that item B4 is looking for.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Differentiation</h2>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul><li>Intervals supplied &mdash; the four-second groups, already written.</li>
+        <li>Tallying into the given groups, not choosing them.</li>
+        <li>A worked first group on the sheet.</li>
+        <li>The spreadsheet counts, so the task is reading the shape.</li></ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul><li>All eight questions.</li>
+        <li>Chooses its own interval width and justifies it.</li>
+        <li>Groups the team&rsquo;s own times and builds a display.</li></ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul><li>Two prompts: the boundary problem with decimals, and what a different interval width does to the shape.</li>
+        <li>The second one is a direct lead-in to Lesson 14 &mdash; the same data, two shapes, both honest.</li></ul></div>
+    </div>
+    <div class="note"><strong>Lesson-specific adjustment today:</strong> supplied intervals. Choosing the width is the hardest decision in the lesson, and it is not what item B4 is judged on &mdash; the description of the grouped shape is.</div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to group measurements into intervals so that they can be displayed, and to describe the shape of the grouped data.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can explain why a graph of raw measurements shows nothing useful;</li>
+      <li>I can make groups that are equal width, with no gaps and no overlaps;</li>
+      <li>I can choose a sensible number of groups and say why;</li>
+      <li>I can describe the shape of my grouped data, and say what grouping has hidden.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The last part of the last one. Saying what you have hidden is harder than saying what you can see.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">Count values into groups you have been given.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">Choose a group width, check the groups work, describe the shape.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Work out what grouping costs you, and what to do when a value sits on a boundary.</p></div>
+    </div>
+    <div class="note"><strong>There is no single right set of intervals.</strong> Several widths work, and you have to be able to say why yours is one of them. That is what makes the choosing a complex-familiar task rather than a procedure.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>Warm-up &middot; discrete or continuous?</h2>
+    <div class="note">Five minutes, out loud. The test: does half of one make sense?</div>
+    <div class="say">
+      <p><strong>1.</strong> How many buddies came to our stall. &mdash; <em>Discrete. Half a buddy does not exist.</em></p>
+      <p><strong>2.</strong> How long a buddy&rsquo;s visit took. &mdash; <em>Continuous. Half a second exists.</em></p>
+      <p><strong>3.</strong> A buddy&rsquo;s height. &mdash; <em>Continuous, even though we write it as a whole number of centimetres.</em></p>
+      <p><strong>4.</strong> How many turns somebody won. &mdash; <em>Discrete.</em></p>
+      <p><strong>5.</strong> Which of those four would be hardest to draw a column graph of? &mdash; <em>The two continuous ones. Hold that thought.</em></p>
+    </div>
+    <div class="teach">
+      <h3>Number 3 is the one worth labouring</h3>
+      <p>Students classify by how the number was written down rather than by what it is. Height written as 142 looks discrete; it is a measurement rounded to the nearest centimetre, and the real value is somewhere in between. The same applies to the visit times: a stopwatch read to the nearest second is still continuous data.</p>
+      <p>This matters today because it decides whether a student groups the times or tries to tally them like a count.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>A graph that does not work</h2>
+    <div class="note">Open <strong><a class="res" href="resources/l13-03-grouping-times.xlsx">resources/l13-03-grouping-times.xlsx</a></strong>, sheet <em>Visit times</em>. Comet&rsquo;s thirteen times are in column A.</div>
+    <div class="say">
+      <p>&ldquo;Thirteen buddies, thirteen times. Twelve of those thirteen numbers are different from each other.</p>
+      <p>Let us graph them. Pick the column, insert a column graph &hellip; and there it is. Twelve bars. Almost every one of them exactly one high.</p>
+      <p>What does that graph tell you about how long a visit took? &hellip; Nothing. And it is not a mistake &mdash; it is what happens every time you graph measurements, because no two measurements are ever quite the same.&rdquo;</p>
+    </div>
+    <div class="note good"><strong>The fix:</strong> stop asking how many buddies took exactly 38 seconds, and start asking how many took between 38 and 41. That is an interval, and it turns thirteen almost-unique numbers into a shape.</div>
+    <div class="say">
+      <p>&ldquo;Watch what happens when I group them in fours.&rdquo; <em>[Switch to the Grouping sheet. Five groups, a clear shape, and Nebula alongside.]</em></p>
+      <p>&ldquo;Now it says something. Most of Comet&rsquo;s visits took between 38 and 45 seconds. Most of Nebula&rsquo;s took under 34. Nebula&rsquo;s game was quicker to play.&rdquo;</p>
+    </div>
+    <div class="teach">
+      <h3>Build the broken graph for real</h3>
+      <p>It takes forty seconds and it is the whole argument for the lesson. Do not describe it &mdash; make it, look at it together, and delete it.</p>
+      <h3>Then show them the two From and To columns</h3>
+      <p>The counts on the Grouping sheet are formulas reading the From and To cells. Change a boundary and the bars move. Let one student try groups of two and another try groups of ten, on the board, before anybody chooses their own width.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>Grouping the visit times</h2>
+    <div class="note">Work from <strong><a class="res" href="resources/l13-03-grouping-times.xlsx">resources/l13-03-grouping-times.xlsx</a></strong>. The <em>Grouping</em> sheet counts for you once you have decided the boundaries &mdash; but do questions 1 and 2 on paper first, so you know what the formula is doing.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Using the groups 26&ndash;29, 30&ndash;33, 34&ndash;37, 38&ndash;41 and 42&ndash;45, how many of Comet&rsquo;s visits were in each group? Check your five numbers add to 13.</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>Do the same for Nebula&rsquo;s ten visits.</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>Each of those groups is four seconds wide. Why do all the groups have to be the same width? What would go wrong if one were twice as wide as the others?</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>A team uses the groups 30&ndash;35 and 35&ndash;40. What is wrong with those two groups? Write a pair that fixes it.</p></div>
+    <div class="q cfq"><span class="qn">5</span><span class="cx cx-cf">CF</span><p>Try groups of 2 seconds, then groups of 10. What goes wrong with each? About how many groups seems to work best?</p></div>
+    <div class="q cfq"><span class="qn">6</span><span class="cx cx-cf">CF</span><p>Describe the shape of the two grouped distributions in one sentence that compares them.</p></div>
+    <div class="q cuq"><span class="qn">7</span><span class="cx cx-cu">CU</span><p>Once the times are grouped, 38 seconds and 41 seconds look exactly the same. What have you lost by grouping, and why is it still worth doing?</p></div>
+    <div class="q cuq"><span class="qn">8</span><span class="cx cx-cu">CU</span><p>Comet had 13 times from 15 buddies and Nebula had 10 from 10. Does that change how you should compare the two grouped displays? Say what you would do about it.</p></div>
+    <button class="reveal" data-ans="ansEx13">Show the answers</button>
+    <div class="ans" id="ansEx13"><b>1.</b> 0, 1, 4, 5, 3 &mdash; and they add to 13. The adding-up check is not a formality: a set of intervals that does not account for every value has a gap or an overlap in it.<br><br><b>2.</b> 4, 4, 1, 1, 0, adding to 10.<br><br><b>3.</b> Because the height of a bar is being read as how common that length of visit is. A group twice as wide collects roughly twice as many values for free, so its bar is tall for a reason that has nothing to do with the data. Students often answer &ldquo;it would look untidy&rdquo;; push them to &ldquo;it would look more common than it is&rdquo;.<br><br><b>4.</b> 35 is in both groups, so a visit of 35 seconds could be counted twice, or argued about, or missed. Fixes: 30&ndash;34 and 35&ndash;39, or &ldquo;30 up to but not including 35&rdquo;. Accept either; the second is what a statistician writes.<br><br><b>5.</b> Groups of 2 give ten mostly-empty groups &mdash; nearly the original problem back. Groups of 10 put almost everybody in two bars and the shape disappears. Four to six groups is the usual answer, and the real reason is that you want enough bars to see a shape and few enough that each one holds several values.<br><br><b>6.</b> Looking for a comparison, not two descriptions: <em>Nebula&rsquo;s visits were shorter &mdash; eight of their ten were under 34 seconds, while eight of Comet&rsquo;s thirteen took 38 seconds or more.</em> Lesson 12&rsquo;s structure applies here exactly.<br><br><b>7.</b> You lose the individual values &mdash; inside a group everybody looks the same, and you can no longer find the longest visit from the graph. It is worth it because the shape of the whole set is what you are trying to see, and the shape was invisible before. The strongest answers name both halves of the trade.<br><br><b>8.</b> Yes. The groups hold counts, and Comet had more buddies to start with, so Comet&rsquo;s bars start with an advantage. Either compare as fractions of each team&rsquo;s total &mdash; 8 out of 13 against 8 out of 10 &mdash; or say in the sentence how many each team had. Lesson 12&rsquo;s rule has not gone away just because the data is continuous.</div>
+  </div>
+  <div class="card">
+    <h2>Now your own times</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Groups supplied</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Choose your own groups</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>Your groups are already written on your sheet.</strong> Choosing them is the hardest part and it is not today&rsquo;s job for you. Tallying and describing is.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>Tally these times into the groups on your sheet: 33, 38, 41, 36, 40, 44, 35, 39, 42, 37.</p></div>
+      <div class="q sfq"><span class="qn">B</span><span class="cx cx-sf">SF</span><p>Add up your group counts. Do they come to 10? If not, one value has been put in two groups or missed.</p></div>
+      <div class="q cfq"><span class="qn">C</span><span class="cx cx-cf">CF</span><p>Which group has the most visits in it? Finish the sentence: &ldquo;Most visits took between ______ and ______ seconds.&rdquo;</p></div>
+      <p class="hint">Frames: &ldquo;Most visits took between ______ and ______ seconds.&rdquo; &middot; &ldquo;Hardly any visits took ______.&rdquo;</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Group your own team&rsquo;s visit times.</strong> Choose a width, write your From and To values into the spreadsheet, check the counts add up to the number of times you actually have, then build a column graph with no gaps between the bars. Title it and label both axes. Then describe the shape in one sentence and say what the grouping has hidden.</div>
+      <p class="hint">Fewer than about eight usable times? Use the ruler drop data instead &mdash; twenty-eight measurements, on the <em>Ruler drop</em> sheet. Note in your decision log that you did, because item B2 asks about it.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>The second one is next lesson in miniature.</strong></div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>The ruler drop measurements have one decimal place. With groups written &ldquo;12 to 14.9&rdquo; and &ldquo;15 to 17.9&rdquo;, where would a measurement of 14.95 go? Write a pair of groups that leaves no gap at all, and explain how you would say it out loud.</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>Group the ruler drop data twice &mdash; once in 3 cm groups and once in 6 cm groups. Both are honest. Do they tell the same story? Which one would you use if you wanted the class to look fast, and which if you wanted them to look slow?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>What grouping buys and what it costs</h2>
+    <div class="say">
+      <p>&ldquo;Before we grouped, we had thirteen numbers and no shape. Now we have five groups and a shape, and we can compare two teams at a glance.</p>
+      <p>But look at what happened to Oliver&rsquo;s 38 and somebody else&rsquo;s 41. In the graph they are now exactly the same thing. We cannot see the longest visit any more. We traded the detail for the shape, and that was a good trade &mdash; but it was a trade, and you should be able to say so.&rdquo;</p>
+    </div>
+    <table class="scroll">
+      <tr><th style="width:260px">A set of intervals works when&hellip;</th><th>It is broken when&hellip;</th></tr>
+      <tr><td>Every group is the same width.</td><td>One group is wider, so it collects more values for free.</td></tr>
+      <tr><td>Every value falls in exactly one group.</td><td>Boundaries overlap, like 30&ndash;35 and 35&ndash;40.</td></tr>
+      <tr><td>There are no gaps between the groups.</td><td>A value lands between two groups and gets lost.</td></tr>
+      <tr><td>The counts add to the number of values you have.</td><td>They do not. That is how you find the other three faults.</td></tr>
+    </table>
+    <div class="note good"><strong>The check that catches everything:</strong> add your group counts. If the total is not the number of measurements you started with, something is overlapping, missing or miscounted.</div>
+    <div class="teach">
+      <h3>Column graph, no gaps</h3>
+      <p>Grouped continuous data is drawn with the bars touching, because the groups run into each other along a scale &mdash; there is no space between &ldquo;34 to 37&rdquo; and &ldquo;38 to 41&rdquo; where a value could live. Categorical bars are drawn apart, because there genuinely is nothing between Gold and Silver. The chart in the workbook is set that way already; it is worth a sentence, not a lesson.</p>
+      <h3>Before Lesson 14</h3>
+      <p>Keep one grouped display from each team. Next lesson opens with a newsletter article about Games Day that is misleading in four different ways, and it lands far harder when the class has their own honest displays to hold it against.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Exit ticket</h2>
+    <div class="note">On your own. Five minutes.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Twelve measurements: 21, 24, 22, 29, 31, 26, 33, 25, 28, 30, 23, 27. Put them into the groups 21&ndash;25, 26&ndash;30, 31&ndash;35. Check your counts add to 12.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>A team uses the groups 20&ndash;25, 25&ndash;30 and 30&ndash;35. Name the problem and write a set of groups that fixes it.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>Someone says &ldquo;grouping the data is cheating, because you are hiding the real numbers&rdquo;. Write a reply.</p></div>
+    <div class="teach">
+      <h3>The answers</h3>
+      <p><strong>1.</strong> 21&ndash;25: five (21, 22, 23, 24, 25). 26&ndash;30: five (26, 27, 28, 29, 30). 31&ndash;35: two (31, 33). Total 12. A student whose total is not 12 has a boundary problem, and that is the diagnosis to make.</p>
+      <p><strong>2.</strong> 25 and 30 are each in two groups. Any fix that is equal width with no overlap: 20&ndash;24, 25&ndash;29, 30&ndash;34.</p>
+      <p><strong>3.</strong> The answer the lesson is for: it is true that detail is hidden, and that is the trade, not the cheat. The cheat would be unequal groups or boundaries chosen to make one bar look tall. A strong response says both &mdash; grouping does hide something, and it is honest as long as the groups are equal and the data is not being steered. That sentence is exactly where Lesson 14 begins.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>Back to your goal</h3>
+      <p style="margin:0 0 8px">Read what you wrote at the start on the Intentions tab. Did you do it? Write one sentence.</p>
+      <label for="goal2" class="hint">How I went today&hellip;</label>
+      <textarea id="goal2" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:300px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l13-03-grouping-times.xlsx">resources/l13-03-grouping-times.xlsx</a></td><td>On the board and on every device. Three sheets: the raw visit times, the grouping with live counts and a comparative chart, and the ruler drop spare data with a blank grouping table.</td></tr>
+      <tr><td><a class="res" href="resources/l13-01-worksheet-core.pdf">resources/l13-01-worksheet-core.pdf</a></td><td>Most of the class.</td></tr>
+      <tr><td><a class="res" href="resources/l13-02-worksheet-support.pdf">resources/l13-02-worksheet-support.pdf</a></td><td>Intervals supplied, a worked first group, description frames.</td></tr>
+      <tr><td>The team&rsquo;s own cleaned file</td><td>For the second half. Count the usable times first &mdash; under about eight and the team should use the ruler drop data.</td></tr>
+      <tr><td>A 30 cm ruler, if you want to collect the data live</td><td>Optional. One person holds the ruler at the zero end, the other has fingers open at the bottom; drop without warning and read the number at the catch. Twenty-eight students takes about ten minutes.</td></tr>
+      <tr><td><a class="res" href="../../shared/maths-vs-everyday-words.pdf">shared/maths-vs-everyday-words.pdf</a></td><td>Add <em>interval</em> and <em>continuous</em>. An interval in everyday speech is a break in the middle of a performance.</td></tr>
+    </table>
+    <div class="note warn"><strong>Before the lesson:</strong> count each team&rsquo;s usable times and decide now which teams will use the ruler drop data, so that nobody discovers it mid-lesson. Keep one grouped display per team for Lesson 14.</div>
+  </div>
+  <div class="card">
+    <h2>Where this sits in the achievement standard</h2>
+    <p><strong>AC9M6ST01</strong> names continuous numerical variables explicitly, and grouping is what makes them displayable at this level. This lesson completes the four data types begun in Lesson 9.</p>
+    <p>In the folio it produces item <strong>B4</strong> &mdash; group your continuous data into intervals, build a display, and describe its shape. The interval choice has to be sensible and the description has to be of the grouped shape, not of individual bars.</p>
+    <div class="teach">
+      <h3>The two ends of the room</h3>
+      <p>A student who cannot yet tally reliably into supplied groups is working at the Year 5 standard &mdash; interpreting and comparing displays &mdash; and supplied intervals with a worked example is the right adjustment. A student asking what happens between the groups, or wanting to draw the bars at different widths, is reaching for the histogram, which is Year 7 and beyond. Name it, show them one, and leave it there.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. ACARA does not endorse this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>

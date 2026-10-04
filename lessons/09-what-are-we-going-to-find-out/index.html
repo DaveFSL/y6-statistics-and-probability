@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 9 — What are we going to find out? | Year 6 Statistics and Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864; --navy-mid:#2E4E86; --navy-soft:#DCE6F1; --navy-line:#B8CCE4;
+  --ink:#16202F; --muted:#5A6779; --paper:#FFFFFF; --wash:#F5F8FC; --rule:#D6DEE9;
+  --gold:#B7791F; --gold-soft:#FDF2E0;
+  --green:#2F7A4F; --green-soft:#E2EFDA;
+  --plum:#6B4C9A; --plum-soft:#EFE8F7;
+  --red:#C0504D; --red-soft:#FBE9E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:var(--wash);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 72px}
+.hero{background:var(--navy);color:#fff;padding:26px 0 0}
+.hero .wrap{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--navy-line);margin:0 0 6px}
+.hero h1{font-size:34px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.pill{background:rgba(255,255,255,.12);color:#E6EDF7;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pill.flag{background:#FFD24D;color:var(--navy)}
+.toggle{display:flex;align-items:center;gap:9px;margin:14px 0 0}
+.toggle button{appearance:none;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer;min-height:40px}
+.toggle button[aria-pressed="true"]{background:#FFD24D;color:var(--navy);border-color:#FFD24D}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-top:18px}
+.tab{appearance:none;border:0;background:rgba(255,255,255,.10);color:#D8E2F0;font-family:inherit;
+  font-size:14px;font-weight:700;padding:11px 15px;border-radius:8px 8px 0 0;cursor:pointer;min-height:44px}
+.tab:hover{background:rgba(255,255,255,.18);color:#fff}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--navy)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #FFD24D;outline-offset:2px}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:18px}
+.card h2{font-size:22px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.card h3{font-size:16px;font-weight:800;color:var(--navy);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+.timing{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+.hint{color:var(--muted);font-size:15px}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin-bottom:6px}
+.say{border-left:4px solid var(--navy);background:var(--navy-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px}
+.say::before{content:'Say';display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.note strong{color:var(--gold)}
+.good{border-left-color:var(--green);background:var(--green-soft)}
+.good strong{color:var(--green)}
+.warn{border-left-color:var(--red);background:var(--red-soft)}
+.warn strong{color:var(--red)}
+.teach{display:none;border-left:4px solid var(--plum);background:var(--plum-soft);padding:12px 15px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+body.teacher .teach{display:block}
+.teach strong{color:var(--plum)}
+.brief{border:2px solid var(--navy);border-radius:10px;overflow:hidden;margin:14px 0}
+.brief h3{background:var(--navy);color:#fff;margin:0;padding:12px 16px;font-size:15px;
+  text-transform:uppercase;letter-spacing:.08em}
+.brief ol{margin:0;padding:14px 16px 14px 38px}
+.brief li{margin-bottom:10px;font-size:16px}
+.brief li b{color:var(--navy)}
+.band{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:2px;margin-right:8px}
+.sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.col{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.col h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--navy)}
+.col.support{border-color:var(--green);background:#F6FBF4}
+.col.core{border-color:var(--navy-line)}
+.col.ext{border-color:var(--plum);background:#FAF7FE}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:15px}
+th,td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:nth-child(even) td{background:#FAFCFE}
+td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+details.explain{border:1.5px solid var(--navy-line);border-radius:9px;background:#FBFDFF;margin:12px 0;overflow:hidden}
+details.explain summary{cursor:pointer;font-weight:800;color:var(--navy);padding:12px 14px;list-style:none;font-size:15px;min-height:44px;display:flex;align-items:center;gap:8px}
+details.explain summary::-webkit-details-marker{display:none}
+details.explain summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;flex:none}
+details.explain[open] summary::before{content:'\2212'}
+details.explain .body{padding:0 14px 14px;font-size:15px}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding-left:30px;position:relative;margin-bottom:8px}
+.checklist li::before{content:'';position:absolute;left:0;top:3px;width:18px;height:18px;border:2px solid var(--navy-line);border-radius:4px}
+@media (max-width:760px){.hero h1{font-size:26px}.branch{grid-template-columns:1fr}body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 8px}
+  .hero h1{color:#000;font-size:20px}.eyebrow{color:#333}
+  .pill{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .brief h3{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tabs,.toggle,.no-print{display:none!important}
+  .panel{display:block!important;padding-top:10px;break-before:page}
+  .panel:first-of-type{break-before:auto}
+  .teach{display:block!important}
+  .card{border:1px solid #999;break-inside:avoid}
+  details.explain{border:1px solid #999}details.explain .body{display:block!important}
+}
+
+.cx{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.cx-sf{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.cx-cf{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.cx-cu{background:var(--plum-soft);color:var(--plum);border:1px solid var(--plum)}
+.cxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.cxcard{border:1.5px solid var(--rule);border-radius:9px;padding:14px;background:#FCFDFE}
+.cxcard h4{margin:0 0 6px;font-size:14px;font-weight:800}
+.cxcard.sf{border-color:var(--green);background:#F6FBF4}.cxcard.sf h4{color:var(--green)}
+.cxcard.cf{border-color:var(--gold);background:var(--gold-soft)}.cxcard.cf h4{color:var(--gold)}
+.cxcard.cu{border-color:var(--plum);background:#FAF7FE}.cxcard.cu h4{color:var(--plum)}
+.q{border:1px solid var(--rule);border-left:5px solid var(--navy-line);border-radius:8px;padding:14px 16px;margin:10px 0;background:#fff}
+.q .qn{font-weight:800;color:var(--navy);font-size:16px}.q p{margin:6px 0 0}
+.q.sfq{border-left-color:var(--green)}.q.cfq{border-left-color:var(--gold)}.q.cuq{border-left-color:var(--plum)}
+.reveal{appearance:none;border:1.5px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:14px;padding:9px 15px;border-radius:8px;cursor:pointer;min-height:42px;margin-top:10px}
+.reveal:hover{background:var(--navy-soft)}
+.ans{display:none;margin-top:10px;border-left:4px solid var(--green);background:var(--green-soft);
+padding:11px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.ans.show{display:block}.ans b{color:var(--green)}
+.goal{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:16px 18px;margin:14px 0}
+.goal h3{margin-top:0;color:var(--gold)}
+textarea{width:100%;min-height:74px;font-family:inherit;font-size:15px;padding:10px;
+border:1px solid var(--navy-line);border-radius:7px;background:#fff;color:var(--ink);resize:vertical}
+.gate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.gate button{appearance:none;border:2px solid var(--navy-line);background:#fff;color:var(--navy);
+font-family:inherit;font-weight:800;font-size:15px;padding:14px 10px;border-radius:9px;cursor:pointer;min-height:64px}
+.gate button:hover{background:var(--navy-soft)}
+.gate button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gate button small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:3px}
+.path{display:none}.path.on{display:block}
+.studentnote{background:var(--navy-soft);border-bottom:1px solid var(--navy-line);padding:9px 0;font-size:14px;color:var(--navy)}
+.studentnote .wrap{padding-bottom:0}
+@media (max-width:820px){.cxgrid,.gate{grid-template-columns:1fr}}
+
+a.res{color:#1F3864;font-weight:700;text-decoration:none;border-bottom:1.5px solid #B8CCE4}
+a.res:hover{border-bottom-color:#B7791F;color:#B7791F}
+a.res:focus-visible{outline:3px solid #B7791F;outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Year 6 · Statistics and Probability · Lesson 9 of 15</p>
+    <h1>What are we going to find out?</h1>
+    <div class="meta">
+      <span class="pill">AC9M6ST03</span>
+      <span class="pill">AC9M6ST01</span>
+      <span class="pill">50–60 minutes</span>
+      <span class="pill">Term 4, Week 1</span>
+      <span class="pill flag">Diagnostic — statistics</span>
+    </div>
+    <div class="toggle no-print">
+      <button id="teacherBtn" aria-pressed="false">Teacher Mode</button>
+      <span style="color:#D8E2F0;font-size:14px">Shows teaching notes, misconceptions and answers</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Lesson sections">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Intentions</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Warm-up</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Launch</button>
+      <button class="tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Explore</button>
+      <button class="tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Summarise</button>
+      <button class="tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Review</button>
+      <button class="tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">Resources</button>
+    </div>
+  </div>
+</header>
+
+<div class="studentnote no-print"><div class="wrap">
+  <strong>Students:</strong> use the tabs to move through the lesson. Everything you need to work on is on the <strong>Explore</strong> tab.
+</div></div>
+
+<main class="wrap">
+
+<section class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <h2>Lesson 9 &middot; What are we going to find out?</h2>
+    <p>The first lesson of Term 4 and the bridge between the two halves of the unit. Students sit the statistics diagnostic, meet the four data types, and design the sheet their team will actually carry at Buddy Games Day. Everything from Lesson 10 onwards uses the data this lesson decides to collect.</p>
+    <table class="scroll">
+      <tr><th style="width:92px">Minutes</th><th>What happens</th></tr>
+      <tr><td>0&ndash;12</td><td>Statistics diagnostic, silent, not marked. Collected and used tonight to group the class for Lessons 10 to 13.</td></tr>
+      <tr><td>12&ndash;20</td><td>Launch. Why what we write down on the day is all we will ever have.</td></tr>
+      <tr><td>20&ndash;45</td><td>Explore. The four data types, then designing the collection sheet in teams.</td></tr>
+      <tr><td>45&ndash;55</td><td>Summarise. The class agrees one instrument. Review and exit ticket.</td></tr>
+    </table>
+    <div class="note warn"><strong>Games Day happens between this lesson and Lesson 10.</strong> The sheet agreed today is printed and carried on the day. If the collection goes wrong there is no second chance, which is the whole reason this lesson exists rather than starting Term 4 with graphs.</div>
+    <div class="teach">
+      <h3>The honest shape of the design task</h3>
+      <p>Teams genuinely design the instrument, and the Summarise converges the class on one agreed sheet &mdash; because twenty-eight different sheets cannot be pooled, compared in Lesson 12, or marked in Part B. The printed sheet on the Resources tab is that convergence point, with one column left blank for the class to name.</p>
+      <p>Say this to students rather than pretending otherwise. &ldquo;We are all going to record the same four things so that we can compare teams later&rdquo; is a real statistical reason, and it is the reason professional surveys use a common instrument. What the teams decide is the detail: the order of the columns, how the enjoyment scale is worded, and what goes in the spare column.</p>
+      <h3>Reading the diagnostic tonight</h3>
+      <p>The grouping comes from items 4, 5 and 6, not from a total. Item 7 &mdash; the truncated axis &mdash; identifies the two or three students who lead the critique groups in Lesson 14. Item 3 is today&rsquo;s data types in disguise: students who called height and time categories are reading the label, not the value.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Differentiation</h2>
+    <div class="branch">
+      <div class="col support"><h4>Support</h4>
+        <ul><li>The four types given with a worked example each, on the desk from the start.</li>
+        <li>Questions 1 to 3 only, then straight to designing.</li>
+        <li>A pre-filled first row on the planning sheet.</li>
+        <li>Paired with a teammate for the design task, with the job list written out rather than invented.</li></ul></div>
+      <div class="col core"><h4>Core</h4>
+        <ul><li>All seven questions.</li>
+        <li>Team designs the sheet from the blank planning page.</li>
+        <li>Jobs for the day decided by the team.</li></ul></div>
+      <div class="col ext"><h4>Extension</h4>
+        <ul><li>The two sampling prompts on the Explore tab.</li>
+        <li>These are the ideas Part B item B2 asks about &mdash; the limitation of the method.</li></ul></div>
+    </div>
+    <div class="note"><strong>Standing adjustments</strong> &mdash; visual timer, task analysis strip, sentence stems, pre-printed vocabulary &mdash; are on the class adjustment document, not repeated here. The lesson-specific one today is the pre-filled first row on the planning sheet.</div>
+  </div>
+</section>
+
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="card">
+    <h2>What we are learning today</h2>
+    <p>We are learning to plan a statistical investigation: to name the kind of data we are collecting, and to design something we can actually fill in while a five-year-old is standing in front of us.</p>
+    <h3>I will know I can do it when&hellip;</h3>
+    <ul class="checklist">
+      <li>I can name the four types of data and give an example of each from our own Games Day;</li>
+      <li>I can turn a question that data cannot answer into one that it can;</li>
+      <li>I can design a recording sheet that someone else could use without asking me what it means;</li>
+      <li>I can say what my team will do on the day so that every row gets filled in.</li>
+    </ul>
+    <div class="goal">
+      <h3>Set your goal for today</h3>
+      <p style="margin:0 0 8px">Read the success criteria above. Which one is the biggest stretch for you? Write one thing you are going to focus on. You will come back to it at the end.</p>
+      <label for="goal1" class="hint">My goal for today is&hellip;</label>
+      <textarea id="goal1" placeholder="Today I am going to focus on&hellip;"></textarea>
+      <p class="hint" style="margin:8px 0 0">Not sure? The third one is where most teams come unstuck &mdash; a sheet that makes sense to you and to nobody else.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How hard is each question?</h2>
+    <p>Every question in this unit is labelled so you know what kind of thinking it needs.</p>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>SF &mdash; simple familiar</h4>
+        <p style="margin:0;font-size:15px">One step, and it is clear what to do. Naming the type of a variable sits here.</p></div>
+      <div class="cxcard cf"><h4>CF &mdash; complex familiar</h4>
+        <p style="margin:0;font-size:15px">More than one step, or you have to choose the method. Rewriting a question sits here.</p></div>
+      <div class="cxcard cu"><h4>CU &mdash; complex unfamiliar</h4>
+        <p style="margin:0;font-size:15px">Nobody tells you the answer. Designing the jobs for the day sits here.</p></div>
+    </div>
+    <div class="note"><strong>Today the hardest questions are not about numbers at all.</strong> They are about whether a plan survives contact with a room full of Preps.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="card">
+    <h2>What do you already know about data?</h2>
+    <div class="say">
+      <p>&ldquo;Twelve minutes, on your own, no talking. This is not marked and it does not go on your report. It tells me what to teach for the rest of the term.</p>
+      <p>If you do not know an answer, write what you think, or leave it blank. Both of those are useful to me. A guess that is wrong tells me more than a blank, so have a go.&rdquo;</p>
+    </div>
+    <div class="note">Hand out <strong><a class="res" href="resources/l9-03-statistics-pre-test.pdf">resources/l9-03-statistics-pre-test.pdf</a></strong>. Collect it before the Launch. Do not go through the answers &mdash; several items look forward to lessons that have not happened yet.</div>
+    <div class="teach">
+      <h3>Item 7 is not a fair test, and that is the point</h3>
+      <p>Two column graphs show the same two numbers, one with the vertical axis starting at 17. Most students will not notice, because nobody has taught them to. A wrong answer here is not a gap to fill in Lesson 10.</p>
+      <p>What it identifies is the handful of students who already have the instinct. Those students lead the critique groups in Lesson 14, where the misleading newsletter is the whole lesson.</p>
+      <h3>Do not total the scores</h3>
+      <p>The grouping comes from items 4, 5 and 6. Items 4 or 5 wrong means the pre-built workbook in Lesson 10 and supplied intervals in Lesson 13. Items 4 to 6 right with item 7 missed is most of the class and is exactly where the unit expects them to be.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="card">
+    <h2>One shot at the data</h2>
+    <div class="say">
+      <p>&ldquo;Games Day is on. Your game is built, you know its probabilities, and the Preps are coming.</p>
+      <p>Here is the part nobody thinks about until it is too late. Whatever you write down on the day is all the data you will ever have. You cannot go back on Monday and ask a Prep how much they liked it, because they will not remember, and because they are five.</p>
+      <p>So today we are not making graphs. Today we are deciding what to write down, and designing something you can fill in with one hand while a five-year-old pulls on your sleeve with the other.&rdquo;</p>
+    </div>
+    <div class="note warn"><strong>The four things we are going to record</strong> are on the Summarise tab. Do not show them yet &mdash; teams design first and then meet the agreed version, so the agreement means something.</div>
+    <div class="teach">
+      <h3>Why this lesson is not optional</h3>
+      <p>AC9M6ST03 is &ldquo;plan and conduct statistical investigations&rdquo;, and planning is the half that usually gets skipped because it produces no graph at the end. It is also the half that Part B item B2 assesses directly: <em>describe how the data was collected, and identify one limitation of your method</em>. A student who was handed a sheet cannot answer B2, because they made no decisions to describe.</p>
+      <h3>If a team is away on Games Day</h3>
+      <p>Pair them with another team now, today, with both names on both sheets. Lesson 12 asks every student to compare two distributions, and a student with no data of their own has nothing to compare. Fixing it today costs a minute; fixing it in Lesson 12 costs the lesson.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p5" role="tabpanel" aria-labelledby="t5">
+  <div class="card">
+    <h2>The four types</h2>
+    <div class="note"><strong>Two families, two each.</strong> A <strong>categorical</strong> variable puts each one into a group; a <strong>numerical</strong> variable gives each one a number.</div>
+    <div class="cxgrid">
+      <div class="cxcard sf"><h4>Nominal &mdash; groups with no order</h4>
+        <p style="margin:0;font-size:15px">Red, blue, gold. Walk, car, bus. You could write them in any order and nothing would be wrong.</p></div>
+      <div class="cxcard cf"><h4>Ordinal &mdash; groups in an order</h4>
+        <p style="margin:0;font-size:15px">Did not enjoy, okay, liked it, loved it. The order matters, but the gaps between them are not measured.</p></div>
+      <div class="cxcard cu"><h4>Discrete and continuous &mdash; numbers</h4>
+        <p style="margin:0;font-size:15px"><strong>Discrete</strong> is counted and jumps in whole steps. <strong>Continuous</strong> is measured and can land anywhere in between.</p></div>
+    </div>
+    <p class="hint">The test that separates discrete from continuous: does half of one make sense? Half a win, no. Half a second, yes.</p>
+  </div>
+  <div class="card">
+    <h2>Questions</h2>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Name the type of each of these: <strong>(a)</strong> which outcome the buddy got on their first turn; <strong>(b)</strong> how much they liked the game, from &ldquo;did not enjoy&rdquo; to &ldquo;loved it&rdquo;; <strong>(c)</strong> how many of their three turns they won; <strong>(d)</strong> how long their whole visit took, in seconds.</p></div>
+    <div class="q sfq"><span class="qn">2</span><span class="cx cx-sf">SF</span><p>One of those four needs a stopwatch and one needs nothing but your eyes. Which is which? Why does that matter when you are deciding who does what on the day?</p></div>
+    <div class="q cfq"><span class="qn">3</span><span class="cx cx-cf">CF</span><p>&ldquo;Was our game fun?&rdquo; cannot be answered with data. Rewrite it as a question that can be. Then say what you would have to collect to answer it.</p></div>
+    <div class="q cfq"><span class="qn">4</span><span class="cx cx-cf">CF</span><p>A team decides to record enjoyment as just &ldquo;good&rdquo; or &ldquo;bad&rdquo;. Compared with a four-point scale, name one thing their data will not be able to show.</p></div>
+    <div class="q cfq"><span class="qn">5</span><span class="cx cx-cf">CF</span><p>Name one thing that will be hard to record while a five-year-old is standing in front of you. What will your team do about it?</p></div>
+    <div class="q cuq"><span class="qn">6</span><span class="cx cx-cu">CU</span><p>Your team has three people and about twelve buddies will visit. Give each person a job so that every row of the sheet gets filled in. Say what happens first, second and third for one buddy.</p></div>
+    <div class="q cuq"><span class="qn">7</span><span class="cx cx-cu">CU</span><p>Your sheet has one spare column. What is the one extra thing worth recording, and which of the four types is it? Justify it by what you will want to say about your game afterwards.</p></div>
+    <button class="reveal" data-ans="ansEx9">Show the answers</button>
+    <div class="ans" id="ansEx9"><b>1.</b> (a) nominal categorical &mdash; names with no order; (b) ordinal categorical &mdash; categories that go in an order; (c) discrete numerical &mdash; counted, and only whole numbers are possible; (d) continuous numerical &mdash; measured, and any value in between is possible. The giveaway for (c) against (d) is whether half of one makes sense. Half a win does not. Half a second does.<br><br><b>2.</b> Time needs the stopwatch; the outcome needs only watching. This decides the jobs: the person holding the stopwatch cannot also be the one running the game, because they have to start and stop on the same event every time. Teams that do not sort this out get times that mean different things from row to row.<br><br><b>3.</b> Any rewrite that names a group, a variable and a way of measuring it. &ldquo;How much did the Prep buddies who played our game enjoy it?&rdquo; works. &ldquo;Did they like it?&rdquo; still does not, because it has a yes or no answer for one person rather than a distribution for a group.<br><br><b>4.</b> The strongest answer: with two categories you cannot see the <em>shape</em> &mdash; whether most buddies clustered at the top or spread out &mdash; and you cannot tell a buddy who merely liked it from one who loved it. Watch for students who say &ldquo;it is less accurate&rdquo;; press them for what specifically is lost.<br><br><b>5.</b> Expect: the buddy wanders off before you record; two buddies arrive at once; you forget whose turn the time belongs to. The useful half of this question is the second half. &ldquo;Write it straight away&rdquo; is a plan. &ldquo;Try to remember&rdquo; is not.<br><br><b>6.</b> A workable split is runner, recorder, timer, with the recorder filling the row before the next buddy starts. Judge the <em>order</em>, not the roles: a team that records everything at the end of the session has designed a memory test.<br><br><b>7.</b> No set answer. Strong responses pick something they can use later &mdash; whether the buddy had played another team&rsquo;s game first, say, which is nominal and would explain a slow time. Weak responses pick the buddy&rsquo;s name, which is an identifier rather than something to analyse.</div>
+  </div>
+  <div class="card">
+    <h2>Now design your sheet</h2>
+    <div class="gate no-print" role="group" aria-label="Choose your path">
+      <button data-path="support" aria-pressed="false">Need a hand<small>Worked examples</small></button>
+      <button data-path="core" aria-pressed="true">Keep going<small>Design it from blank</small></button>
+      <button data-path="ext" aria-pressed="false">Push me<small>Going further</small></button>
+    </div>
+    <div class="path" id="path-support"><div class="note"><strong>Start from the example row.</strong> Your planning sheet already has one buddy filled in. Copy its shape for the rest.</div>
+      <div class="q sfq"><span class="qn">A</span><span class="cx cx-sf">SF</span><p>Which of these is a measurement, not a count? <em>Number of turns won &middot; Seconds taken &middot; Outcome of the first turn</em></p></div>
+      <div class="q sfq"><span class="qn">B</span><span class="cx cx-sf">SF</span><p>Put these four in order from &ldquo;did not enjoy&rdquo; to &ldquo;loved it&rdquo;, then give each one a number from 1 to 4.</p></div>
+      <div class="q sfq"><span class="qn">C</span><span class="cx cx-sf">SF</span><p>Look at the example row on your sheet. Write the next row as if a buddy won two turns out of three, took 40 seconds, and loved it.</p></div>
+      <p class="hint">Once you have those three, write the jobs for your team as a list: who does what, in order.</p></div>
+    <div class="path on" id="path-core"><div class="note good"><strong>Design it from blank.</strong> On your planning sheet, write a column heading for each of the four things, in the order you would fill them in on the day. Then write one example row as if a buddy had just played. Then write your team&rsquo;s jobs.</div>
+      <p class="hint">Test it before you finish: hand your sheet to another team and ask them to fill in one row without you explaining anything. If they cannot, the headings are not clear enough yet.</p></div>
+    <div class="path" id="path-ext"><div class="note"><strong>These two are the ideas Part B asks about.</strong> Item B2 wants a limitation of your method, and this is where it comes from.</div>
+      <div class="q cuq"><span class="qn">&#9733;1</span><span class="cx cx-cu">CU</span><p>Two teams record enjoyment on different scales &mdash; one uses four levels, the other uses three. What can still be compared between them, and what cannot?</p></div>
+      <div class="q cuq"><span class="qn">&#9733;2</span><span class="cx cx-cu">CU</span><p>One buddy comes back and plays your game a second time. Does their second visit get a new row? Explain what each choice does to your results.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p6" role="tabpanel" aria-labelledby="t6">
+  <div class="card">
+    <h2>One sheet for the whole class</h2>
+    <div class="say">
+      <p>&ldquo;Every team has designed a sheet, and they are all different. Here is the problem with that. In three lessons&rsquo; time I am going to ask you to compare your results with another team&rsquo;s. If they recorded different things in a different way, there is nothing to compare.</p>
+      <p>So we are going to agree on four things that everybody records, in the same way. That is not me taking over &mdash; it is what any real survey does, and it is the only reason comparing teams will be possible at all. The fifth column is yours.&rdquo;</p>
+    </div>
+    <table class="scroll">
+      <tr><th style="width:230px">What we record</th><th style="width:150px">Type</th><th>How</th></tr>
+      <tr><td>Outcome of the buddy&rsquo;s first turn</td><td>Nominal categorical</td><td>Write the outcome name from your own game. First turn only.</td></tr>
+      <tr><td>Turns won out of three</td><td>Discrete numerical</td><td>0, 1, 2 or 3. Every buddy gets three turns.</td></tr>
+      <tr><td>Seconds for the whole visit</td><td>Continuous numerical</td><td>Stopwatch. Start when they step up, stop when they walk away.</td></tr>
+      <tr><td>How much they liked it</td><td>Ordinal categorical</td><td>Circle 1 to 4. Ask the buddy, do not guess for them.</td></tr>
+      <tr><td>The spare column</td><td>Your team decides</td><td>Head it yourselves. Write what type it is at the top.</td></tr>
+    </table>
+    <div class="note good"><strong>First turn only for the outcome.</strong> That is a real decision and it has a reason: one value per buddy keeps the row simple, and it means the outcomes can be compared with the probabilities you calculated in Part A. Say this out loud &mdash; it is the link between the two halves of the unit.</div>
+    <div class="teach">
+      <h3>Hold the line on the enjoyment scale</h3>
+      <p>Teams will want to change the wording. Let them argue it for two minutes and then settle on one wording for the class, because an ordinal scale with different wording between teams is not comparable and Lesson 12 will stall. The four levels matter more than the words: three collapses the shape, five invites everyone to pick the middle.</p>
+      <h3>What to do with the designs the class did not adopt</h3>
+      <p>Keep them. A student who designed a six-point scale and had to give it up has a ready-made answer for Part B item B2 &mdash; a real limitation of the method, met first-hand rather than invented afterwards. Say so now, so they remember it in three weeks.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7">
+  <div class="card">
+    <h2>Exit ticket</h2>
+    <div class="note">On the back of your planning sheet. On your own, five minutes.</div>
+    <div class="q sfq"><span class="qn">1</span><span class="cx cx-sf">SF</span><p>Name the type of each: the colour of a buddy&rsquo;s sticker; the number of stickers left in the jar; how many minutes the queue was.</p></div>
+    <div class="q cfq"><span class="qn">2</span><span class="cx cx-cf">CF</span><p>Your team wrote all its times down at the end of the session instead of after each buddy. Name one way the data could be wrong because of that.</p></div>
+    <div class="q cuq"><span class="qn">3</span><span class="cx cx-cu">CU</span><p>You can only record three of the four things on the day. Which one would you drop, and what would you no longer be able to say about your game?</p></div>
+    <div class="teach">
+      <h3>What the exit ticket tells you</h3>
+      <p>Question 1: the third one is the trap. Minutes is continuous even though students will write a whole number, because the value is measured rather than counted. Students who call it discrete are classifying the way it was written down, not what it is.</p>
+      <p>Question 2 is a rehearsal for Part B item B2. Expect &ldquo;you might forget&rdquo;; press for the consequence &mdash; the times become estimates, all of them probably too round, and the shape of the distribution in Lesson 13 flattens out at numbers ending in 0 and 5.</p>
+      <p>Question 3 has no correct answer and sorts the class quickly. Dropping the outcome costs the link back to Part A probabilities. Dropping the time costs the whole of Lesson 13. A student who names what is lost has understood that each variable earns its place.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="goal">
+      <h3>Back to your goal</h3>
+      <p style="margin:0 0 8px">Read what you wrote at the start on the Intentions tab. Did you do it? Write one sentence.</p>
+      <label for="goal2" class="hint">How I went today&hellip;</label>
+      <textarea id="goal2" placeholder="My goal was&hellip; and I&hellip;"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p8" role="tabpanel" aria-labelledby="t8">
+  <div class="card">
+    <h2>What you need for this lesson</h2>
+    <table class="scroll">
+      <tr><th style="width:300px">File</th><th>Who gets it</th></tr>
+      <tr><td><a class="res" href="resources/l9-03-statistics-pre-test.pdf">resources/l9-03-statistics-pre-test.pdf</a></td><td>One per student, first twelve minutes.</td></tr>
+      <tr><td><a class="res" href="../../teacher-only-NOT-for-github/l9-statistics-teacher-analysis.pdf">teacher-only-NOT-for-github/l9-statistics-teacher-analysis.pdf</a></td><td>Yours. Fill it in tonight, before planning Lessons 10 to 13.</td></tr>
+      <tr><td><a class="res" href="resources/l9-01-worksheet-core.pdf">resources/l9-01-worksheet-core.pdf</a></td><td>Most of the class. Questions, then the blank planning page.</td></tr>
+      <tr><td><a class="res" href="resources/l9-02-worksheet-support.pdf">resources/l9-02-worksheet-support.pdf</a></td><td>Same planning task with the four types worked through and a pre-filled example row.</td></tr>
+      <tr><td><a class="res" href="resources/l9-04-games-day-collection-sheet.pdf">resources/l9-04-games-day-collection-sheet.pdf</a></td><td>Print <strong>after</strong> the lesson, once the class has agreed the wording. Two per team &mdash; one to use, one spare.</td></tr>
+      <tr><td><a class="res" href="resources/l9-05-data-entry-template.xlsx">resources/l9-05-data-entry-template.xlsx</a></td><td>Not used today. Lesson 10 opens it to type the paper data in.</td></tr>
+      <tr><td><a class="res" href="../../shared/maths-vs-everyday-words.pdf">shared/maths-vs-everyday-words.pdf</a></td><td>On the wall. Add nominal, ordinal, discrete and continuous today.</td></tr>
+      <tr><td><a class="res" href="../../shared/sentence-stems.pdf">shared/sentence-stems.pdf</a></td><td>For questions 3, 5 and 7.</td></tr>
+    </table>
+    <div class="note warn"><strong>Before Games Day:</strong> collection sheets printed on card or on clipboards; one stopwatch or phone per team, tested; every team paired with a second team so that nobody comes back from the day with no data; the pairing written on both sheets.</div>
+  </div>
+  <div class="card">
+    <h2>Where this sits in the achievement standard</h2>
+    <p>This lesson is the planning half of <strong>AC9M6ST03</strong> &mdash; plan and conduct statistical investigations, including acquiring data. It also introduces the vocabulary that <strong>AC9M6ST01</strong> depends on: nominal and ordinal categorical, discrete and continuous numerical.</p>
+    <p>In the folio it is the source of item <strong>B1</strong> (name each variable and identify its type) and item <strong>B2</strong> (describe how the data was collected and identify one limitation). Both of those are answerable only by students who made the decisions themselves, which is why the lesson runs before Games Day rather than after it.</p>
+    <div class="teach">
+      <h3>After Games Day, before Lesson 10</h3>
+      <p>Collect every paper sheet on the day. Do not leave them with the teams over a weekend. Photograph or photocopy them before anything else &mdash; Lesson 10 deliberately works with messy data, and a lost sheet is a different problem from a messy one.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="hint" style="margin:0">Australian Curriculum content descriptions and achievement standard extracts &copy; ACARA 2010&ndash;present, licensed under CC BY 4.0. ACARA does not endorse this material.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on=(t===tab);
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+  }
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){select(tab);});
+    tab.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tab),j=-1;
+      if(e.key==='ArrowRight')j=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(j>-1){e.preventDefault();tabs[j].focus();select(tabs[j]);}
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('data-ans'));
+      var open = box.classList.toggle('show');
+      b.textContent = open ? 'Hide the answers' : 'Show the answers';
+    });
+  });
+  var gate = [].slice.call(document.querySelectorAll('.gate button'));
+  gate.forEach(function (b) {
+    b.addEventListener('click', function () {
+      gate.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      ['support', 'core', 'ext'].forEach(function (p) {
+        document.getElementById('path-' + p).classList.toggle('on', p === b.getAttribute('data-path'));
+      });
+    });
+  });
+
+  document.getElementById('teacherBtn').addEventListener('click',function(){
+    var on=document.body.classList.toggle('teacher');
+    this.setAttribute('aria-pressed',on?'true':'false');
+  });
+});
+</script>
+</body>
+</html>
